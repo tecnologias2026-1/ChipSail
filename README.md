@@ -1,56 +1,89 @@
-Para Completar por grupo
+ChipSail
 
-🌐 Nombre del Proyecto
+El proyecto consiste en hacer una pagina la cual pueda extraer diferentes productos en aplicaciones de ventas en linea, con el fin de comparar precios y su respectiva calidad por webscrapping
 
-Escribe aquí una descripción corta del proyecto.
+Brenda Valeria Malagón Baquero – 1202754
+Andrés Camilo Riveros Vargas – 1202757
+Valeria Sofia Contreras Sanchez - 1202763
 
-👥 Integrantes
+El sistema busca desarrollar una página web capaz de extraer automáticamente productos desde distintas plataformas de ventas en línea mediante técnicas de webscraping, permitiendo a los usuarios buscar artículos por imagen o descripción, comparar dinámicamente precios entre diferentes vendedores y evaluar la calidad del producto en un solo lugar; con esto se pretende solucionar el problema de la dispersión de información en múltiples tiendas digitales, la dificultad para encontrar el mejor precio y la falta de herramientas centralizadas que faciliten una decisión de compra informada, rápida y eficiente.
 
-Nombre completo – Código
-Nombre completo – Código
+El sistema será utilizado por personas entre 17 y 60 años que realizan compras en línea, incluyendo estudiantes, trabajadores y usuarios en general que desean comparar precios y evaluar productos antes de comprarlos. El sistema se utilizará a través de una página web donde el usuario podrá buscar productos mediante texto o imágenes, visualizar resultados obtenidos por webscraping desde diferentes plataformas de comercio electrónico, comparar precios, características y valoraciones, y así tomar decisiones de compra más informadas de forma rápida y centralizada.
 
-🎯 1. Objetivo General
+Requisitos Funcionales:
 
-Escribir un solo párrafo donde expliquen:
-Qué quieren lograr con el sistema.
-Qué problema buscan solucionar.
+1. Extraer información pública de perfiles.
+Permite obtener datos relevantes de vendedores o productos sin acceder a información
+privada, garantizando el cumplimiento de políticas.
+2. Realizar búsquedas por palabras clave.
+Facilita que el usuario encuentre productos de forma rápida y natural.
+3. Extraer ofertas públicas.
+Permite identificar descuentos y promociones disponibles en las plataformas.
+4. Almacenar información estructurada.
+Garantiza que los datos recolectados puedan ser consultados, comparados y
+analizados posteriormente.
+5. Detectar actualizaciones en productos.
+Permite identificar cambios de precio, disponibilidad o reputación.
+6. Extraer información de productos.
+Incluye nombre, precio, imágenes, descripción, valoraciones y vendedor.
+7. Monitorear precios y subastas.
+Permite observar variaciones del mercado en el tiempo.
+8. Extraer reputación de vendedores.
+Ayuda a la toma de decisiones más confiables.
+9. Gestionar paginación.
+Necesario para un scraping eficiente en resultados extensos.
+10. Generar series temporales de precios.
+Permite análisis histórico y detección de tendencias.
+11. Extraer publicaciones públicas.
+Permite detectar nuevos productos o cambios en catálogos.
+12. Filtrar por hashtags o keywords.
+Mejora precisión de búsqueda y segmentación.
+13. Capturar métricas de interacción.
+Incluye número de ventas, valoraciones y popularidad.
+14. Analizar frecuencia temporal.
+Permite detectar cuándo aparecen ofertas o cambios de precio.
+15. Exportar datos para análisis NLP.
+Facilita análisis avanzado como clasificación, clustering o recomendación.
 
-🌍 2. Contexto de Uso
+Requisitos No Funcionales:
 
-¿Quién va a usar el sistema?
-¿Cómo se va a utilizar el sistema?
+1. Interfaz web en HTML (UI amigable).
+Debe ser clara, intuitiva y enfocada en comparativas visuales.
+2. Uso de base de datos con autenticación JWT.
+Permite manejo seguro de sesiones y protección de datos del usuario.
+3. Rendimiento.
+El sistema debe responder en menos de 3 segundos para consultas comunes.
+4. Seguridad.
+Debe garantizar autenticación, control de acceso y protección contra scraping
+malicioso hacia la propia plataforma.
+5. Disponibilidad.
+El sistema debe mantenerse disponible al menos el 99% del tiempo.
+6. Escalabilidad.
+Debe permitir agregar nuevas plataformas de scraping sin rediseño completo.
+7. Mantenibilidad.
+El código debe ser modular para adaptarse a cambios en páginas externas.
+8. Usabilidad.
+El usuario debe entender la comparativa sin conocimientos técnicos.
+9. Compatibilidad.
+Debe funcionar en navegadores modernos.
 
-📋 3. Requerimientos del Sistema
-3.1 Requerimientos Funcionales
+Diagramas UML
 
-Escriban lo que el sistema debe hacer.
+<img width="557" height="589" alt="image" src="https://github.com/user-attachments/assets/d50a1c62-e96f-465c-b8b6-2b3dc0ebb206" />
+Muestra lo que puede hacer el usuario y el administrador
+<img width="649" height="387" alt="image" src="https://github.com/user-attachments/assets/ba602c09-f39b-41ac-baec-eb8e3d0d2576" />
+<img width="644" height="408" alt="image" src="https://github.com/user-attachments/assets/14ce5a1e-75f6-4038-b3f5-e7c6a919bf6c" />
+El diagrama de secuencia nos muestra como se haria el metodo de scrapping al ejecutar la busqueda mandando un "request" a las paginas 
+<img width="940" height="770" alt="image" src="https://github.com/user-attachments/assets/9491e6a6-1dbb-4659-a932-acc6d6430d8a" />
+<img width="919" height="710" alt="image" src="https://github.com/user-attachments/assets/e9079cf2-b0af-4585-8bcc-dc2fea1379b8" />
 
-Ejemplo:
-RF01: El sistema debe permitir registrar usuarios.
+Design
 
-3.2 Requerimientos No Funcionales
+https://www.figma.com/site/w2I8a9xDpfUhmrGW8LaMfg/ChipSail?node-id=0-1&t=d3PomPPKylkDCLI4-1
 
-Escriban cómo debe comportarse el sistema.
+Prototipo
 
-Ejemplo:
-RNF01: La página debe ser responsive.
-
-🧠 4. Diagramas UML
-
-Diagrama de Casos de Uso
-
-Explicar brevemente qué muestra el diagrama.
-
-Diagrama de Secuencia
-
-Explicar qué proceso representa.
-
-🎨 5. URL del Prototipo
-
-Colocar aquí el enlace público de Figma:
-
-https://figma.com/xxxxx
-
+https://www.figma.com/site/w2I8a9xDpfUhmrGW8LaMfg/ChipSail?node-id=0-1&p=f&t=d3PomPPKylkDCLI4-0
 
 🗄️ 6. Diseño de Base de Datos
 
