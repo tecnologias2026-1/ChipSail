@@ -56,10 +56,13 @@
       width: 32px;
       height: 32px;
       object-fit: cover;
-      display: block;
+      display: flex;
     }
 
-    .logo-img-big { width:15%;}
+    .logo-img-big { 
+      width: clamp(120px, 20vw, 300px);
+
+    }
 
     .nav-buttons {
       display: flex;
@@ -107,12 +110,14 @@
       display: flex;
       align-items: center;
       gap: 10px;
-      padding: 18px 40px;
+      padding: 18px clamp(10px, 5vw, 40px);
+      flex-wrap: wrap;
       border-bottom: 1px solid #e8e8e8;
     }
 
     #page-home .search-bar input {
       flex: 1;
+      min-width: 200px;
       padding: 12px 18px;
       border: none;
       border-radius: 8px;
@@ -120,16 +125,20 @@
       font-family: 'Nunito', sans-serif;
       font-size: 1rem;
       outline: none;
+       width: 100%;
     }
 
     .btn-search {
       padding: 12px 28px;
+      min-width: 120px;
+      max-width: 220px;
+      width: clamp(120px, 20vw, 200px);
       border: none;
       border-radius: 8px;
       background: var(--pink);
       color: var(--white);
       font-family: 'Nunito', sans-serif;
-      font-size: 1rem;
+      font-size: clamp(0.72rem, 1.8vw, 0.8rem);
       font-weight: 700;
       cursor: pointer;
       transition: background 0.2s;
@@ -138,12 +147,15 @@
 
     .btn-img-search {
       padding: 10px 16px;
+      min-width: 120px;
+      max-width: 220px;
+      width: clamp(120px, 20vw, 200px);
       border: 1.5px solid var(--pink);
       border-radius: 8px;
       background: transparent;
       color: var(--pink);
       font-family: 'Nunito', sans-serif;
-      font-size: 0.88rem;
+      font-size: clamp(0.72rem, 1.8vw, 0.8rem);
       font-weight: 700;
       cursor: pointer;
       white-space: nowrap;
@@ -256,6 +268,54 @@
 
     .sail-icon { width: 80px; height: 80px; }
     .sail-icon-sm { width: 34px; height: 34px; }
+
+    /* Celular */
+    @media (max-width: 768px) {
+      nav { padding: 12px 20px;}
+      .nav-buttons {gap: 6px;}
+      .search-bar {flex-direction: column;
+        align-items: stretch;}
+      .btn-search,
+      .btn-img-search {width: 100%; }
+      .hero h1 {font-size: 1.5rem;}
+      .features { padding: 20px;}
+    }
+
+    /* TABLET */
+    @media (min-width: 769px) and (max-width: 1024px) {
+      .features {justify-content: center;}
+    }
+    /* TABLET Y CELULAR */
+    @media (max-width: 1024px) {
+    .auth-page {
+      flex-direction: column;
+      justify-content: center;
+      gap: 24px;
+    }
+
+    .auth-logo {
+      position: static;
+      transform: none;
+      right: auto;
+      top: auto;
+      order: 2;
+      display: flex;
+      justify-content: center;
+      width: 100%;
+      margin-top: 8px;
+    }
+
+    .auth-box {
+      order: 1;
+    }
+
+    .auth-logo .logo-img-big {
+      width: clamp(120px, 28vw, 220px);
+      max-width: none;
+      margin: 0 auto;
+      display: block;
+    }
+  }
   </style>
 </head>
 <body>
@@ -366,6 +426,7 @@
     </div>
     <div class="auth-logo">
       <img src="/assets/Logo fondo blanco.png" class = "logo-img-big" alt "logo">
+    </div>
   </div>
 
   <footer>
