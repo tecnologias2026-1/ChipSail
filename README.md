@@ -87,29 +87,14 @@ https://www.figma.com/site/w2I8a9xDpfUhmrGW8LaMfg/ChipSail?node-id=0-1&p=f&t=d3P
 
 🗄️ 6. Diseño de Base de Datos
 
-Imagen del modelo:
-<img width="1014" height="491" alt="Relaciones" src="https://github.com/user-attachments/assets/9b116762-c489-4264-a553-e8330eaa9da0" />
-
+Agregar imagen del modelo.
 Tablas principales
-
-Registro:
-<img width="380" height="148" alt="Registro" src="https://github.com/user-attachments/assets/416c381f-9ed2-42d5-9b31-7ed6dda0ce1a" />
-
-Resultado(de la busqueda):
-<img width="372" height="168" alt="Resultado" src="https://github.com/user-attachments/assets/d70b4872-c2c9-496d-96c7-ec51cd97a6f4" />
-
-Carrito:
-<img width="374" height="70" alt="Carrito" src="https://github.com/user-attachments/assets/0f4dbdd0-b705-43a1-8fc7-4c5f3a11ed32" />
-
-Pago:
-<img width="375" height="99" alt="Pago" src="https://github.com/user-attachments/assets/ba5c91fc-c9b7-4b95-a9aa-c3197f23418d" />
 
 🧩 7. Documentación del Sistema
 Estructura de Carpetas
 /css
 /js
-/assets![Uploading Relaciones.png…]()
-
+/assets
 
 Explicar brevemente qué contiene cada carpeta.
 
