@@ -275,7 +275,17 @@
 
     /* User button & dropdown (compartido) */
     .nav-user-area { position: relative; }
+    p :focus {
+      outline: 2px solid rgb(0, 0, 0);
+    }
 
+    span :focus {
+      outline: 2px solid rgb(0, 0, 0);
+    }
+
+    img :focus {
+      outline: 2px solid rgb(0, 0, 0);
+    }
     .user-btn {
       width: 42px; height: 42px;
       border-radius: 50%;
@@ -615,7 +625,7 @@
 <!-- ══════════ INICIO ══════════ -->
 <div id="page-home" class="page active">
   <nav>
-    <span class="logo" onclick="goTo('home')">
+    <span tabindex="0" class="logo" onclick="goTo('home')">
       <img  src="/assets/Logo fondo blanco.png" class = "logo-img" alt="logo">
       ChipSail
     </span>
@@ -629,24 +639,24 @@
     <button class="btn-search">Buscar</button>
     <button class="btn-img-search">Búsqueda por imagen</button>
   </div>
-  <div class="hero">
-    <img src="/assets/Logo fondo blanco.png" class = "logo-img-big" alt="logo">
-    <h1>Encuentra los mejores precios de toda la web</h1>
-    <p>Busqueda de productos y sus precios en diferentes aplicaciones como Amazon, eBay, Walmart, Target, y BestBuy</p>
-  </div>
+  <article class="hero">
+    <img tabindex="0" src="/assets/Logo fondo blanco.png" class = "logo-img-big" alt="logo">
+    <span tabindex="0"><h1>Encuentra los mejores precios de toda la web</h1></span>
+    <p tabindex="0">Busqueda de productos y sus precios en diferentes aplicaciones como Amazon, eBay, Walmart, Target, y BestBuy</p>
+  </article>
   <div class="features">
-    <div class="feature-card">
-      <h3>Busqueda por texto</h3>
-      <p>Se puede realizar una busqueda del producto por texto</p>
-    </div>
-    <div class="feature-card">
-      <h3>Busqueda por imagen</h3>
-      <p>Se puede realizar una busqueda del producto por el apartado de imagenes</p>
-    </div>
-    <div class="feature-card">
-      <h3>Historial de precios</h3>
-      <p>Se puede realizar una visualizacion de los precios anteriores de dicho producto</p>
-    </div>
+    <article class="feature-card">
+      <div tabindex="0"><h3>Busqueda por texto</h3></div>
+      <p tabindex="0">Se puede realizar una busqueda del producto por texto</p>
+    </article>
+    <article class="feature-card">
+      <div tabindex="0"><h3>Busqueda por imagen</h3></div>
+      <p tabindex="0">Se puede realizar una busqueda del producto por el apartado de imagenes</p>
+    </article>
+    <artiicle class="feature-card">
+      <span tabindex="0"><h3>Historial de precios</h3></span>
+      <p tabindex="0">Se puede realizar una visualizacion de los precios anteriores de dicho producto</p>
+    </article>
   </div>
   <p>&nbsp;&nbsp;&nbsp;</p>
   <footer>
@@ -661,7 +671,7 @@
 <!-- ══════════ LOGIN ══════════ -->
 <div id="page-login" class="page" style="flex-direction:column;">
   <nav>
-    <span class="logo" onclick="goTo('home')">
+    <span tabindex="0" class="logo" onclick="goTo('home')">
       <img  src="/assets/Logo fondo blanco.png" class = "logo-img" alt="logo">
       ChipSail
     </span>
@@ -671,13 +681,13 @@
     </div>
   </nav>
   <div class="auth-page">
-    <div class="auth-box">
-      <h2>Iniciar Sesión</h2>
+    <article class="auth-box">
+      <div tabindex="0"><h2>Iniciar Sesión</h2></div>
       <input type="text" placeholder="User Name">
       <input type="password" placeholder="Password">
       <button class="btn-auth" onclick="goTo('resultados')">Sign In</button>
-    </div>
-    <div class="auth-logo">
+    </article>
+    <div tabindex="0" class="auth-logo">
       <img src="/assets/Logo fondo blanco.png" class = "logo-img-big" alt="logo">
     </div>
   </div>
@@ -690,7 +700,7 @@
 <!-- ══════════ REGISTRO ══════════ -->
 <div id="page-registro" class="page" style="flex-direction:column;">
   <nav>
-    <span class="logo" onclick="goTo('home')">
+    <span tabindex="0" class="logo" onclick="goTo('home')">
       <img src="/assets/Logo fondo blanco.png" class = "logo-img" alt="logo">
       ChipSail
     </span>
@@ -700,14 +710,14 @@
     </div>
   </nav>
   <div class="auth-page">
-    <div class="auth-box">
-      <h2>Registro</h2>
+    <article class="auth-box">
+      <div tabindex="0"><h2>Registro</h2></div> 
       <input type="text" placeholder="User Name">
       <input type="password" placeholder="Password">
       <input type="password" placeholder="Password">
       <button class="btn-auth" onclick="goTo('resultados')">Register</button>
-    </div>
-    <div class="auth-logo">
+    </article>
+    <div  tabindex="0" class="auth-logo">
       <img src="/assets/Logo fondo blanco.png" class = "logo-img-big" alt="logo">
     </div>
   </div>
@@ -720,7 +730,7 @@
 <!-- ══════════ RESULTADOS ══════════ -->
 <div id="page-resultados" class="page" style="flex-direction:column;">
   <nav>
-    <span class="logo" onclick="goTo('home')">
+    <span tabindex="0" class="logo" onclick="goTo('home')">
       <img src="/assets/Logo fondo blanco.png" class = "logo-img" alt="logo">
       ChipSail
     </span>
