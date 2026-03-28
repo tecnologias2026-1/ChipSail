@@ -269,6 +269,298 @@
     .sail-icon { width: 80px; height: 80px; }
     .sail-icon-sm { width: 34px; height: 34px; }
 
+        /* ═══════════════════════════════════════════════════
+       NUEVO: Estilos compartidos para páginas con sidebar
+    ═══════════════════════════════════════════════════ */
+
+    /* User button & dropdown (compartido) */
+    .nav-user-area { position: relative; }
+
+    .user-btn {
+      width: 42px; height: 42px;
+      border-radius: 50%;
+      background: #b06ac0;
+      border: none; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.2s, transform 0.15s;
+      padding: 0;
+    }
+    .user-btn:hover { background: var(--pink); transform: scale(1.05); }
+    .user-btn svg { width: 26px; height: 26px; fill: var(--white); }
+
+    .user-dropdown {
+      position: absolute;
+      top: calc(100% + 10px); right: 0;
+      background: var(--white);
+      border: 1px solid #e8e8e8;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+      min-width: 165px; overflow: hidden;
+      opacity: 0; transform: translateY(-8px) scale(0.97);
+      pointer-events: none;
+      transition: opacity 0.18s ease, transform 0.18s ease;
+      z-index: 300;
+    }
+    .user-dropdown.open { opacity: 1; transform: translateY(0) scale(1); pointer-events: all; }
+
+    .dd-item {
+      display: flex; align-items: center; gap: 11px;
+      padding: 13px 18px;
+      font-size: 0.93rem; font-weight: 700; color: var(--text-dark);
+      cursor: pointer;
+      border-bottom: 1px solid #f5f5f5;
+      transition: background 0.15s, color 0.15s;
+      text-decoration: none;
+    }
+    .dd-item:last-child { border-bottom: none; }
+    .dd-item:hover { background: var(--pink-light); color: var(--pink); }
+    .dd-item svg {
+      width: 19px; height: 19px;
+      stroke: currentColor; fill: none;
+      stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
+      flex-shrink: 0;
+    }
+
+    /* Search bar reutilizable */
+    .search-bar-r {
+      display: flex; align-items: center; gap: 10px;
+      padding: 16px 32px;
+      background: var(--gray-bg);
+      border-bottom: 1px solid #e8e8e8;
+      flex-wrap: wrap;
+    }
+    .search-bar-r input {
+      flex: 1; min-width: 120px;
+      padding: 11px 18px;
+      border: 1.5px solid #ddd; border-radius: 8px;
+      background: var(--white);
+      font-family: 'Nunito', sans-serif; font-size: 0.97rem;
+      outline: none; transition: border-color 0.2s;
+    }
+    .search-bar-r input:focus { border-color: var(--pink); }
+
+    /* Layout principal con sidebar */
+    .results-main {
+      display: flex; gap: 0;
+      flex: 1;
+      padding: 24px 32px;
+      align-items: flex-start;
+    }
+
+    /* Sidebar */
+    .results-sidebar {
+      width: 200px; flex-shrink: 0;
+      background: var(--white);
+      border-radius: 14px; border: 1px solid #eee;
+      padding: 18px 16px; margin-right: 22px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+
+    .sidebar-section-title { font-size: 1rem; font-weight: 800; color: var(--text-dark); margin-bottom: 14px; }
+
+    .price-range-wrap { margin-bottom: 16px; }
+    .price-slider { width: 100%; accent-color: var(--pink); cursor: pointer; margin-bottom: 4px; }
+    .price-val { font-size: 0.78rem; color: var(--text-mid); }
+
+    /* Radio buttons estilo checkbox cuadrado */
+    .vendor-list { list-style: none; margin-bottom: 16px; }
+    .vendor-item {
+      display: flex; align-items: center; gap: 9px;
+      padding: 5px 0; font-size: 0.9rem; cursor: pointer;
+    }
+    .vendor-item input[type="radio"] {
+      -webkit-appearance: none; appearance: none;
+      width: 17px; height: 17px;
+      border: 2px solid #bbb; border-radius: 3px;
+      background: white; cursor: pointer;
+      position: relative; flex-shrink: 0;
+      transition: background 0.15s, border-color 0.15s;
+    }
+    .vendor-item input[type="radio"]:checked {
+      background: var(--pink); border-color: var(--pink);
+    }
+    .vendor-item input[type="radio"]:checked::after {
+      content: '✓';
+      position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      color: white; font-size: 11px; font-weight: 900;
+      line-height: 1;
+    }
+
+    .rating-filter-list { list-style: none; }
+    .rating-filter-item {
+      display: flex; align-items: center; gap: 6px;
+      padding: 4px 0; font-size: 0.83rem; color: var(--text-mid);
+      cursor: pointer; transition: color 0.15s;
+    }
+    .rating-filter-item:hover { color: var(--pink); }
+    .stars-row { display: flex; gap: 2px; }
+    .sf { color: #F5A623; font-size: 0.93rem; }
+    .se { color: #ddd; font-size: 0.93rem; }
+    .all-ratings-lbl { font-size: 0.83rem; color: var(--text-mid); padding: 5px 0; cursor: pointer; }
+
+    /* Área de productos */
+    .products-area { flex: 1; min-width: 0; }
+
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+    .btn-finalizar:hover { background: #c8308a; }
+
+    /* Compra exitosa */
+    .exitosa-area {
+      flex: 1; display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 18px; text-align: center; padding: 40px 20px;
+       }
+    .exitosa-area h2 { font-size: 1.8rem; font-weight: 800; color: var(--text-dark); }
+    .exitosa-area p { font-size: 1rem; font-weight: 700; color: var(--text-mid); }
+    .cart-title {
+    font-size: 1rem; font-weight: 800;
+    color: var(--text-dark); margin-bottom: 14px;
+    }
+    .cart-icon-big {
+      width: 110px; height: 110px;
+      stroke: var(--pink); fill: none;
+      stroke-width: 4; stroke-linecap: round; stroke-linejoin: round;
+       }
+    @media (max-width: 1000px) {
+      .products-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 680px) {
+      .products-grid { grid-template-columns: 1fr; }
+      .results-main { padding: 14px; flex-direction: column; }
+      .results-sidebar { width: 100%; margin-right: 0; margin-bottom: 18px; }
+      nav { padding: 12px 16px; }
+      .search-bar-r { padding: 12px 16px; }
+    }
+
+    .product-card {
+      background: var(--white);
+      border-radius: 14px; border: 1px solid #eee;
+      overflow: hidden;
+      display: flex; flex-direction: column;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+    .product-card:hover { box-shadow: 0 6px 24px rgba(157,0,139,0.13); transform: translateY(-3px); }
+
+    .product-img-placeholder {
+      width: 100%; aspect-ratio: 1 / 1;
+      background: linear-gradient(135deg, #f9eeff 0%, #f0d8f8 100%);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 8px; color: #bbb; font-size: 0.78rem; font-weight: 600;
+    }
+    .product-img-placeholder svg {
+      width: 38px; height: 38px;
+      stroke: #ccc; fill: none;
+      stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round;
+    }
+
+    .product-body {
+      padding: 12px 14px 6px;
+      display: flex; flex-direction: column; gap: 5px;
+      flex: 1; text-align: center;
+    }
+    .product-name { font-size: 0.93rem; font-weight: 800; color: var(--text-dark); }
+    .product-desc { font-size: 0.78rem; color: var(--text-mid); }
+    .product-rating { display: flex; align-items: center; justify-content: center; gap: 5px; }
+    .rating-count { font-size: 0.76rem; color: var(--text-mid); }
+
+    .product-actions { padding: 8px 12px 12px; display: flex; flex-direction: column; gap: 7px; }
+
+    .btn-cart {
+      width: 100%; padding: 10px;
+      background: var(--pink); color: var(--white);
+      border: none; border-radius: 50px;
+      font-family: 'Nunito', sans-serif; font-size: 0.86rem; font-weight: 800;
+      cursor: pointer; transition: background 0.2s;
+    }
+    .btn-cart:hover { background: #c8308a; }
+
+    .btn-historial {
+      width: 100%; padding: 8px;
+      background: transparent; color: var(--pink);
+      border: 1.5px solid var(--pink); border-radius: 50px;
+      font-family: 'Nunito', sans-serif; font-size: 0.86rem; font-weight: 800;
+      cursor: pointer; transition: background 0.2s;
+    }
+    .btn-historial:hover { background: var(--pink-light); }
+
+    /* Botón Pagar (en carrito) */
+    .btn-pagar {
+      width: 100%; padding: 10px;
+      background: var(--pink); color: var(--white);
+      border: none; border-radius: 50px;
+      font-family: 'Nunito', sans-serif; font-size: 0.86rem; font-weight: 800;
+      cursor: pointer; transition: background 0.2s;
+    }
+    .btn-pagar:hover { background: #c8308a; }
+
+    /* Botón Pagar Todo */
+    .btn-pagar-todo {
+      display: block; margin: 28px auto 8px;
+      padding: 13px 56px;
+      background: var(--pink); color: var(--white);
+      border: none; border-radius: 50px;
+      font-family: 'Nunito', sans-serif; font-size: 1rem; font-weight: 800;
+      cursor: pointer; transition: background 0.2s;
+    }
+    .btn-pagar-todo:hover { background: #c8308a; }
+
+    /* Carrito vacío */
+    .empty-cart {
+      flex: 1; display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      padding: 60px 20px; text-align: center; gap: 14px;
+      color: var(--text-mid);
+    }
+    .empty-cart svg { width: 70px; height: 70px; stroke: #ccc; fill: none; stroke-width: 1.5; }
+    .empty-cart p { font-size: 1rem; font-weight: 700; }
+
+    /* Formulario de pago */
+    .pago-wrap {
+      flex: 1; display: flex;
+      align-items: flex-start; justify-content: flex-start;
+      padding: 0;
+    }
+    .pago-form-box {
+      background: var(--pink-card);
+      border-radius: var(--radius);
+      padding: 36px 36px;
+      width: 100%; max-width: 420px;
+      box-shadow: 0 8px 32px rgba(224,64,160,0.1);
+    }
+    .pago-form-box h2 { font-size: 1.3rem; font-weight: 800; margin-bottom: 22px; }
+    .pago-label { font-size: 0.85rem; font-weight: 700; color: var(--text-dark); display: block; margin-bottom: 6px; }
+    .pago-form-box input[type="text"] {
+      width: 100%; padding: 11px 14px;
+      border: none; border-radius: 8px;
+      background: #ececec;
+      font-family: 'Nunito', sans-serif; font-size: 0.93rem;
+      margin-bottom: 16px; outline: none;
+    }
+    .medio-wrap { display: flex; gap: 12px; margin-bottom: 20px; flex-wrap: wrap; }
+    .medio-opt {
+      display: flex; align-items: center; gap: 8px;
+      padding: 10px 18px;
+      border: 2px solid #ddd; border-radius: 10px;
+      cursor: pointer; font-size: 0.88rem; font-weight: 700;
+      background: white; transition: border-color 0.2s, background 0.2s;
+      user-select: none;
+    }
+    .medio-opt input[type="radio"] { accent-color: var(--pink); cursor: pointer; }
+    .medio-opt:has(input:checked) { border-color: var(--pink); background: var(--pink-light); }
+    .btn-finalizar {
+      width: 100%; padding: 13px;
+      background: var(--pink); color: var(--white);
+      border: none; border-radius: 50px;
+      font-family: 'Nunito', sans-serif; font-size: 1rem; font-weight: 800;
+      cursor: pointer; transition: background 0.2s; margin-top: 6px;
+      }
     /* Celular */
     @media (max-width: 768px) {
       nav { padding: 12px 20px;}
@@ -319,32 +611,29 @@
   </style>
 </head>
 <body>
-
+ 
 <!-- ══════════ INICIO ══════════ -->
 <div id="page-home" class="page active">
   <nav>
     <span class="logo" onclick="goTo('home')">
-      <img src="/assets/Logo fondo blanco.png" class = "logo-img" alt "logo">
-        ChipSail
+      <img  src="/assets/Logo fondo blanco.png" class = "logo-img" alt="logo">
+      ChipSail
     </span>
     <div class="nav-buttons">
       <button class="btn-outline" onclick="goTo('login')">Inicio de Sesión</button>
       <button class="btn-outline" onclick="goTo('registro')">Registro</button>
     </div>
   </nav>
-
   <div class="search-bar">
     <input type="text" placeholder="Busca productos">
     <button class="btn-search">Buscar</button>
     <button class="btn-img-search">Búsqueda por imagen</button>
   </div>
-
   <div class="hero">
-    <img src="/assets/Logo fondo blanco.png" class = "logo-img-big" alt "logo">
+    <img src="/assets/Logo fondo blanco.png" class = "logo-img-big" alt="logo">
     <h1>Encuentra los mejores precios de toda la web</h1>
     <p>Busqueda de productos y sus precios en diferentes aplicaciones como Amazon, eBay, Walmart, Target, y BestBuy</p>
   </div>
-
   <div class="features">
     <div class="feature-card">
       <h3>Busqueda por texto</h3>
@@ -359,7 +648,7 @@
       <p>Se puede realizar una visualizacion de los precios anteriores de dicho producto</p>
     </div>
   </div>
-
+  <p>&nbsp;&nbsp;&nbsp;</p>
   <footer>
     <a href="#">ChipSail</a>
     <a href="#">Marcas Registradas</a>
@@ -368,80 +657,693 @@
     <a href="#">Aviso Legal</a>
   </footer>
 </div>
-
+ 
 <!-- ══════════ LOGIN ══════════ -->
 <div id="page-login" class="page" style="flex-direction:column;">
   <nav>
     <span class="logo" onclick="goTo('home')">
-      <img src="/assets/Logo fondo blanco.png" class = "logo-img" alt "logo">
-        ChipSail
+      <img  src="/assets/Logo fondo blanco.png" class = "logo-img" alt="logo">
+      ChipSail
     </span>
     <div class="nav-buttons">
       <button class="btn-outline" onclick="goTo('login')">Inicio de Sesión</button>
       <button class="btn-outline" onclick="goTo('registro')">Registro</button>
     </div>
   </nav>
-
   <div class="auth-page">
     <div class="auth-box">
       <h2>Iniciar Sesión</h2>
       <input type="text" placeholder="User Name">
       <input type="password" placeholder="Password">
-      <button class="btn-auth">Sign In</button>
+      <button class="btn-auth" onclick="goTo('resultados')">Sign In</button>
     </div>
     <div class="auth-logo">
-      <img src="/assets/Logo fondo blanco.png" class = "logo-img-big" alt "logo">        
+      <img src="/assets/Logo fondo blanco.png" class = "logo-img-big" alt="logo">
     </div>
   </div>
-
   <footer>
-    <a href="#">ChipSail</a>
-    <a href="#">Marcas Registradas</a>
-    <a href="#">Privacidad y Cookies</a>
-    <a href="#">Contáctanos</a>
-    <a href="#">Aviso Legal</a>
+    <a href="#">ChipSail</a><a href="#">Marcas Registradas</a>
+    <a href="#">Privacidad y Cookies</a><a href="#">Contáctanos</a><a href="#">Aviso Legal</a>
   </footer>
 </div>
-
+ 
 <!-- ══════════ REGISTRO ══════════ -->
 <div id="page-registro" class="page" style="flex-direction:column;">
   <nav>
     <span class="logo" onclick="goTo('home')">
-      <img src="/assets/Logo fondo blanco.png" class = "logo-img" alt "logo">
-        ChipSail    
+      <img src="/assets/Logo fondo blanco.png" class = "logo-img" alt="logo">
+      ChipSail
     </span>
     <div class="nav-buttons">
       <button class="btn-outline" onclick="goTo('login')">Inicio de Sesión</button>
       <button class="btn-outline" onclick="goTo('registro')">Registro</button>
     </div>
   </nav>
-
   <div class="auth-page">
     <div class="auth-box">
       <h2>Registro</h2>
       <input type="text" placeholder="User Name">
       <input type="password" placeholder="Password">
       <input type="password" placeholder="Password">
-      <button class="btn-auth">Register</button>
+      <button class="btn-auth" onclick="goTo('resultados')">Register</button>
     </div>
     <div class="auth-logo">
-      <img src="/assets/Logo fondo blanco.png" class = "logo-img-big" alt "logo">
+      <img src="/assets/Logo fondo blanco.png" class = "logo-img-big" alt="logo">
     </div>
   </div>
-
   <footer>
-    <a href="#">ChipSail</a>
-    <a href="#">Marcas Registradas</a>
-    <a href="#">Privacidad y Cookies</a>
-    <a href="#">Contáctanos</a>
-    <a href="#">Aviso Legal</a>
+    <a href="#">ChipSail</a><a href="#">Marcas Registradas</a>
+    <a href="#">Privacidad y Cookies</a><a href="#">Contáctanos</a><a href="#">Aviso Legal</a>
   </footer>
 </div>
-
+ 
+<!-- ══════════ RESULTADOS ══════════ -->
+<div id="page-resultados" class="page" style="flex-direction:column;">
+  <nav>
+    <span class="logo" onclick="goTo('home')">
+      <img src="/assets/Logo fondo blanco.png" class = "logo-img" alt="logo">
+      ChipSail
+    </span>
+    <div class="nav-user-area">
+      <button class="user-btn" onclick="toggleDD('dd-res')" aria-label="Menú">
+        <svg viewBox="0 0 24 24"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/></svg>
+      </button>
+      <div class="user-dropdown" id="dd-res">
+        <a class="dd-item" href="#" onclick="event.preventDefault();goTo('carrito');closeDD()">
+          <svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6L18 2z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+          Carrito
+        </a>
+        <a class="dd-item" href="#" onclick="event.preventDefault();goTo('home');closeDD()">
+          <svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+          Salir
+        </a>
+      </div>
+    </div>
+  </nav>
+  <div class="search-bar-r">
+    <input type="text" placeholder="Busca productos" value="Camiseta de playa">
+    <button class="btn-search">Buscar</button>
+    <button class="btn-img-search">Búsqueda por imagen</button>
+  </div>
+  <div class="results-main">
+    <aside class="results-sidebar">
+      <div class="sidebar-section-title">Vendedor</div>
+      <div class="price-range-wrap">
+        <input type="range" class="price-slider" id="sl-res" min="0" max="100" step="100" value="0" oninput="onSlider('res',this)">
+        <div class="price-val" id="pv-res">$ 0</div>
+      </div>
+      <ul class="vendor-list">
+        <li class="vendor-item"><input type="radio" name="vd-res" value="amazon" onchange="onVendorRes('amazon')"> Amazon</li>
+        <li class="vendor-item"><input type="radio" name="vd-res" value="ebay" onchange="onVendorRes('ebay')"> eBay</li>
+        <li class="vendor-item"><input type="radio" name="vd-res" value="walmart" onchange="onVendorRes('walmart')"> Walmart</li>
+        <li class="vendor-item"><input type="radio" name="vd-res" value="target" onchange="onVendorRes('target')"> Target</li>
+        <li class="vendor-item"><input type="radio" name="vd-res" value="bestbuy" onchange="onVendorRes('bestbuy')"> BestBuy</li>
+      </ul>
+      <ul class="rating-filter-list">
+        <li class="rating-filter-item"><div class="stars-row"><span class="sf">★</span><span class="sf">★</span><span class="sf">★</span><span class="sf">★</span><span class="se">★</span></div>&amp; up</li>
+        <li class="rating-filter-item"><div class="stars-row"><span class="sf">★</span><span class="sf">★</span><span class="sf">★</span><span class="se">★</span><span class="se">★</span></div>&amp; up</li>
+        <li class="rating-filter-item"><div class="stars-row"><span class="sf">★</span><span class="sf">★</span><span class="se">★</span><span class="se">★</span><span class="se">★</span></div>&amp; up</li>
+        <li class="rating-filter-item"><div class="stars-row"><span class="sf">★</span><span class="se">★</span><span class="se">★</span><span class="se">★</span><span class="se">★</span></div>&amp; up</li>
+        <li class="all-ratings-lbl">All Ratings</li>
+      </ul>
+    </aside>
+    <div class="products-area">
+      <div class="products-grid" id="grid-res"></div>
+    </div>
+  </div>
+  <footer>
+    <a href="#">ChipSail</a><a href="#">Marcas Registradas</a>
+    <a href="#">Privacidad y Cookies</a><a href="#">Contáctanos</a><a href="#">Aviso Legal</a>
+  </footer>
+</div>
+ 
+<!-- ══════════ AMAZON ══════════ -->
+<div id="page-amazon" class="page" style="flex-direction:column;">
+  <nav>
+    <span class="logo" onclick="goTo('home')"><img  src="/assets/Logo fondo blanco.png" class = "logo-img" alt="logo"> ChipSail</span>
+    <div class="nav-user-area">
+      <button class="user-btn" onclick="toggleDD('dd-amazon')"><svg viewBox="0 0 24 24"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/></svg></button>
+      <div class="user-dropdown" id="dd-amazon">
+        <a class="dd-item" href="#" onclick="event.preventDefault();goTo('carrito');closeDD()"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6L18 2z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>Carrito</a>
+        <a class="dd-item" href="#" onclick="event.preventDefault();goTo('home');closeDD()"><svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>Salir</a>
+      </div>
+    </div>
+  </nav>
+  <div class="search-bar-r">
+    <input type="text" value="Camiseta de playa">
+    <button class="btn-search">Buscar</button>
+    <button class="btn-img-search">Búsqueda por imagen</button>
+  </div>
+  <div class="results-main">
+    <aside class="results-sidebar">
+      <div class="sidebar-section-title">Vendedor</div>
+      <div class="price-range-wrap">
+        <input type="range" class="price-slider" id="sl-amazon" min="0" max="100" step="100" value="0" oninput="onSlider('amazon',this)">
+        <div class="price-val" id="pv-amazon">$ 0</div>
+      </div>
+      <ul class="vendor-list">
+        <li class="vendor-item"><input type="radio" name="vd-amazon" value="amazon" checked onchange="switchVendor('amazon')"> Amazon</li>
+        <li class="vendor-item"><input type="radio" name="vd-amazon" value="ebay" onchange="switchVendor('ebay')"> eBay</li>
+        <li class="vendor-item"><input type="radio" name="vd-amazon" value="walmart" onchange="switchVendor('walmart')"> Walmart</li>
+        <li class="vendor-item"><input type="radio" name="vd-amazon" value="target" onchange="switchVendor('target')"> Target</li>
+        <li class="vendor-item"><input type="radio" name="vd-amazon" value="bestbuy" onchange="switchVendor('bestbuy')"> BestBuy</li>
+      </ul>
+      <ul class="rating-filter-list">
+        <li class="rating-filter-item"><div class="stars-row"><span class="sf">★</span><span class="sf">★</span><span class="sf">★</span><span class="sf">★</span><span class="se">★</span></div>&amp; up</li>
+        <li class="rating-filter-item"><div class="stars-row"><span class="sf">★</span><span class="sf">★</span><span class="sf">★</span><span class="se">★</span><span class="se">★</span></div>&amp; up</li>
+        <li class="rating-filter-item"><div class="stars-row"><span class="sf">★</span><span class="sf">★</span><span class="se">★</span><span class="se">★</span><span class="se">★</span></div>&amp; up</li>
+        <li class="rating-filter-item"><div class="stars-row"><span class="sf">★</span><span class="se">★</span><span class="se">★</span><span class="se">★</span><span class="se">★</span></div>&amp; up</li>
+        <li class="all-ratings-lbl">All Ratings</li>
+      </ul>
+    </aside>
+    <div class="products-area">
+      <div class="products-grid" id="grid-amazon"></div>
+    </div>
+  </div>
+  <footer><a href="#">ChipSail</a><a href="#">Marcas Registradas</a><a href="#">Privacidad y Cookies</a><a href="#">Contáctanos</a><a href="#">Aviso Legal</a></footer>
+</div>
+ 
+<!-- ══════════ EBAY ══════════ -->
+<div id="page-ebay" class="page" style="flex-direction:column;">
+  <nav>
+    <span class="logo" onclick="goTo('home')"><img  src="/assets/Logo fondo blanco.png" class = "logo-img" alt="logo"> ChipSail</span>
+    <div class="nav-user-area">
+      <button class="user-btn" onclick="toggleDD('dd-ebay')"><svg viewBox="0 0 24 24"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/></svg></button>
+      <div class="user-dropdown" id="dd-ebay">
+        <a class="dd-item" href="#" onclick="event.preventDefault();goTo('carrito');closeDD()"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6L18 2z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>Carrito</a>
+        <a class="dd-item" href="#" onclick="event.preventDefault();goTo('home');closeDD()"><svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>Salir</a>
+      </div>
+    </div>
+  </nav>
+  <div class="search-bar-r">
+    <input type="text" value="Camiseta de playa">
+    <button class="btn-search">Buscar</button>
+    <button class="btn-img-search">Búsqueda por imagen</button>
+  </div>
+  <div class="results-main">
+    <aside class="results-sidebar">
+      <div class="sidebar-section-title">Vendedor</div>
+      <div class="price-range-wrap">
+        <input type="range" class="price-slider" id="sl-ebay" min="0" max="100" step="100" value="0" oninput="onSlider('ebay',this)">
+        <div class="price-val" id="pv-ebay">$ 0</div>
+      </div>
+      <ul class="vendor-list">
+        <li class="vendor-item"><input type="radio" name="vd-ebay" value="amazon" onchange="switchVendor('amazon')"> Amazon</li>
+        <li class="vendor-item"><input type="radio" name="vd-ebay" value="ebay" checked onchange="switchVendor('ebay')"> eBay</li>
+        <li class="vendor-item"><input type="radio" name="vd-ebay" value="walmart" onchange="switchVendor('walmart')"> Walmart</li>
+        <li class="vendor-item"><input type="radio" name="vd-ebay" value="target" onchange="switchVendor('target')"> Target</li>
+        <li class="vendor-item"><input type="radio" name="vd-ebay" value="bestbuy" onchange="switchVendor('bestbuy')"> BestBuy</li>
+      </ul>
+      <ul class="rating-filter-list">
+        <li class="rating-filter-item"><div class="stars-row"><span class="sf">★</span><span class="sf">★</span><span class="sf">★</span><span class="sf">★</span><span class="se">★</span></div>&amp; up</li>
+        <li class="rating-filter-item"><div class="stars-row"><span class="sf">★</span><span class="sf">★</span><span class="sf">★</span><span class="se">★</span><span class="se">★</span></div>&amp; up</li>
+        <li class="rating-filter-item"><div class="stars-row"><span class="sf">★</span><span class="sf">★</span><span class="se">★</span><span class="se">★</span><span class="se">★</span></div>&amp; up</li>
+        <li class="rating-filter-item"><div class="stars-row"><span class="sf">★</span><span class="se">★</span><span class="se">★</span><span class="se">★</span><span class="se">★</span></div>&amp; up</li>
+        <li class="all-ratings-lbl">All Ratings</li>
+      </ul>
+    </aside>
+    <div class="products-area">
+      <div class="products-grid" id="grid-ebay"></div>
+    </div>
+  </div>
+  <footer><a href="#">ChipSail</a><a href="#">Marcas Registradas</a><a href="#">Privacidad y Cookies</a><a href="#">Contáctanos</a><a href="#">Aviso Legal</a></footer>
+</div>
+ 
+<!-- ══════════ WALMART ══════════ -->
+<div id="page-walmart" class="page" style="flex-direction:column;">
+  <nav>
+    <span class="logo" onclick="goTo('home')"><img  src="/assets/Logo fondo blanco.png" class = "logo-img" alt="logo"> ChipSail</span>
+    <div class="nav-user-area">
+      <button class="user-btn" onclick="toggleDD('dd-walmart')"><svg viewBox="0 0 24 24"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/></svg></button>
+      <div class="user-dropdown" id="dd-walmart">
+        <a class="dd-item" href="#" onclick="event.preventDefault();goTo('carrito');closeDD()"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6L18 2z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>Carrito</a>
+        <a class="dd-item" href="#" onclick="event.preventDefault();goTo('home');closeDD()"><svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>Salir</a>
+      </div>
+    </div>
+  </nav>
+  <div class="search-bar-r">
+    <input type="text" value="Camiseta de playa">
+    <button class="btn-search">Buscar</button>
+    <button class="btn-img-search">Búsqueda por imagen</button>
+  </div>
+  <div class="results-main">
+    <aside class="results-sidebar">
+      <div class="sidebar-section-title">Vendedor</div>
+      <div class="price-range-wrap">
+        <input type="range" class="price-slider" id="sl-walmart" min="0" max="100" step="100" value="0" oninput="onSlider('walmart',this)">
+        <div class="price-val" id="pv-walmart">$ 0</div>
+      </div>
+      <ul class="vendor-list">
+        <li class="vendor-item"><input type="radio" name="vd-walmart" value="amazon" onchange="switchVendor('amazon')"> Amazon</li>
+        <li class="vendor-item"><input type="radio" name="vd-walmart" value="ebay" onchange="switchVendor('ebay')"> eBay</li>
+        <li class="vendor-item"><input type="radio" name="vd-walmart" value="walmart" checked onchange="switchVendor('walmart')"> Walmart</li>
+        <li class="vendor-item"><input type="radio" name="vd-walmart" value="target" onchange="switchVendor('target')"> Target</li>
+        <li class="vendor-item"><input type="radio" name="vd-walmart" value="bestbuy" onchange="switchVendor('bestbuy')"> BestBuy</li>
+      </ul>
+      <ul class="rating-filter-list">
+        <li class="rating-filter-item"><div class="stars-row"><span class="sf">★</span><span class="sf">★</span><span class="sf">★</span><span class="sf">★</span><span class="se">★</span></div>&amp; up</li>
+        <li class="rating-filter-item"><div class="stars-row"><span class="sf">★</span><span class="sf">★</span><span class="sf">★</span><span class="se">★</span><span class="se">★</span></div>&amp; up</li>
+        <li class="rating-filter-item"><div class="stars-row"><span class="sf">★</span><span class="sf">★</span><span class="se">★</span><span class="se">★</span><span class="se">★</span></div>&amp; up</li>
+        <li class="rating-filter-item"><div class="stars-row"><span class="sf">★</span><span class="se">★</span><span class="se">★</span><span class="se">★</span><span class="se">★</span></div>&amp; up</li>
+        <li class="all-ratings-lbl">All Ratings</li>
+      </ul>
+    </aside>
+    <div class="products-area">
+      <div class="products-grid" id="grid-walmart"></div>
+    </div>
+  </div>
+  <footer><a href="#">ChipSail</a><a href="#">Marcas Registradas</a><a href="#">Privacidad y Cookies</a><a href="#">Contáctanos</a><a href="#">Aviso Legal</a></footer>
+</div>
+ 
+<!-- ══════════ TARGET ══════════ -->
+<div id="page-target" class="page" style="flex-direction:column;">
+  <nav>
+    <span class="logo" onclick="goTo('home')"><img  src="/assets/Logo fondo blanco.png" class = "logo-img" alt="logo"> ChipSail</span>
+    <div class="nav-user-area">
+      <button class="user-btn" onclick="toggleDD('dd-target')"><svg viewBox="0 0 24 24"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/></svg></button>
+      <div class="user-dropdown" id="dd-target">
+        <a class="dd-item" href="#" onclick="event.preventDefault();goTo('carrito');closeDD()"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6L18 2z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>Carrito</a>
+        <a class="dd-item" href="#" onclick="event.preventDefault();goTo('home');closeDD()"><svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>Salir</a>
+      </div>
+    </div>
+  </nav>
+  <div class="search-bar-r">
+    <input type="text" value="Camiseta de playa">
+    <button class="btn-search">Buscar</button>
+    <button class="btn-img-search">Búsqueda por imagen</button>
+  </div>
+  <div class="results-main">
+    <aside class="results-sidebar">
+      <div class="sidebar-section-title">Vendedor</div>
+      <div class="price-range-wrap">
+        <input type="range" class="price-slider" id="sl-target" min="0" max="100" step="100" value="0" oninput="onSlider('target',this)">
+        <div class="price-val" id="pv-target">$ 0</div>
+      </div>
+      <ul class="vendor-list">
+        <li class="vendor-item"><input type="radio" name="vd-target" value="amazon" onchange="switchVendor('amazon')"> Amazon</li>
+        <li class="vendor-item"><input type="radio" name="vd-target" value="ebay" onchange="switchVendor('ebay')"> eBay</li>
+        <li class="vendor-item"><input type="radio" name="vd-target" value="walmart" onchange="switchVendor('walmart')"> Walmart</li>
+        <li class="vendor-item"><input type="radio" name="vd-target" value="target" checked onchange="switchVendor('target')"> Target</li>
+        <li class="vendor-item"><input type="radio" name="vd-target" value="bestbuy" onchange="switchVendor('bestbuy')"> BestBuy</li>
+      </ul>
+      <ul class="rating-filter-list">
+        <li class="rating-filter-item"><div class="stars-row"><span class="sf">★</span><span class="sf">★</span><span class="sf">★</span><span class="sf">★</span><span class="se">★</span></div>&amp; up</li>
+        <li class="rating-filter-item"><div class="stars-row"><span class="sf">★</span><span class="sf">★</span><span class="sf">★</span><span class="se">★</span><span class="se">★</span></div>&amp; up</li>
+        <li class="rating-filter-item"><div class="stars-row"><span class="sf">★</span><span class="sf">★</span><span class="se">★</span><span class="se">★</span><span class="se">★</span></div>&amp; up</li>
+        <li class="rating-filter-item"><div class="stars-row"><span class="sf">★</span><span class="se">★</span><span class="se">★</span><span class="se">★</span><span class="se">★</span></div>&amp; up</li>
+        <li class="all-ratings-lbl">All Ratings</li>
+      </ul>
+    </aside>
+    <div class="products-area">
+      <div class="products-grid" id="grid-target"></div>
+    </div>
+  </div>
+  <footer><a href="#">ChipSail</a><a href="#">Marcas Registradas</a><a href="#">Privacidad y Cookies</a><a href="#">Contáctanos</a><a href="#">Aviso Legal</a></footer>
+</div>
+ 
+<!-- ══════════ BESTBUY ══════════ -->
+<div id="page-bestbuy" class="page" style="flex-direction:column;">
+  <nav>
+    <span class="logo" onclick="goTo('home')"><img  src="/assets/Logo fondo blanco.png" class = "logo-img" alt="logo"> ChipSail</span>
+    <div class="nav-user-area">
+      <button class="user-btn" onclick="toggleDD('dd-bestbuy')"><svg viewBox="0 0 24 24"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/></svg></button>
+      <div class="user-dropdown" id="dd-bestbuy">
+        <a class="dd-item" href="#" onclick="event.preventDefault();goTo('carrito');closeDD()"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6L18 2z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>Carrito</a>
+        <a class="dd-item" href="#" onclick="event.preventDefault();goTo('home');closeDD()"><svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>Salir</a>
+      </div>
+    </div>
+  </nav>
+  <div class="search-bar-r">
+    <input type="text" value="Camiseta de playa">
+    <button class="btn-search">Buscar</button>
+    <button class="btn-img-search">Búsqueda por imagen</button>
+  </div>
+  <div class="results-main">
+    <aside class="results-sidebar">
+      <div class="sidebar-section-title">Vendedor</div>
+      <div class="price-range-wrap">
+        <input type="range" class="price-slider" id="sl-bestbuy" min="0" max="100" step="100" value="0" oninput="onSlider('bestbuy',this)">
+        <div class="price-val" id="pv-bestbuy">$ 0</div>
+      </div>
+      <ul class="vendor-list">
+        <li class="vendor-item"><input type="radio" name="vd-bestbuy" value="amazon" onchange="switchVendor('amazon')"> Amazon</li>
+        <li class="vendor-item"><input type="radio" name="vd-bestbuy" value="ebay" onchange="switchVendor('ebay')"> eBay</li>
+        <li class="vendor-item"><input type="radio" name="vd-bestbuy" value="walmart" onchange="switchVendor('walmart')"> Walmart</li>
+        <li class="vendor-item"><input type="radio" name="vd-bestbuy" value="target" onchange="switchVendor('target')"> Target</li>
+        <li class="vendor-item"><input type="radio" name="vd-bestbuy" value="bestbuy" checked onchange="switchVendor('bestbuy')"> BestBuy</li>
+      </ul>
+      <ul class="rating-filter-list">
+        <li class="rating-filter-item"><div class="stars-row"><span class="sf">★</span><span class="sf">★</span><span class="sf">★</span><span class="sf">★</span><span class="se">★</span></div>&amp; up</li>
+        <li class="rating-filter-item"><div class="stars-row"><span class="sf">★</span><span class="sf">★</span><span class="sf">★</span><span class="se">★</span><span class="se">★</span></div>&amp; up</li>
+        <li class="rating-filter-item"><div class="stars-row"><span class="sf">★</span><span class="sf">★</span><span class="se">★</span><span class="se">★</span><span class="se">★</span></div>&amp; up</li>
+        <li class="rating-filter-item"><div class="stars-row"><span class="sf">★</span><span class="se">★</span><span class="se">★</span><span class="se">★</span><span class="se">★</span></div>&amp; up</li>
+        <li class="all-ratings-lbl">All Ratings</li>
+      </ul>
+    </aside>
+    <div class="products-area">
+      <div class="products-grid" id="grid-bestbuy"></div>
+    </div>
+  </div>
+  <footer><a href="#">ChipSail</a><a href="#">Marcas Registradas</a><a href="#">Privacidad y Cookies</a><a href="#">Contáctanos</a><a href="#">Aviso Legal</a></footer>
+</div>
+ 
+<!-- ══════════ CARRITO ══════════ -->
+<div id="page-carrito" class="page" style="flex-direction:column;">
+  <nav>
+    <span class="logo" onclick="goTo('resultados')"><img  src="/assets/Logo fondo blanco.png" class = "logo-img" alt="logo"> ChipSail</span>
+    <div class="nav-user-area">
+      <button class="user-btn" onclick="toggleDD('dd-carrito')"><svg viewBox="0 0 24 24"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/></svg></button>
+      <div class="user-dropdown" id="dd-carrito">
+        <a class="dd-item" href="#" onclick="event.preventDefault();closeDD()"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6L18 2z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>Carrito</a>
+        <a class="dd-item" href="#" onclick="event.preventDefault();goTo('home');closeDD()"><svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>Salir</a>
+      </div>
+    </div>
+  </nav>
+  <div class="search-bar-r">
+    <input type="text" value="Camiseta de playa">
+    <button class="btn-search">Buscar</button>
+    <button class="btn-img-search">Búsqueda por imagen</button>
+  </div>
+  <div class="results-main">
+    <aside class="results-sidebar">
+      <div class="sidebar-section-title">Agrega más productos:</div>
+      <div class="price-range-wrap">
+        <input type="range" class="price-slider" min="0" max="100" step="100" value="100">
+        <div class="price-val">$ 100</div>
+      </div>
+      <ul class="vendor-list">
+        <li class="vendor-item"><input type="radio" name="vd-carrito"> Amazon</li>
+        <li class="vendor-item"><input type="radio" name="vd-carrito"> eBay</li>
+        <li class="vendor-item"><input type="radio" name="vd-carrito"> Walmart</li>
+        <li class="vendor-item"><input type="radio" name="vd-carrito"> Target</li>
+        <li class="vendor-item"><input type="radio" name="vd-carrito" checked> BestBuy</li>
+      </ul>
+      <ul class="rating-filter-list">
+        <li class="rating-filter-item"><div class="stars-row"><span class="sf">★</span><span class="sf">★</span><span class="sf">★</span><span class="sf">★</span><span class="se">★</span></div>&amp; up</li>
+        <li class="rating-filter-item"><div class="stars-row"><span class="sf">★</span><span class="sf">★</span><span class="sf">★</span><span class="se">★</span><span class="se">★</span></div>&amp; up</li>
+        <li class="rating-filter-item"><div class="stars-row"><span class="sf">★</span><span class="sf">★</span><span class="se">★</span><span class="se">★</span><span class="se">★</span></div>&amp; up</li>
+        <li class="rating-filter-item"><div class="stars-row"><span class="sf">★</span><span class="se">★</span><span class="se">★</span><span class="se">★</span><span class="se">★</span></div>&amp; up</li>
+        <li class="all-ratings-lbl">All Ratings</li>
+      </ul>
+    </aside>
+    <div class="products-area" id="carrito-area"></div>
+  </div>
+  <footer><a href="#">ChipSail</a><a href="#">Marcas Registradas</a><a href="#">Privacidad y Cookies</a><a href="#">Contáctanos</a><a href="#">Aviso Legal</a></footer>
+</div>
+ 
+<!-- ══════════ PAGO ══════════ -->
+<div id="page-pago" class="page" style="flex-direction:column;">
+  <nav>
+    <span class="logo" onclick="goTo('carrito')"><img  src="/assets/Logo fondo blanco.png" class = "logo-img" alt="logo"> ChipSail</span>
+    <div class="nav-user-area">
+      <button class="user-btn" onclick="toggleDD('dd-pago')"><svg viewBox="0 0 24 24"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/></svg></button>
+      <div class="user-dropdown" id="dd-pago">
+        <a class="dd-item" href="#" onclick="event.preventDefault();goTo('carrito');closeDD()"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6L18 2z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>Carrito</a>
+        <a class="dd-item" href="#" onclick="event.preventDefault();goTo('home');closeDD()"><svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>Salir</a>
+      </div>
+    </div>
+  </nav>
+  <div class="search-bar-r">
+    <input type="text" value="Camiseta de playa">
+    <button class="btn-search">Buscar</button>
+    <button class="btn-img-search">Búsqueda por imagen</button>
+  </div>
+  <div class="results-main">
+    <aside class="results-sidebar">
+      <div class="sidebar-section-title">Agrega más productos:</div>
+      <div class="price-range-wrap">
+        <input type="range" class="price-slider" min="0" max="100" step="100" value="100">
+        <div class="price-val">$ 100</div>
+      </div>
+      <ul class="vendor-list">
+        <li class="vendor-item"><input type="radio" name="vd-pago"> Amazon</li>
+        <li class="vendor-item"><input type="radio" name="vd-pago"> eBay</li>
+        <li class="vendor-item"><input type="radio" name="vd-pago"> Walmart</li>
+        <li class="vendor-item"><input type="radio" name="vd-pago"> Target</li>
+        <li class="vendor-item"><input type="radio" name="vd-pago" checked> BestBuy</li>
+      </ul>
+      <ul class="rating-filter-list">
+        <li class="rating-filter-item"><div class="stars-row"><span class="sf">★</span><span class="sf">★</span><span class="sf">★</span><span class="sf">★</span><span class="se">★</span></div>&amp; up</li>
+        <li class="rating-filter-item"><div class="stars-row"><span class="sf">★</span><span class="sf">★</span><span class="sf">★</span><span class="se">★</span><span class="se">★</span></div>&amp; up</li>
+        <li class="rating-filter-item"><div class="stars-row"><span class="sf">★</span><span class="sf">★</span><span class="se">★</span><span class="se">★</span><span class="se">★</span></div>&amp; up</li>
+        <li class="rating-filter-item"><div class="stars-row"><span class="sf">★</span><span class="se">★</span><span class="se">★</span><span class="se">★</span><span class="se">★</span></div>&amp; up</li>
+        <li class="all-ratings-lbl">All Ratings</li>
+      </ul>
+    </aside>
+    <div class="pago-wrap">
+      <div class="pago-form-box">
+        <h2>Datos de envío y pago</h2>
+        <label class="pago-label">Nombre completo</label>
+        <input type="text" placeholder="Tu nombre completo">
+        <label class="pago-label">Dirección de envío</label>
+        <input type="text" placeholder="Calle, ciudad, país">
+        <label class="pago-label">Medio de pago</label>
+        <div class="medio-wrap">
+          <label class="medio-opt"><input type="radio" name="medio"> Efectivo</label>
+          <label class="medio-opt"><input type="radio" name="medio"> Tarjeta</label>
+        </div>
+        <button class="btn-finalizar" onclick="goTo('exitosa')">Finalizar pago</button>
+      </div>
+    </div>
+  </div>
+  <footer><a href="#">ChipSail</a><a href="#">Marcas Registradas</a><a href="#">Privacidad y Cookies</a><a href="#">Contáctanos</a><a href="#">Aviso Legal</a></footer>
+</div>
+ 
+<!-- ══════════ COMPRA EXITOSA ══════════ -->
+<div id="page-exitosa" class="page" style="flex-direction:column;">
+  <nav>
+    <span class="logo" onclick="goTo('home')"><img  src="/assets/Logo fondo blanco.png" class = "logo-img" ChipSail</span>
+    <div class="nav-user-area">
+      <button class="user-btn" onclick="toggleDD('dd-exitosa')"><svg viewBox="0 0 24 24"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/></svg></button>
+      <div class="user-dropdown" id="dd-exitosa">
+        <a class="dd-item" href="#" onclick="event.preventDefault();goTo('carrito');closeDD()"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6L18 2z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>Carrito</a>
+        <a class="dd-item" href="#" onclick="event.preventDefault();goTo('home');closeDD()"><svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>Salir</a>
+      </div>
+    </div>
+  </nav>
+  <div class="search-bar-r">
+    <input type="text" value="Camiseta de playa">
+    <button class="btn-search">Buscar</button>
+    <button class="btn-img-search">Búsqueda por imagen</button>
+  </div>
+  <div class="results-main">
+    <aside class="results-sidebar">
+      <div class="sidebar-section-title">Agrega más productos:</div>
+      <div class="price-range-wrap">
+        <input type="range" class="price-slider" min="0" max="100" step="100" value="100">
+        <div class="price-val">$ 100</div>
+      </div>
+      <ul class="vendor-list">
+        <li class="vendor-item"><input type="radio" name="vd-exitosa"> Amazon</li>
+        <li class="vendor-item"><input type="radio" name="vd-exitosa"> eBay</li>
+        <li class="vendor-item"><input type="radio" name="vd-exitosa"> Walmart</li>
+        <li class="vendor-item"><input type="radio" name="vd-exitosa"> Target</li>
+        <li class="vendor-item"><input type="radio" name="vd-exitosa"> BestBuy</li>
+      </ul>
+      <ul class="rating-filter-list">
+        <li class="rating-filter-item"><div class="stars-row"><span class="sf">★</span><span class="sf">★</span><span class="sf">★</span><span class="sf">★</span><span class="se">★</span></div>&amp; up</li>
+        <li class="rating-filter-item"><div class="stars-row"><span class="sf">★</span><span class="sf">★</span><span class="sf">★</span><span class="se">★</span><span class="se">★</span></div>&amp; up</li>
+        <li class="rating-filter-item"><div class="stars-row"><span class="sf">★</span><span class="sf">★</span><span class="se">★</span><span class="se">★</span><span class="se">★</span></div>&amp; up</li>
+        <li class="rating-filter-item"><div class="stars-row"><span class="sf">★</span><span class="se">★</span><span class="se">★</span><span class="se">★</span><span class="se">★</span></div>&amp; up</li>
+        <li class="all-ratings-lbl">All Ratings</li>
+      </ul>
+    </aside>
+    <div class="exitosa-area">
+      <h2>¡Tu compra fue exitosa!</h2>
+      <svg class="cart-icon-big" viewBox="0 0 120 100" xmlns="http://www.w3.org/2000/svg">
+        <!-- carrito -->
+        <path d="M10 15 H28 L48 68 H95 L110 30 H35" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="52" cy="84" r="8"/>
+        <circle cx="88" cy="84" r="8"/>
+      </svg>
+      <p>¡Agrega más productos!</p>
+    </div>
+  </div>
+  <footer><a href="#">ChipSail</a><a href="#">Marcas Registradas</a><a href="#">Privacidad y Cookies</a><a href="#">Contáctanos</a><a href="#">Aviso Legal</a></footer>
+</div>
+ 
+<!-- ══════════ SCRIPT ══════════ -->
 <script>
+  /* ── Estado global ── */
+  const cart = []; // { key, vendor, name, desc, stars, count }
+ 
+  /* ── Catálogo de productos por vendedor (6 fichas cada uno) ── */
+  const catalog = {
+    amazon:  [
+      { name:'Amazon Camiseta de playa',   desc:'Camiseta de alta calidad y durabilidad', stars:3, count:60  },
+      { name:'Amazon Camiseta de playa',   desc:'Camiseta de alta calidad y durabilidad', stars:4, count:98  },
+      { name:'Amazon Camiseta Hawaii',     desc:'Estampado hawaiano original',             stars:4, count:74  },
+      { name:'Amazon Camiseta Tropical',   desc:'Diseño tropical de alta calidad',          stars:3, count:55  },
+      { name:'Amazon Camiseta Sport',      desc:'Camiseta deportiva para playa',            stars:5, count:120 },
+      { name:'Amazon Camiseta Surf',       desc:'Ideal para los amantes del surf',          stars:4, count:88  },
+    ],
+    ebay: [
+      { name:'eBay Camiseta de playa',     desc:'Camiseta de alta calidad y durabilidad', stars:4, count:72  },
+      { name:'eBay Camiseta Tropical',     desc:'Diseño tropical vibrante',                stars:3, count:45  },
+      { name:'eBay Camiseta Hawaii',       desc:'Estampado hawaiano original',             stars:5, count:103 },
+      { name:'eBay Camiseta Surf',         desc:'Para los amantes del surf',               stars:4, count:61  },
+      { name:'eBay Camiseta Sport',        desc:'Camiseta deportiva para playa',           stars:3, count:39  },
+      { name:'eBay Camiseta Premium',      desc:'Calidad premium al mejor precio',         stars:5, count:90  },
+    ],
+    walmart: [
+      { name:'Walmart Camiseta de playa',  desc:'Camiseta de alta calidad y durabilidad', stars:4, count:80  },
+      { name:'Walmart Camiseta Tropical',  desc:'Diseño tropical de temporada',            stars:3, count:52  },
+      { name:'Walmart Camiseta Hawaii',    desc:'Estampado hawaiano',                      stars:4, count:67  },
+      { name:'Walmart Camiseta Sport',     desc:'Ligera y cómoda para el verano',          stars:5, count:111 },
+      { name:'Walmart Camiseta Surf',      desc:'Ideal para surf y playa',                 stars:3, count:43  },
+      { name:'Walmart Camiseta Básica',    desc:'Básica y de buena calidad',               stars:4, count:76  },
+    ],
+    target: [
+      { name:'Target Camiseta de playa',   desc:'Camiseta de alta calidad y durabilidad', stars:4, count:85  },
+      { name:'Target Camiseta Tropical',   desc:'Colores vivos para el verano',            stars:3, count:58  },
+      { name:'Target Camiseta Hawaii',     desc:'Estilo hawaiano garantizado',             stars:5, count:95  },
+      { name:'Target Camiseta Surf',       desc:'Para los días de olas grandes',           stars:4, count:69  },
+      { name:'Target Camiseta Sport',      desc:'Tejido transpirable sport',               stars:3, count:41  },
+      { name:'Target Camiseta Premium',    desc:'Calidad premium Target',                  stars:5, count:102 },
+    ],
+    bestbuy: [
+      { name:'BestBuy Camiseta de playa',  desc:'Camiseta de alta calidad y durabilidad', stars:4, count:77  },
+      { name:'BestBuy Camiseta Tropical',  desc:'Estampado tropical de lujo',              stars:3, count:49  },
+      { name:'BestBuy Camiseta Hawaii',    desc:'Auténtico diseño hawaiano',               stars:5, count:118 },
+      { name:'BestBuy Camiseta Surf',      desc:'Resistente al agua y al sol',             stars:4, count:63  },
+      { name:'BestBuy Camiseta Sport',     desc:'Deporte y playa combinados',              stars:3, count:37  },
+      { name:'BestBuy Camiseta Premium',   desc:'Lo mejor en camisetas de playa',          stars:5, count:130 },
+    ],
+  };
+ 
+  /* ── Helpers ── */
+  function starsHtml(n) {
+    let h = '';
+    for (let i = 1; i <= 5; i++) h += `<span class="${i<=n?'sf':'se'}">★</span>`;
+    return h;
+  }
+ 
+  function imgPlaceholder() {
+    return `<div class="product-img-placeholder">
+      <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+      Imagen del producto
+    </div>`;
+  }
+ 
+  function cardHtml(vendor, idx, cartMode) {
+    const p = catalog[vendor][idx];
+    const key = vendor + '_' + idx;
+    const inCart = cart.some(c => c.key === key);
+    const actions = cartMode
+      ? `<button class="btn-pagar" onclick="goTo('pago')">Pagar</button>`
+      : `<button class="btn-cart" onclick="addToCart('${vendor}',${idx})" ${inCart?'style="opacity:.5;cursor:default;"':''}>
+           ${inCart ? 'En carrito ✓' : 'Agregar a carro'}
+         </button>
+         <button class="btn-historial">Historial</button>`;
+    return `<div class="product-card">
+      ${imgPlaceholder()}
+      <div class="product-body">
+        <div class="product-name">${p.name}</div>
+        <div class="product-desc">${p.desc}</div>
+        <div class="product-rating"><div class="stars-row">${starsHtml(p.stars)}</div><span class="rating-count">(${p.count})</span></div>
+      </div>
+      <div class="product-actions">${actions}</div>
+    </div>`;
+  }
+ 
+  /* ── Navegación ── */
   function goTo(page) {
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
     document.getElementById('page-' + page).classList.add('active');
+    closeDD();
+    if (page === 'carrito') renderCarrito();
+  }
+ 
+  /* ── Dropdown ── */
+  function toggleDD(id) {
+    const dd = document.getElementById(id);
+    const wasOpen = dd.classList.contains('open');
+    closeDD();
+    if (!wasOpen) dd.classList.add('open');
+  }
+  function closeDD() {
+    document.querySelectorAll('.user-dropdown').forEach(d => d.classList.remove('open'));
+  }
+  document.addEventListener('click', function(e) {
+    if (!e.target.closest('.nav-user-area')) closeDD();
+  });
+ 
+  /* ── Slider (solo 0 o 100) ── */
+  function onSlider(pageId, el) {
+    const v = parseInt(el.value) < 50 ? 0 : 100;
+    el.value = v;
+    document.getElementById('pv-' + pageId).textContent = '$ ' + v;
+    // Buscar qué vendedor está seleccionado en esta página
+    const checked = document.querySelector(`input[name="vd-${pageId}"]:checked`);
+    if (!checked) { document.getElementById('grid-' + pageId).innerHTML = ''; return; }
+    renderGrid('grid-' + pageId, checked.value, v);
+  }
+ 
+  /* ── Render grid ── */
+  function renderGrid(gridId, vendor, sliderVal) {
+    const grid = document.getElementById(gridId);
+    if (!grid) return;
+    if (sliderVal === 0) { grid.innerHTML = ''; return; }
+    const prods = catalog[vendor] || [];
+    grid.innerHTML = prods.map((_, i) => cardHtml(vendor, i, false)).join('');
+  }
+ 
+  /* ── Selección de vendedor desde página de resultados ── */
+  function onVendorRes(vendor) {
+    const sl = document.getElementById('sl-res');
+    const v = sl ? parseInt(sl.value) : 0;
+    goTo(vendor);
+    // Forzar slider en 0 en la página destino y limpiar grid
+    const slV = document.getElementById('sl-' + vendor);
+    if (slV) { slV.value = 0; document.getElementById('pv-' + vendor).textContent = '$ 0'; }
+    renderGrid('grid-' + vendor, vendor, 0);
+    // marcar el radio correcto
+    const radio = document.querySelector(`input[name="vd-${vendor}"][value="${vendor}"]`);
+    if (radio) radio.checked = true;
+  }
+ 
+  /* ── Cambiar de vendedor desde dentro de la página de un vendedor ── */
+  function switchVendor(vendor) {
+    goTo(vendor);
+    const slV = document.getElementById('sl-' + vendor);
+    if (slV) { slV.value = 0; document.getElementById('pv-' + vendor).textContent = '$ 0'; }
+    renderGrid('grid-' + vendor, vendor, 0);
+    const radio = document.querySelector(`input[name="vd-${vendor}"][value="${vendor}"]`);
+    if (radio) radio.checked = true;
+  }
+ 
+  /* ── Carrito ── */
+  function addToCart(vendor, idx) {
+    const key = vendor + '_' + idx;
+    if (!cart.some(c => c.key === key)) {
+      const p = catalog[vendor][idx];
+      cart.push({ key, vendor, idx, ...p });
+    }
+    // Refrescar el grid actual para actualizar el botón
+    const activePage = document.querySelector('.page.active');
+    if (activePage) {
+      const gridId = 'grid-' + activePage.id.replace('page-', '');
+      const checkedR = activePage.querySelector('input[type="radio"]:checked');
+      const sl = activePage.querySelector('.price-slider');
+      if (checkedR && sl) renderGrid(gridId, checkedR.value, parseInt(sl.value));
+    }
+  }
+ 
+  function renderCarrito() {
+    const area = document.getElementById('carrito-area');
+    if (!area) return;
+    if (cart.length === 0) {
+      area.innerHTML = `<div class="empty-cart">
+        <svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6L18 2z" stroke-linecap="round" stroke-linejoin="round"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+        <p>Tu carrito está vacío.<br>¡Agrega productos desde las tiendas!</p>
+      </div>`;
+      return;
+    }
+    const cards = cart.map(item => cardHtml(item.vendor, item.idx, true)).join('');
+    area.innerHTML = `
+      <div class="cart-title">Carrito (${cart.length} producto${cart.length !== 1 ? 's' : ''})</div>
+      <div class="products-grid">${cards}</div>
+      <button class="btn-pagar-todo" onclick="goTo('pago')">Pagar todo</button>`;
   }
 </script>
 </body>
