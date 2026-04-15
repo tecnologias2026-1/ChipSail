@@ -22,13 +22,13 @@
 
     body { font-family: 'Nunito', sans-serif; background: var(--white); color: var(--text-dark); min-height: 100vh; display: flex; flex-direction: column; }
 
-    nav { display: flex; justify-content: space-between; align-items: center; padding: 14px 40px; border-bottom: 1px solid #e8e8e8; min-height: 72px; }
+    header{ display: flex; justify-content: space-between; align-items: center; padding: 14px 40px; border-bottom: 1px solid #e8e8e8; min-height: 72px; }
 
     .logo { display: flex; align-items: center; gap: 8px; font-size: 1.25rem; font-weight: 800; color: var(--pink); cursor: pointer; line-height: 1; }
     .logo-img { width: 32px; height: 32px; object-fit: cover; display: flex; }
     .logo-img-big { width: clamp(120px, 20vw, 300px); }
 
-    .nav-buttons { display: flex; align-items: center; gap: 12px; }
+    .header-buttons { display: flex; align-items: center; gap: 12px; }
 
     .btn-outline { padding: 8px 20px; border: 1.5px solid var(--pink-light); border-radius: 8px; background: transparent; font-family: 'Nunito', sans-serif; font-size: 0.9rem; font-weight: 700; cursor: pointer; height: 40px; line-height: 1; display: inline-flex; align-items: center; justify-content: center; }
     .btn-outline:hover { background: var(--gray-bg); }
@@ -68,8 +68,8 @@
     footer a { color: var(--pink); text-decoration: none; }
     footer a:hover { text-decoration: underline; }
 
-    /* ── NAV USER ── */
-    .nav-user-area { position: relative; }
+    /* ── header USER ── */
+    .header-user-area { position: relative; }
     .user-btn { width: 42px; height: 42px; border-radius: 50%; background: #b06ac0; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.2s, transform 0.15s; padding: 0; }
     .user-btn:hover { background: var(--pink); transform: scale(1.05); }
     .user-btn svg { width: 26px; height: 26px; fill: var(--white); }
@@ -456,14 +456,14 @@
       .products-grid { grid-template-columns: 1fr; }
       .results-main { padding: 14px; flex-direction: column; }
       .results-sidebar { width: 100%; margin-right: 0; margin-bottom: 18px; }
-      nav { padding: 12px 16px; }
+      header { padding: 12px 16px; }
       .search-bar-r { padding: 12px 16px; }
       /* Cards en móvil deben ser amplias como en carrito */
       .product-card { width: 100%; }
       .exitosa-area h2 { font-size: 1.6rem; }
       .cart-icon-big { width: 110px; height: 110px; }
     }
-    @media (max-width: 768px) { nav { padding: 12px 20px; } .nav-buttons { gap: 6px; } .search-bar { flex-direction: column; align-items: stretch; } .btn-search,.btn-img-search { width: 100%; } .hero h1 { font-size: 1.5rem; } .features { padding: 20px; } }
+    @media (max-width: 768px) { header { padding: 12px 20px; } .header-buttons { gap: 6px; } .search-bar { flex-direction: column; align-items: stretch; } .btn-search,.btn-img-search { width: 100%; } .hero h1 { font-size: 1.5rem; } .features { padding: 20px; } }
     @media (min-width: 769px) and (max-width: 1024px) { .features { justify-content: center; } }
     @media (max-width: 1024px) {
       .auth-page { flex-direction: column; justify-content: center; gap: 24px; }
@@ -480,69 +480,71 @@
 
 <!-- ══════════ INICIO ══════════ -->
 <div id="page-home" class="page active">
-  <nav>
-    <span class="logo" onclick="goTo('home')"><img src="Logo fondo blanco.png" class="logo-img"> ChipSail</span>
-    <div class="nav-buttons">
-      <button class="btn-outline" onclick="goTo('login')">Inicio de Sesión</button>
-      <button class="btn-outline" onclick="goTo('registro')">Registro</button>
+  <header>
+    <span tabindex="0" class="logo" onclick="goTo('home')"><img src="Logo fondo blanco.png" class="logo-img"> ChipSail</span>
+    <div class="header-buttons">
+      <button  class="btn-outline" onclick="goTo('login')">Inicio de Sesión</button>
+      <button  class="btn-outline" onclick="goTo('registro')">Registro</button>
     </div>
-  </nav>
+  </header>
   <div class="search-bar">
     <input type="text" placeholder="Busca productos">
-    <button class="btn-search" onclick="handleHomeSearch()">Buscar</button>
-    <button class="btn-img-search" onclick="handleHomeImageSearch()">Búsqueda por imagen</button>
+    <button  class="btn-search" onclick="handleHomeSearch()">Buscar</button>
+    <button  class="btn-img-search" onclick="handleHomeImageSearch()">Búsqueda por imagen</button>
   </div>
-  <div class="hero">
-    <img src="Logo fondo blanco.png" class="logo-img-big">
-    <h1>Encuentra los mejores precios de toda la web</h1>
-    <p>Busqueda de productos y sus precios en diferentes aplicaciones como Amazon, eBay, Walmart, Target, y BestBuy</p>
-  </div>
-  <div class="features">
-    <div class="feature-card"><h3>Busqueda por texto</h3><p>Se puede realizar una busqueda del producto por texto</p></div>
-    <div class="feature-card"><h3>Busqueda por imagen</h3><p>Se puede realizar una busqueda del producto por el apartado de imagenes</p></div>
-    <div class="feature-card"><h3>Historial de precios</h3><p>Se puede realizar una visualizacion de los precios anteriores de dicho producto</p></div>
-  </div>
+  <article class="hero">
+    <img tabindex="0" src="Logo fondo blanco.png" class="logo-img-big" atl="Logo Chip Sale">
+    <h1 tabindex="0">Encuentra los mejores precios de toda la web</h1>
+    <p tabindex="0">Busqueda de productos y sus precios en diferentes aplicaciones como Amazon, eBay, Walmart, Target, y BestBuy</p>
+  </article>
+  <article class="features">
+    <div tabindex="0" class="feature-card"><h3>Busqueda por texto</h3><p>Se puede realizar una busqueda del producto por texto</p></div>
+    <div tabindex="0" class="feature-card"><h3>Busqueda por imagen</h3><p>Se puede realizar una busqueda del producto por el apartado de imagenes</p></div>
+    <div tabindex="0" class="feature-card"><h3>Historial de precios</h3><p>Se puede realizar una visualizacion de los precios anteriores de dicho producto</p></div>
+  </article>
   <p>&nbsp;</p>
   <footer><a href="#">ChipSail</a><a href="#">Marcas Registradas</a><a href="#">Privacidad y Cookies</a><a href="#">Contáctanos</a><a href="#">Aviso Legal</a></footer>
 </div>
 
 <!-- ══════════ LOGIN ══════════ -->
 <div id="page-login" class="page" style="flex-direction:column;">
-  <nav>
-    <span class="logo" onclick="goTo('home')"><img src="Logo fondo blanco.png" class="logo-img"> ChipSail</span>
-    <div class="nav-buttons">
-      <button class="btn-outline" onclick="goTo('login')">Inicio de Sesión</button>
-      <button class="btn-outline" onclick="goTo('registro')">Registro</button>
-    </div>
-  </nav>
-  <div class="auth-page">
+  <header>
+    
+      <span tabindex="0" class="logo" onclick="goTo('home')"><img src="Logo fondo blanco.png" class="logo-img"> ChipSail</span>
+      <div class="header-buttons">
+        <button  class="btn-outline" onclick="goTo('login')">Inicio de Sesión</button>
+        <button  class="btn-outline" onclick="goTo('registro')">Registro</button>
+      </div>
+    
+  </header>   
+  <article class="auth-page">
     <div class="auth-box">
-      <h2>Iniciar Sesión</h2>
+      <h2 tabindex="0" >Iniciar Sesión</h2>
       <div class="field-wrap">
         <input type="text" id="login-user" placeholder="User Name">
-        <div class="field-error" id="err-login-user">Este campo es obligatorio</div>
+        <div tabindex="0" class="field-error" id="err-login-user">Este campo es obligatorio</div>
       </div>
       <div class="field-wrap">
         <input type="password" id="login-pass" placeholder="Password">
-        <div class="field-error" id="err-login-pass">Este campo es obligatorio</div>
-        <div class="field-error" id="err-login-pass-len">La contraseña debe tener mínimo 8 caracteres</div>
+        <div tabindex="0" class="field-error" id="err-login-pass">Este campo es obligatorio</div>
+        <div tabindex="0" class="field-error" id="err-login-pass-len">La contraseña debe tener mínimo 8 caracteres</div>
       </div>
-      <button class="btn-auth" onclick="validarLogin()">Sign In</button>
+      <button tabindex="0" class="btn-auth" onclick="validarLogin()">Sign In</button>
     </div>
     <div class="auth-logo"><img src="Logo fondo blanco.png" class="logo-img-big"></div>
-  </div>
+  </article>
   <footer><a href="#">ChipSail</a><a href="#">Marcas Registradas</a><a href="#">Privacidad y Cookies</a><a href="#">Contáctanos</a><a href="#">Aviso Legal</a></footer>
 </div>
 
 <!-- ══════════ REGISTRO ══════════ -->
 <div id="page-registro" class="page" style="flex-direction:column;">
-  <nav>
+  <header>
     <span class="logo" onclick="goTo('home')"><img src="Logo fondo blanco.png" class="logo-img"> ChipSail</span>
-    <div class="nav-buttons">
+    <div class="header-buttons">
       <button class="btn-outline" onclick="goTo('login')">Inicio de Sesión</button>
       <button class="btn-outline" onclick="goTo('registro')">Registro</button>
     </div>
-  </nav>
+  </header>
   <div class="auth-page">
     <div class="auth-box">
       <h2>Registro</h2>
@@ -583,18 +585,20 @@
 
 <!-- ══════════ RESULTADOS ══════════ -->
 <div id="page-resultados" class="page" style="flex-direction:column;">
-  <nav>
-    <span class="logo" onclick="goTo('home')"><img src="/assets/Logo fondo blanco.png" class="logo-img" alt="logo"> ChipSail</span>
-    <div class="nav-user-area">
-      <button class="user-btn" onclick="toggleDD('dd-res')" aria-label="Menú">
-        <svg viewBox="0 0 24 24"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/></svg>
-      </button>
-      <div class="user-dropdown" id="dd-res">
-        <a class="dd-item" href="#" onclick="event.preventDefault();goTo('carrito');closeDD()"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6L18 2z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>Carrito</a>
-        <a class="dd-item" href="#" onclick="event.preventDefault();goTo('home');closeDD()"><svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>Salir</a>
+  <header>
+    
+      <span class="logo" onclick="goTo('home')"><img src="/assets/Logo fondo blanco.png" class="logo-img" alt="logo"> ChipSail</span>
+      <div class="header-user-area">
+        <button class="user-btn" onclick="toggleDD('dd-res')" aria-label="Menú">
+          <svg viewBox="0 0 24 24"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/></svg>
+        </button>
+        <div class="user-dropdown" id="dd-res">
+          <a class="dd-item" href="#" onclick="event.preventDefault();goTo('carrito');closeDD()"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6L18 2z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>Carrito</a>
+          <a class="dd-item" href="#" onclick="event.preventDefault();goTo('home');closeDD()"><svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>Salir</a>
+        </div>
       </div>
-    </div>
-  </nav>
+    
+  </header>
   <div class="search-bar-r" id="searchbar-res">
     <input type="text" placeholder="Busca productos" value="Camiseta" id="search-input-res">
     <button class="btn-search" onclick="goTo('resultados')">Buscar</button>
@@ -618,11 +622,11 @@
       </ul>
       <div class="sidebar-sub-title">Calificación</div>
       <ul class="rating-filter-list" id="rating-list-res">
-        <li class="rating-filter-item" data-min="4" onclick="onRatingClick(this,'res')"><div class="stars-row"><span class="sf">★</span><span class="sf">★</span><span class="sf">★</span><span class="sf">★</span><span class="se">★</span></div>&amp; up</li>
-        <li class="rating-filter-item" data-min="3" onclick="onRatingClick(this,'res')"><div class="stars-row"><span class="sf">★</span><span class="sf">★</span><span class="sf">★</span><span class="se">★</span><span class="se">★</span></div>&amp; up</li>
-        <li class="rating-filter-item" data-min="2" onclick="onRatingClick(this,'res')"><div class="stars-row"><span class="sf">★</span><span class="sf">★</span><span class="se">★</span><span class="se">★</span><span class="se">★</span></div>&amp; up</li>
-        <li class="rating-filter-item" data-min="1" onclick="onRatingClick(this,'res')"><div class="stars-row"><span class="sf">★</span><span class="se">★</span><span class="se">★</span><span class="se">★</span><span class="se">★</span></div>&amp; up</li>
-        <li class="all-ratings-lbl active" onclick="onRatingAll('res')">Todas las calificaciones</li>
+        <li tabindex="0" role="button" class="rating-filter-item" data-min="4" onclick="onRatingClick(this,'res')"><div  aria-label="4 estrellas" class="stars-row"><span class="sf">★</span><span class="sf">★</span><span class="sf">★</span><span class="sf">★</span><span class="se">★</span></div>&amp; up</li>
+        <li tabindex="0" role="button" class="rating-filter-item" data-min="3" onclick="onRatingClick(this,'res')"><div  aria-label="3 estrellas" class="stars-row"><span class="sf">★</span><span class="sf">★</span><span class="sf">★</span><span class="se">★</span><span class="se">★</span></div>&amp; up</li>
+        <li tabindex="0" role="button" class="rating-filter-item" data-min="2" onclick="onRatingClick(this,'res')"><div  aria-label="2 estrellas" class="stars-row"><span class="sf">★</span><span class="sf">★</span><span class="se">★</span><span class="se">★</span><span class="se">★</span></div>&amp; up</li>
+        <li tabindex="0" role="button" class="rating-filter-item" data-min="1" onclick="onRatingClick(this,'res')"><div aria-label="1 estrellas" class="stars-row"><span class="sf">★</span><span class="se">★</span><span class="se">★</span><span class="se">★</span><span class="se">★</span></div>&amp; up</li>
+        <li tabindex="0" role="button" class="all-ratings-lbl active" onclick="onRatingAll('res')">Todas las calificaciones</li>
       </ul>
     </aside>
     <div class="products-area">
@@ -634,16 +638,16 @@
 
 <!-- ══════════ CARRITO ══════════ -->
 <div id="page-carrito" class="page" style="flex-direction:column;">
-  <nav>
+  <header>
     <span class="logo" onclick="goTo('resultados')"><img src="/assets/Logo fondo blanco.png" class="logo-img" alt="logo"> ChipSail</span>
-    <div class="nav-user-area">
+    <div class="header-user-area">
       <button class="user-btn" onclick="toggleDD('dd-carrito')"><svg viewBox="0 0 24 24"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/></svg></button>
       <div class="user-dropdown" id="dd-carrito">
         <a class="dd-item" href="#" onclick="event.preventDefault();closeDD()"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6L18 2z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>Carrito</a>
         <a class="dd-item" href="#" onclick="event.preventDefault();goTo('home');closeDD()"><svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>Salir</a>
       </div>
     </div>
-  </nav>
+  </header>
   <div class="search-bar-r">
     <input type="text" value="Camiseta">
     <button class="btn-search" onclick="goTo('resultados')">Buscar</button>
@@ -681,16 +685,16 @@
 
 <!-- ══════════ PAGO ══════════ -->
 <div id="page-pago" class="page" style="flex-direction:column;">
-  <nav>
+  <header>
     <span class="logo" onclick="goTo('carrito')"><img src="/assets/Logo fondo blanco.png" class="logo-img" alt="logo"> ChipSail</span>
-    <div class="nav-user-area">
+    <div class="header-user-area">
       <button class="user-btn" onclick="toggleDD('dd-pago')"><svg viewBox="0 0 24 24"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/></svg></button>
       <div class="user-dropdown" id="dd-pago">
         <a class="dd-item" href="#" onclick="event.preventDefault();goTo('carrito');closeDD()"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6L18 2z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>Carrito</a>
         <a class="dd-item" href="#" onclick="event.preventDefault();goTo('home');closeDD()"><svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>Salir</a>
       </div>
     </div>
-  </nav>
+  </header>
   <div class="search-bar-r">
     <input type="text" value="Camiseta">
     <button class="btn-search" onclick="goTo('resultados')">Buscar</button>
@@ -698,8 +702,8 @@
   </div>
   <div class="results-main">
     <aside class="results-sidebar">
-      <div class="sidebar-section-title">Resumen de pago</div>
-      <div class="sidebar-sub-title" style="margin-top:0">Total del carrito:</div>
+      <div tabindex="0" class="sidebar-section-title">Resumen de pago</div>
+      <div tabindex="0" class="sidebar-sub-title" style="margin-top:0">Total del carrito:</div>
       <div id="pago-total" style="font-size:1.2rem;font-weight:800;color:var(--pink);margin-bottom:12px;">$ 0</div>
       <p style="font-size:0.82rem;color:var(--text-mid);line-height:1.5;">Completa tus datos para finalizar la compra.</p>
     </aside>
@@ -711,15 +715,15 @@
             <label class="pago-label">Nombre completo</label>
             <div class="field-wrap">
               <input type="text" id="pago-nombre" placeholder="Tu nombre completo">
-              <div class="field-error" id="err-pago-nombre">Este campo es obligatorio</div>
+              <div tabindex="0" class="field-error" id="err-pago-nombre">Este campo es obligatorio</div>
             </div>
           </div>
           <div class="pago-field">
             <label class="pago-label">Correo electrónico</label>
             <div class="field-wrap">
               <input type="text" id="pago-email" placeholder="correo@ejemplo.com">
-              <div class="field-error" id="err-pago-email-empty">Este campo es obligatorio</div>
-              <div class="field-error" id="err-pago-email-at">Introduce una dirección de correo válida (debe contener @)</div>
+              <div tabindex="0" class="field-error" id="err-pago-email-empty">Este campo es obligatorio</div>
+              <div tabindex="0" class="field-error" id="err-pago-email-at">Introduce una dirección de correo válida (debe contener @)</div>
             </div>
           </div>
         </div>
@@ -728,14 +732,14 @@
             <label class="pago-label">Dirección de envío</label>
             <div class="field-wrap">
               <input type="text" id="pago-dir" placeholder="Calle y número">
-              <div class="field-error" id="err-pago-dir">Este campo es obligatorio</div>
+              <div tabindex="0" class="field-error" id="err-pago-dir">Este campo es obligatorio</div>
             </div>
           </div>
           <div class="pago-field">
             <label class="pago-label">Ciudad / País</label>
             <div class="field-wrap">
               <input type="text" id="pago-ciudad" placeholder="Ciudad, País">
-              <div class="field-error" id="err-pago-ciudad">Este campo es obligatorio</div>
+              <div tabindex="0" class="field-error" id="err-pago-ciudad">Este campo es obligatorio</div>
             </div>
           </div>
         </div>
@@ -744,8 +748,8 @@
             <label class="pago-label">Código postal</label>
             <div class="field-wrap">
               <input type="text" id="pago-cp" placeholder="Ej: 110111" maxlength="6" oninput="this.value=this.value.replace(/\D/g,'').slice(0,6)">
-              <div class="field-error" id="err-pago-cp-empty">Este campo es obligatorio</div>
-              <div class="field-error" id="err-pago-cp-len">El código postal debe tener 6 dígitos</div>
+              <div tabindex="0" class="field-error" id="err-pago-cp-empty">Este campo es obligatorio</div>
+              <div tabindex="0" class="field-error" id="err-pago-cp-len">El código postal debe tener 6 dígitos</div>
             </div>
           </div>
           <div class="pago-field">
@@ -774,16 +778,16 @@
 
 <!-- ══════════ COMPRA EXITOSA ══════════ -->
 <div id="page-exitosa" class="page" style="flex-direction:column;">
-  <nav>
+  <header>
     <span class="logo" onclick="goTo('home')"><img src="/assets/Logo fondo blanco.png" class="logo-img" alt="logo"> ChipSail</span>
-    <div class="nav-user-area">
+    <div class="header-user-area">
       <button class="user-btn" onclick="toggleDD('dd-exitosa')"><svg viewBox="0 0 24 24"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/></svg></button>
       <div class="user-dropdown" id="dd-exitosa">
         <a class="dd-item" href="#" onclick="event.preventDefault();goTo('carrito');closeDD()"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6L18 2z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>Carrito</a>
         <a class="dd-item" href="#" onclick="event.preventDefault();goTo('home');closeDD()"><svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>Salir</a>
       </div>
     </div>
-  </nav>
+  </header>
   <div class="search-bar-r">
     <input type="text" value="Camiseta">
     <button class="btn-search" onclick="goTo('resultados')">Buscar</button>
@@ -1344,7 +1348,7 @@
   }
 
   /* ═══════════════════════════════
-     NAVEGACIÓN
+     headerEGACIÓN
   ═══════════════════════════════ */
   function goTo(page) {
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
@@ -1385,7 +1389,7 @@
     document.querySelectorAll('.user-dropdown').forEach(d => d.classList.remove('open'));
   }
   document.addEventListener('click', function(e) {
-    if (!e.target.closest('.nav-user-area')) closeDD();
+    if (!e.target.closest('.header-user-area')) closeDD();
   });
 
   /* ═══════════════════════════════
