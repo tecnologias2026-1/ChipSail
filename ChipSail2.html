@@ -810,10 +810,10 @@
 </div>
 
 <!-- ══════════ MODAL BÚSQUEDA POR IMAGEN ══════════ -->
-<div id="img-search-overlay" class="img-search-overlay" style="display:none;" onclick="handleOverlayClick(event)">
-  <div class="img-search-box" onclick="event.stopPropagation()">
+<div tabindex="0"id="img-search-overlay" class="img-search-overlay" style="display:none;" onclick="handleOverlayClick(event)">
+  <div tabindex="0" class="img-search-box" onclick="event.stopPropagation()">
     <button class="btn-close-img-search" onclick="cerrarBusquedaImagen()">✕</button>
-    <div class="img-search-header">
+    <div tabindex="0" class="img-search-header">
       <svg class="img-search-icon" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
         <rect x="5" y="10" width="55" height="48" rx="4" ry="4" fill="#e8d0f8" stroke="#9d008b" stroke-width="3"/>
         <rect x="8" y="13" width="49" height="39" rx="2" ry="2" fill="white" opacity="0.6"/>
@@ -824,7 +824,7 @@
         <circle cx="55" cy="52" r="8" fill="none" stroke="#F5A623" stroke-width="3"/>
         <line x1="61" y1="58" x2="69" y2="66" stroke="#F5A623" stroke-width="3.5" stroke-linecap="round"/>
       </svg>
-      <p>Busca por imagen arrastrando una imagen a este campo para facilitar tu busqueda de producto.<br><br>Imágenes por defecto:</p>
+      <p tabindex="0" >Busca por imagen arrastrando una imagen a este campo para facilitar tu busqueda de producto.<br><br>Imágenes por defecto:</p>
     </div>
     <div class="img-search-divider"></div>
 
@@ -965,7 +965,7 @@
   }
 
   function productImg(imgFile) {
-    return `<img src="/assets/${imgFile}" alt="producto" style="width:100%;aspect-ratio:1/1;object-fit:cover;display:block;">`;
+    return `<img tabindex="0" src="/assets/${imgFile}" alt="producto" style="width:100%;aspect-ratio:1/1;object-fit:cover;display:block;">`;
   }
 
   function cardResHtml(vendor, idx, globalNum) {
@@ -976,10 +976,10 @@
       <div class="product-number-badge">${globalNum}</div>
       ${productImg(p.img)}
       <div class="product-body">
-        <div class="product-name">${p.name}</div>
-        <div class="product-desc">${p.desc}</div>
-        <div class="product-price">$ ${p.price}</div>
-        <div class="product-rating"><div class="stars-row">${starsHtml(p.stars)}</div><span class="rating-count">(${p.count})</span></div>
+        <div tabindex="0" class="product-name">${p.name}</div>
+        <div tabindex="0" class="product-desc">${p.desc}</div>
+        <div tabindex="0" class="product-price">$ ${p.price}</div>
+        <div tabindex="0" class="product-rating"><div class="stars-row">${starsHtml(p.stars)}</div><span class="rating-count">(${p.count})</span></div>
       </div>
       <div class="product-actions">
         <button class="btn-cart" onclick="addToCart('${vendor}',${idx})" ${inCart ? 'style="opacity:.5;cursor:default;"' : ''}>
