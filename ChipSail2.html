@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ChipSail</title>
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -12,1249 +13,1373 @@
       --pink: #9d008b;
       --pink-light: #f7d8fe;
       --pink-card: #f5b8e0;
-      --purple: #9b6fcf;
-      --purple-light: #c4a8f0;
       --white: #ffffff;
       --gray-bg: #f2f2f2;
       --text-dark: #1a1a1a;
       --text-mid: #555;
-      --recuadros:#ffd0f8;
       --radius: 18px;
     }
 
-    body {
-      font-family: 'Nunito', sans-serif;
-      background: var(--white);
-      color: var(--text-dark);
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
+    body { font-family: 'Nunito', sans-serif; background: var(--white); color: var(--text-dark); min-height: 100vh; display: flex; flex-direction: column; }
 
-    /* ── NAVEGACIÓN ── */
-    nav {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 14px 40px;
-      border-bottom: 1px solid #e8e8e8;
-      min-height: 72px;
-    }
+    header{ display: flex; justify-content: space-between; align-items: center; padding: 14px 40px; border-bottom: 1px solid #e8e8e8; min-height: 72px; }
 
-    .logo {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 1.25rem;
-      font-weight: 800;
-      color: var(--pink);
-      cursor: pointer;
-      line-height: 1;
-    }
+    .logo { display: flex; align-items: center; gap: 8px; font-size: 1.25rem; font-weight: 800; color: var(--pink); cursor: pointer; line-height: 1; }
+    .logo-img { width: 32px; height: 32px; object-fit: cover; display: flex; }
+    .logo-img-big { width: clamp(120px, 20vw, 300px); }
 
-    .logo-img {
-      width: 32px;
-      height: 32px;
-      object-fit: cover;
-      display: flex;
-    }
+    .header-buttons { display: flex; align-items: center; gap: 12px; }
 
-    .logo-img-big { 
-      width: clamp(120px, 20vw, 300px);
-
-    }
-
-    .nav-buttons {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .btn-outline {
-      padding: 8px 20px;
-      border: 1.5px solid var(--pink-light);
-      border-radius: 8px;
-      background: transparent;
-      font-family: 'Nunito', sans-serif;
-      font-size: 0.9rem;
-      font-weight: 700;
-      cursor: pointer;
-      height: 40px;
-      line-height: 1;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-    }
+    .btn-outline { padding: 8px 20px; border: 1.5px solid var(--pink-light); border-radius: 8px; background: transparent; font-family: 'Nunito', sans-serif; font-size: 0.9rem; font-weight: 700; cursor: pointer; height: 40px; line-height: 1; display: inline-flex; align-items: center; justify-content: center; }
     .btn-outline:hover { background: var(--gray-bg); }
 
-    .btn-solid {
-      padding: 8px 20px;
-      border: none;
-      border-radius: 8px;
-      background: var(--pink);
-      color: var(--white);
-      font-family: 'Nunito', sans-serif;
-      font-size: 0.9rem;
-      font-weight: 700;
-      cursor: pointer;
-      transition: background 0.2s;
-    }
-    .btn-solid:hover { background: #c8308a; }
-
-    /* ── PÁGINAS ── */
     .page { display: none; flex: 1; flex-direction: column; }
     .page.active { display: flex; }
 
-    /* ── INICIO ── */
-    #page-home .search-bar {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 18px clamp(10px, 5vw, 40px);
-      flex-wrap: wrap;
-      border-bottom: 1px solid #e8e8e8;
-    }
+    /* ── HOME ── */
+    #page-home .search-bar { display: flex; align-items: center; gap: 10px; padding: 18px clamp(10px,5vw,40px); flex-wrap: wrap; border-bottom: 1px solid #e8e8e8; }
+    #page-home .search-bar input { flex: 1; min-width: 200px; padding: 12px 18px; border: none; border-radius: 8px; background: var(--gray-bg); font-family: 'Nunito', sans-serif; font-size: 1rem; outline: none; width: 100%; }
 
-    #page-home .search-bar input {
-      flex: 1;
-      min-width: 200px;
-      padding: 12px 18px;
-      border: none;
-      border-radius: 8px;
-      background: var(--gray-bg);
-      font-family: 'Nunito', sans-serif;
-      font-size: 1rem;
-      outline: none;
-       width: 100%;
-    }
-
-    .btn-search {
-      padding: 12px 28px;
-      min-width: 120px;
-      max-width: 220px;
-      width: clamp(120px, 20vw, 200px);
-      border: none;
-      border-radius: 8px;
-      background: var(--pink);
-      color: var(--white);
-      font-family: 'Nunito', sans-serif;
-      font-size: clamp(0.72rem, 1.8vw, 0.8rem);
-      font-weight: 700;
-      cursor: pointer;
-      transition: background 0.2s;
-    }
+    .btn-search { padding: 12px 28px; min-width: 120px; max-width: 220px; width: clamp(120px,20vw,200px); border: none; border-radius: 8px; background: var(--pink); color: var(--white); font-family: 'Nunito', sans-serif; font-size: clamp(0.72rem,1.8vw,0.8rem); font-weight: 700; cursor: pointer; transition: background 0.2s; }
     .btn-search:hover { background: #c8308a; }
 
-    .btn-img-search {
-      padding: 10px 16px;
-      min-width: 120px;
-      max-width: 220px;
-      width: clamp(120px, 20vw, 200px);
-      border: 1.5px solid var(--pink);
-      border-radius: 8px;
-      background: transparent;
-      color: var(--pink);
-      font-family: 'Nunito', sans-serif;
-      font-size: clamp(0.72rem, 1.8vw, 0.8rem);
-      font-weight: 700;
-      cursor: pointer;
-      white-space: nowrap;
-      transition: background 0.2s;
-    }
+    .btn-img-search { padding: 10px 16px; min-width: 120px; max-width: 220px; width: clamp(120px,20vw,200px); border: 1.5px solid var(--pink); border-radius: 8px; background: transparent; color: var(--pink); font-family: 'Nunito', sans-serif; font-size: clamp(0.72rem,1.8vw,0.8rem); font-weight: 700; cursor: pointer; white-space: nowrap; transition: background 0.2s; }
     .btn-img-search:hover { background: var(--pink-light); }
 
-    #page-home .hero {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 40px 20px 20px;
-      text-align: center;
-    }
-
+    #page-home .hero { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px 20px 20px; text-align: center; }
     .hero h1 { font-size: 2rem; font-weight: 800; margin: 24px 0 10px; }
     .hero p { color: var(--text-mid); max-width: 480px; line-height: 1.6; }
 
-    .features {
-      display: flex;
-      gap: 20px;
-      justify-content: center;
-      flex-wrap: wrap;
-      padding: 40px 40px 0;
-    }
-
-    .feature-card {
-      background: var(--pink-light);
-      border-radius: var(--radius);
-      padding: 32px 28px;
-      max-width: 260px;
-      text-align: center;
-    }
+    .features { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; padding: 40px 40px 0; }
+    .feature-card { background: var(--pink-light); border-radius: var(--radius); padding: 32px 28px; max-width: 260px; text-align: center; }
     .feature-card h3 { font-size: 1.05rem; font-weight: 800; margin-bottom: 10px; }
     .feature-card p { font-size: 0.88rem; color: var(--text-mid); line-height: 1.5; }
 
-    /* ── LOGIN / REGISTRO ── */
-    .auth-page {
+    /* ── AUTH ── */
+    .auth-page { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px 20px; position: relative; }
+    .auth-box { background: var(--pink-card); border-radius: var(--radius); padding: 48px 44px; width: 100%; max-width: 360px; text-align: center; box-shadow: 0 8px 32px rgba(224,64,160,0.1); }
+    .auth-box h2 { font-size: 1.5rem; font-weight: 800; margin-bottom: 28px; }
+    .auth-box input { width: 100%; padding: 12px 16px; border: none; border-radius: 8px; background: #ececec; font-family: 'Nunito', sans-serif; font-size: 0.95rem; margin-bottom: 14px; outline: none; }
+    .btn-auth { margin-top: 8px; padding: 11px 32px; border: 1.5px solid var(--text-dark); border-radius: 8px; background: var(--white); font-family: 'Nunito', sans-serif; font-size: 0.95rem; font-weight: 700; cursor: pointer; transition: background 0.2s; }
+    .btn-auth:hover { background: var(--gray-bg); }
+    .auth-logo { position: absolute; right: 12%; top: 50%; transform: translateY(-50%); opacity: 0.9; }
+
+    footer { text-align: center; padding: 20px; font-size: 0.78rem; color: var(--pink); border-top: 1px solid #f0e0f0; display: flex; justify-content: center; gap: 24px; flex-wrap: wrap; }
+    footer a { color: var(--pink); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+
+    /* ── header USER ── */
+    .header-user-area { position: relative; }
+    .user-btn { width: 42px; height: 42px; border-radius: 50%; background: #b06ac0; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.2s, transform 0.15s; padding: 0; }
+    .user-btn:hover { background: var(--pink); transform: scale(1.05); }
+    .user-btn svg { width: 26px; height: 26px; fill: var(--white); }
+    .user-dropdown { position: absolute; top: calc(100% + 10px); right: 0; background: var(--white); border: 1px solid #e8e8e8; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.12); min-width: 165px; overflow: hidden; opacity: 0; transform: translateY(-8px) scale(0.97); pointer-events: none; transition: opacity 0.18s ease, transform 0.18s ease; z-index: 300; }
+    .user-dropdown.open { opacity: 1; transform: translateY(0) scale(1); pointer-events: all; }
+    .dd-item { display: flex; align-items: center; gap: 11px; padding: 13px 18px; font-size: 0.93rem; font-weight: 700; color: var(--text-dark); cursor: pointer; border-bottom: 1px solid #f5f5f5; transition: background 0.15s, color 0.15s; text-decoration: none; }
+    .dd-item:last-child { border-bottom: none; }
+    .dd-item:hover { background: var(--pink-light); color: var(--pink); }
+    .dd-item svg { width: 19px; height: 19px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
+
+    /* ── SEARCH BAR INTERIOR ── */
+    .search-bar-r { display: flex; align-items: center; gap: 10px; padding: 16px 32px; background: var(--gray-bg); border-bottom: 1px solid #e8e8e8; flex-wrap: wrap; position: relative; }
+    .search-bar-r input { flex: 1; min-width: 120px; padding: 11px 18px; border: 1.5px solid #ddd; border-radius: 8px; background: var(--white); font-family: 'Nunito', sans-serif; font-size: 0.97rem; outline: none; transition: border-color 0.2s; }
+    .search-bar-r input:focus { border-color: var(--pink); }
+
+    /* ── LAYOUT PRINCIPAL ── */
+    .results-main { display: flex; gap: 0; flex: 1; padding: 24px 32px; align-items: flex-start; }
+
+    /* ── SIDEBAR ── */
+    .results-sidebar { width: 215px; flex-shrink: 0; background: var(--white); border-radius: 14px; border: 1px solid #eee; padding: 18px 16px; margin-right: 22px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+    .sidebar-section-title { font-size: 1rem; font-weight: 800; color: var(--text-dark); margin-bottom: 14px; }
+    .sidebar-sub-title { font-size: 0.85rem; font-weight: 800; color: var(--text-dark); margin: 14px 0 8px; }
+
+    /* ── PRECIO ── */
+    .price-range-wrap { margin-bottom: 4px; }
+    .price-slider { width: 100%; accent-color: var(--pink); cursor: pointer; margin-bottom: 4px; }
+    .price-val { font-size: 0.82rem; color: var(--text-mid); font-weight: 700; }
+
+    /* ── CHECKBOXES TIENDA ── */
+    .vendor-list { list-style: none; margin-bottom: 4px; }
+    .vendor-item { display: flex; align-items: center; gap: 9px; padding: 5px 0; font-size: 0.9rem; cursor: pointer; }
+    .vendor-item label { cursor: pointer; }
+    .vendor-item input[type="checkbox"] { -webkit-appearance: none; appearance: none; width: 17px; height: 17px; border: 2px solid #bbb; border-radius: 3px; background: white; cursor: pointer; position: relative; flex-shrink: 0; transition: background 0.15s, border-color 0.15s; }
+    .vendor-item input[type="checkbox"]:checked { background: var(--pink); border-color: var(--pink); }
+    .vendor-item input[type="checkbox"]:checked::after { content: '✓'; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); color: white; font-size: 11px; font-weight: 900; line-height: 1; }
+
+    /* ── ESTRELLAS ── */
+    .rating-filter-list { list-style: none; }
+    .rating-filter-item { display: flex; align-items: center; gap: 6px; padding: 5px 6px; font-size: 0.83rem; color: var(--text-mid); cursor: pointer; transition: background 0.15s, color 0.15s; border-radius: 6px; }
+    .rating-filter-item:hover { background: var(--pink-light); color: var(--pink); }
+    .rating-filter-item.active { background: var(--pink-light); color: var(--pink); font-weight: 800; }
+    .stars-row { display: flex; gap: 2px; }
+    .sf { color: #F5A623; font-size: 0.93rem; }
+    .se { color: #ddd; font-size: 0.93rem; }
+    .all-ratings-lbl { font-size: 0.83rem; color: var(--text-mid); padding: 5px 6px; cursor: pointer; border-radius: 6px; transition: background 0.15s, color 0.15s; }
+    .all-ratings-lbl:hover { background: var(--pink-light); color: var(--pink); }
+    .all-ratings-lbl.active { background: var(--pink-light); color: var(--pink); font-weight: 800; }
+
+    /* ── GRID ── */
+    .products-area { flex: 1; min-width: 0; }
+    .products-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; }
+
+    /* ── CARDS ── */
+    /* CAMBIO: eliminado transform en hover para quitar el zoom de la imagen */
+    .product-card { background: var(--white); border-radius: 14px; border: 1px solid #eee; overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 2px 10px rgba(0,0,0,0.05); transition: box-shadow 0.2s; position: relative; }
+    .product-card:hover { box-shadow: 0 6px 24px rgba(157,0,139,0.13); }
+    .product-img-placeholder { width: 100%; aspect-ratio: 1/1; background: linear-gradient(135deg,#f9eeff 0%,#f0d8f8 100%); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; color: #bbb; font-size: 0.78rem; font-weight: 600; }
+    .product-img-placeholder svg { width: 38px; height: 38px; stroke: #ccc; fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+    .product-body { padding: 12px 14px 6px; display: flex; flex-direction: column; gap: 5px; flex: 1; text-align: center; }
+    .product-name { font-size: 0.93rem; font-weight: 800; color: var(--text-dark); }
+    .product-desc { font-size: 0.78rem; color: var(--text-mid); }
+    .product-price { font-size: 1rem; font-weight: 800; color: var(--pink); }
+    .product-rating { display: flex; align-items: center; justify-content: center; gap: 5px; }
+    .rating-count { font-size: 0.76rem; color: var(--text-mid); }
+    .product-actions { padding: 8px 12px 12px; display: flex; flex-direction: column; gap: 7px; }
+
+    .btn-cart { width: 100%; padding: 10px; background: var(--pink); color: var(--white); border: none; border-radius: 50px; font-family: 'Nunito', sans-serif; font-size: 0.86rem; font-weight: 800; cursor: pointer; transition: background 0.2s; }
+    .btn-cart:hover { background: #c8308a; }
+    .btn-historial { width: 100%; padding: 8px; background: transparent; color: var(--pink); border: 1.5px solid var(--pink); border-radius: 50px; font-family: 'Nunito', sans-serif; font-size: 0.86rem; font-weight: 800; cursor: pointer; transition: background 0.2s; }
+    .btn-historial:hover { background: var(--pink-light); }
+    .btn-pagar { width: 100%; padding: 10px; background: var(--pink); color: var(--white); border: none; border-radius: 50px; font-family: 'Nunito', sans-serif; font-size: 0.86rem; font-weight: 800; cursor: pointer; transition: background 0.2s; }
+    .btn-pagar:hover { background: #c8308a; }
+    .btn-pagar-todo { display: block; margin: 28px auto 8px; padding: 13px 56px; background: var(--pink); color: var(--white); border: none; border-radius: 50px; font-family: 'Nunito', sans-serif; font-size: 1rem; font-weight: 800; cursor: pointer; transition: background 0.2s; }
+    .btn-pagar-todo:hover { background: #c8308a; }
+
+    /* CAMBIO: empty-cart más grande y centrado */
+    .empty-cart { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 80px 20px; text-align: center; gap: 20px; color: var(--text-mid); min-height: 400px; width: 100%; }
+    .empty-cart svg { width: 110px; height: 110px; stroke: #ccc; fill: none; stroke-width: 1.5; }
+    .empty-cart p { font-size: 1.2rem; font-weight: 700; max-width: 320px; line-height: 1.5; }
+
+    .no-results { grid-column: 1/-1; text-align: center; padding: 48px 20px; color: var(--text-mid); font-size: 0.95rem; font-weight: 700; }
+    .cart-title { font-size: 1rem; font-weight: 800; color: var(--text-dark); margin-bottom: 14px; }
+    .btn-volver { display: inline-flex; align-items: center; gap: 7px; padding: 9px 22px; border: 1.5px solid var(--pink); border-radius: 50px; background: transparent; color: var(--pink); font-family: 'Nunito', sans-serif; font-size: 0.88rem; font-weight: 800; cursor: pointer; transition: background 0.2s; margin-bottom: 16px; }
+    .btn-volver:hover { background: var(--pink-light); }
+    .cart-header { display: flex; align-items: center; gap: 16px; margin-bottom: 14px; flex-wrap: wrap; }
+
+    /* ── PAGO ── */
+    .pago-wrap { flex: 1; display: flex; align-items: flex-start; justify-content: flex-start; padding: 0; }
+    .pago-form-box { background: var(--pink-card); border-radius: var(--radius); padding: 36px 40px; width: 100%; max-width: 100%; box-shadow: 0 8px 32px rgba(224,64,160,0.1); }
+    .pago-form-box h2 { font-size: 1.3rem; font-weight: 800; margin-bottom: 22px; }
+    .pago-label { font-size: 0.85rem; font-weight: 700; color: var(--text-dark); display: block; margin-bottom: 6px; }
+    .pago-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .pago-row .pago-field { display: flex; flex-direction: column; }
+    .pago-form-box input[type="text"] { width: 100%; padding: 11px 14px; border: none; border-radius: 8px; background: #ececec; font-family: 'Nunito', sans-serif; font-size: 0.93rem; margin-bottom: 16px; outline: none; }
+    .pago-field input[type="text"] { margin-bottom: 0; }
+    .medio-wrap { display: flex; gap: 12px; margin-bottom: 20px; flex-wrap: wrap; }
+    .medio-opt { display: flex; align-items: center; gap: 8px; padding: 10px 18px; border: 2px solid #ddd; border-radius: 10px; cursor: pointer; font-size: 0.88rem; font-weight: 700; background: white; transition: border-color 0.2s, background 0.2s; user-select: none; }
+    .medio-opt input[type="radio"] { accent-color: var(--pink); cursor: pointer; }
+    .medio-opt:has(input:checked) { border-color: var(--pink); background: var(--pink-light); }
+    .btn-finalizar { width: 100%; padding: 13px; background: var(--pink); color: var(--white); border: none; border-radius: 50px; font-family: 'Nunito', sans-serif; font-size: 1rem; font-weight: 800; cursor: pointer; transition: background 0.2s; margin-top: 6px; }
+    .btn-finalizar:hover { background: #c8308a; }
+
+    /* ── SELECTOR DE CANTIDAD (CARRITO) ── */
+    .qty-control { display: flex; align-items: center; gap: 8px; justify-content: center; margin: 6px 0 2px; }
+    .qty-btn { width: 26px; height: 26px; border-radius: 50%; border: 1.5px solid var(--pink); background: transparent; color: var(--pink); font-size: 1.1rem; font-weight: 800; cursor: pointer; display: flex; align-items: center; justify-content: center; line-height: 1; padding: 0; transition: background 0.15s, color 0.15s; font-family: 'Nunito', sans-serif; }
+    .qty-btn:hover { background: var(--pink); color: var(--white); }
+    .qty-num { font-size: 0.9rem; font-weight: 800; color: var(--text-dark); min-width: 22px; text-align: center; }
+    .product-price-total { font-size: 1rem; font-weight: 800; color: var(--pink); }
+
+    /* ── VALIDACIÓN ── */
+    .field-wrap { position: relative; margin-bottom: 14px; }
+    .field-wrap input { width: 100%; padding: 12px 16px; border: 2px solid transparent; border-radius: 8px; background: #ececec; font-family: 'Nunito', sans-serif; font-size: 0.95rem; outline: none; transition: border-color 0.2s; box-sizing: border-box; }
+    .field-wrap input:focus { border-color: var(--pink); }
+    .field-wrap input.input-error { border-color: #e53935; background: #fff5f5; }
+    .field-error { font-size: 0.75rem; font-weight: 700; color: #e53935; margin-top: 4px; display: none; }
+    .field-error.show { display: block; }
+    .pwd-checklist { list-style: none; margin: 4px 0 10px; padding: 0; font-size: 0.78rem; display: flex; flex-direction: column; gap: 3px; }
+    .pwd-checklist li { color: #aaa; font-weight: 700; transition: color 0.2s; display: flex; align-items: center; gap: 5px; }
+    .pwd-checklist li.ok { color: #2e7d32; }
+    .pwd-checklist li::before { content: '✗'; font-size: 0.8rem; }
+    .pwd-checklist li.ok::before { content: '✔'; }
+    .success-modal { position: fixed; inset: 0; background: rgba(0,0,0,0.45); display: flex; align-items: center; justify-content: center; z-index: 999; }
+    .success-box { background: var(--white); border-radius: var(--radius); padding: 40px 48px; text-align: center; box-shadow: 0 8px 40px rgba(0,0,0,0.18); max-width: 360px; width: 90%; }
+    .success-box h3 { font-size: 1.3rem; font-weight: 800; color: var(--pink); margin-bottom: 10px; }
+    .success-box p { font-size: 0.95rem; color: var(--text-mid); margin-bottom: 22px; }
+    .success-box button { padding: 10px 32px; background: var(--pink); color: var(--white); border: none; border-radius: 50px; font-family: 'Nunito', sans-serif; font-size: 0.95rem; font-weight: 800; cursor: pointer; }
+    .pago-field .field-wrap { margin-bottom: 0; }
+    .pago-field .field-wrap input { background: #ececec; border: 2px solid transparent; }
+
+    /* CAMBIO: exitosa-area más grande, centrada y con más presencia */
+    .exitosa-area {
       flex: 1;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 40px 20px;
+      gap: 22px;
+      text-align: center;
+      padding: 60px 20px;
+      min-height: 420px;
+      width: 100%;
+    }
+    .exitosa-area h2 { font-size: 2.2rem; font-weight: 800; color: var(--text-dark); }
+    .exitosa-area p { font-size: 1.15rem; font-weight: 700; color: var(--text-mid); }
+    .cart-icon-big { width: 140px; height: 140px; stroke: var(--pink); fill: none; stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; }
+
+    /* ── NÚMERO DE PRODUCTO (BADGE) ── */
+    .product-number-badge {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: var(--pink);
+      color: white;
+      font-size: 0.72rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+      box-shadow: 0 2px 6px rgba(157,0,139,0.4);
+      font-family: 'Nunito', sans-serif;
+      pointer-events: none;
+    }
+
+    /* ── IMAGEN SEARCH POPUP ── */
+    .img-search-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.45);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 500;
+    }
+    .img-search-box {
+      background: var(--pink-light);
+      border-radius: 20px;
+      padding: 28px 28px 24px;
+      width: 94%;
+      max-width: 480px;
+      box-shadow: 0 10px 40px rgba(157,0,139,0.25);
       position: relative;
     }
-
-    .auth-box {
-      background: var(--pink-card);
-      border-radius: var(--radius);
-      padding: 48px 44px;
-      width: 100%;
-      max-width: 360px;
-      text-align: center;
-      box-shadow: 0 8px 32px rgba(224,64,160,0.1);
+    .img-search-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 14px;
     }
+    .img-search-header .img-search-icon {
+      width: 64px;
+      height: 64px;
+      flex-shrink: 0;
+    }
+    .img-search-header p {
+      font-size: 0.88rem;
+      color: var(--text-dark);
+      line-height: 1.5;
+      font-weight: 600;
+    }
+    .img-search-divider {
+      height: 2px;
+      background: var(--pink);
+      border-radius: 2px;
+      margin: 14px 0;
+      opacity: 0.3;
+    }
+    .img-search-sub { font-size: 0.82rem; font-weight: 800; color: var(--text-dark); margin-bottom: 10px; }
+    .img-thumbnails {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
+    }
+    .img-thumb {
+      width: 74px;
+      height: 74px;
+      border-radius: 10px;
+      border: 2.5px solid transparent;
+      overflow: hidden;
+      cursor: pointer;
+      transition: border-color 0.18s, box-shadow 0.15s;
+      background: #f0d8f8;
+      display: flex; align-items: center; justify-content: center;
+      position: relative;
+    }
+    .img-thumb img {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+    }
+    .img-thumb .thumb-num {
+      position: absolute;
+      top: 3px; right: 3px;
+      background: var(--pink);
+      color: white;
+      font-size: 0.6rem;
+      font-weight: 800;
+      border-radius: 50%;
+      width: 17px; height: 17px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .img-thumb.selected {
+      border-color: var(--pink);
+      box-shadow: 0 0 0 3px rgba(157,0,139,0.25);
+    }
+    .img-thumb:hover { border-color: var(--pink); }
 
-    .auth-box h2 { font-size: 1.5rem; font-weight: 800; margin-bottom: 28px; }
-
-    .auth-box input {
-      width: 100%;
-      padding: 12px 16px;
+    .img-search-num-row {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    .img-search-num-row input {
+      flex: 1;
+      padding: 10px 14px;
       border: none;
       border-radius: 8px;
       background: #ececec;
       font-family: 'Nunito', sans-serif;
       font-size: 0.95rem;
-      margin-bottom: 14px;
       outline: none;
+       width: 100%;
     }
-
-    .btn-auth {
-      margin-top: 8px;
-      padding: 11px 32px;
-      border: 1.5px solid var(--text-dark);
+    .img-search-num-row input:focus { outline: 2px solid var(--pink); }
+    .btn-buscar-img {
+      padding: 10px 22px;
+      background: var(--pink);
+      color: white;
+      border: none;
       border-radius: 8px;
-      background: var(--white);
       font-family: 'Nunito', sans-serif;
-      font-size: 0.95rem;
-      font-weight: 700;
+      font-size: 0.88rem;
+      font-weight: 800;
       cursor: pointer;
       transition: background 0.2s;
     }
-    .btn-auth:hover { background: var(--gray-bg); }
-
-    .auth-logo {
-      position: absolute;
-      right: 12%;
-      top: 50%;
-      transform: translateY(-50%);
-      opacity: 0.9;
-    }
-
-    /* ── FOOTER ── */
-    footer {
-      text-align: center;
-      padding: 20px;
+    .btn-buscar-img:hover { background: #c8308a; }
+    .img-search-error {
       font-size: 0.78rem;
-      color: var(--pink);
-      border-top: 1px solid #f0e0f0;
-      display: flex;
-      justify-content: center;
-      gap: 24px;
-      flex-wrap: wrap;
+      color: #e53935;
+      font-weight: 700;
+      margin-bottom: 8px;
+      display: none;
     }
-    footer a { color: var(--pink); text-decoration: none; }
-    footer a:hover { text-decoration: underline; }
-
-    .sail-icon { width: 80px; height: 80px; }
-    .sail-icon-sm { width: 34px; height: 34px; }
-
-        /* ═══════════════════════════════════════════════════
-       NUEVO: Estilos compartidos para páginas con sidebar
-    ═══════════════════════════════════════════════════ */
-
-    /* User button & dropdown (compartido) */
-    .nav-user-area { position: relative; }
-
-    .user-btn {
-      width: 42px; height: 42px;
-      border-radius: 50%;
-      background: #b06ac0;
-      border: none; cursor: pointer;
-      display: flex; align-items: center; justify-content: center;
-      transition: background 0.2s, transform 0.15s;
-      padding: 0;
-    }
-    .user-btn:hover { background: var(--pink); transform: scale(1.05); }
-    .user-btn svg { width: 26px; height: 26px; fill: var(--white); }
-
-    .user-dropdown {
+    .img-search-error.show { display: block; }
+    .btn-close-img-search {
       position: absolute;
-      top: calc(100% + 10px); right: 0;
-      background: var(--white);
-      border: 1px solid #e8e8e8;
-      border-radius: 12px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.12);
-      min-width: 165px; overflow: hidden;
-      opacity: 0; transform: translateY(-8px) scale(0.97);
-      pointer-events: none;
-      transition: opacity 0.18s ease, transform 0.18s ease;
-      z-index: 300;
-    }
-    .user-dropdown.open { opacity: 1; transform: translateY(0) scale(1); pointer-events: all; }
-
-    .dd-item {
-      display: flex; align-items: center; gap: 11px;
-      padding: 13px 18px;
-      font-size: 0.93rem; font-weight: 700; color: var(--text-dark);
+      top: 12px; right: 14px;
+      background: none;
+      border: none;
+      font-size: 1.4rem;
       cursor: pointer;
-      border-bottom: 1px solid #f5f5f5;
-      transition: background 0.15s, color 0.15s;
-      text-decoration: none;
+      color: var(--pink);
+      font-weight: 800;
+      line-height: 1;
     }
-    .dd-item:last-child { border-bottom: none; }
-    .dd-item:hover { background: var(--pink-light); color: var(--pink); }
-    .dd-item svg {
-      width: 19px; height: 19px;
-      stroke: currentColor; fill: none;
-      stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
-      flex-shrink: 0;
+    .btn-limpiar {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      background: transparent;
+      color: var(--pink);
+      border: 1.5px solid var(--pink);
+      border-radius: 50px;
+      font-family: 'Nunito', sans-serif;
+      font-size: 0.86rem;
+      font-weight: 800;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: background 0.2s;
     }
+    .btn-limpiar:hover { background: white; }
 
-    /* Search bar reutilizable */
-    .search-bar-r {
-      display: flex; align-items: center; gap: 10px;
-      padding: 16px 32px;
-      background: var(--gray-bg);
-      border-bottom: 1px solid #e8e8e8;
-      flex-wrap: wrap;
+    /* ── HISTORIAL MODAL ── */
+    .historial-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 600;
     }
-    .search-bar-r input {
-      flex: 1; min-width: 120px;
-      padding: 11px 18px;
-      border: 1.5px solid #ddd; border-radius: 8px;
-      background: var(--white);
-      font-family: 'Nunito', sans-serif; font-size: 0.97rem;
-      outline: none; transition: border-color 0.2s;
+    .historial-box {
+      background: white;
+      border-radius: 20px;
+      padding: 28px 24px 24px;
+      width: 95%;
+      max-width: 560px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.25);
+      position: relative;
     }
-    .search-bar-r input:focus { border-color: var(--pink); }
-
-    /* Layout principal con sidebar */
-    .results-main {
-      display: flex; gap: 0;
-      flex: 1;
-      padding: 24px 32px;
-      align-items: flex-start;
+    .historial-box h3 {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: var(--text-dark);
+      margin-bottom: 18px;
+      text-align: center;
     }
-
-    /* Sidebar */
-    .results-sidebar {
-      width: 200px; flex-shrink: 0;
-      background: var(--white);
-      border-radius: 14px; border: 1px solid #eee;
-      padding: 18px 16px; margin-right: 22px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-    }
-
-    .sidebar-section-title { font-size: 1rem; font-weight: 800; color: var(--text-dark); margin-bottom: 14px; }
-
-    .price-range-wrap { margin-bottom: 16px; }
-    .price-slider { width: 100%; accent-color: var(--pink); cursor: pointer; margin-bottom: 4px; }
-    .price-val { font-size: 0.78rem; color: var(--text-mid); }
-
-    /* Radio buttons estilo checkbox cuadrado */
-    .vendor-list { list-style: none; margin-bottom: 16px; }
-    .vendor-item {
-      display: flex; align-items: center; gap: 9px;
-      padding: 5px 0; font-size: 0.9rem; cursor: pointer;
-    }
-    .vendor-item input[type="radio"] {
-      -webkit-appearance: none; appearance: none;
-      width: 17px; height: 17px;
-      border: 2px solid #bbb; border-radius: 3px;
-      background: white; cursor: pointer;
-      position: relative; flex-shrink: 0;
-      transition: background 0.15s, border-color 0.15s;
-    }
-    .vendor-item input[type="radio"]:checked {
-      background: var(--pink); border-color: var(--pink);
-    }
-    .vendor-item input[type="radio"]:checked::after {
-      content: '✓';
-      position: absolute; top: 50%; left: 50%;
-      transform: translate(-50%, -50%);
-      color: white; font-size: 11px; font-weight: 900;
+    .btn-close-historial {
+      position: absolute;
+      top: 12px; right: 14px;
+      background: none;
+      border: none;
+      font-size: 1.4rem;
+      cursor: pointer;
+      color: var(--pink);
+      font-weight: 800;
       line-height: 1;
     }
 
-    .rating-filter-list { list-style: none; }
-    .rating-filter-item {
-      display: flex; align-items: center; gap: 6px;
-      padding: 4px 0; font-size: 0.83rem; color: var(--text-mid);
-      cursor: pointer; transition: color 0.15s;
+    /* ── TOAST NOTIFICACIÓN ── */
+    .toast-notif {
+      position: fixed;
+      top: 88px;
+      left: 50%;
+      transform: translateX(-50%) translateY(-20px);
+      background: #1a1a1a;
+      color: white;
+      padding: 12px 28px;
+      border-radius: 50px;
+      font-family: 'Nunito', sans-serif;
+      font-size: 0.92rem;
+      font-weight: 700;
+      z-index: 9999;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      white-space: nowrap;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.25);
     }
-    .rating-filter-item:hover { color: var(--pink); }
-    .stars-row { display: flex; gap: 2px; }
-    .sf { color: #F5A623; font-size: 0.93rem; }
-    .se { color: #ddd; font-size: 0.93rem; }
-    .all-ratings-lbl { font-size: 0.83rem; color: var(--text-mid); padding: 5px 0; cursor: pointer; }
+    .toast-notif.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
 
-    /* Área de productos */
-    .products-area { flex: 1; min-width: 0; }
-
-    .products-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
-    }
-    .btn-finalizar:hover { background: #c8308a; }
-
-    /* Compra exitosa */
-    .exitosa-area {
-      flex: 1; display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
-      gap: 18px; text-align: center; padding: 40px 20px;
-       }
-    .exitosa-area h2 { font-size: 1.8rem; font-weight: 800; color: var(--text-dark); }
-    .exitosa-area p { font-size: 1rem; font-weight: 700; color: var(--text-mid); }
-    .cart-title {
-    font-size: 1rem; font-weight: 800;
-    color: var(--text-dark); margin-bottom: 14px;
-    }
-    .cart-icon-big {
-      width: 110px; height: 110px;
-      stroke: var(--pink); fill: none;
-      stroke-width: 4; stroke-linecap: round; stroke-linejoin: round;
-       }
-    @media (max-width: 1000px) {
-      .products-grid { grid-template-columns: repeat(2, 1fr); }
-    }
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1000px) { .products-grid { grid-template-columns: repeat(2,1fr); } }
     @media (max-width: 680px) {
+      /* CAMBIO: en móvil, una sola columna que ocupe bien el espacio (igual que carrito) */
       .products-grid { grid-template-columns: 1fr; }
       .results-main { padding: 14px; flex-direction: column; }
       .results-sidebar { width: 100%; margin-right: 0; margin-bottom: 18px; }
-      nav { padding: 12px 16px; }
+      header { padding: 12px 16px; }
       .search-bar-r { padding: 12px 16px; }
+      /* Cards en móvil deben ser amplias como en carrito */
+      .product-card { width: 100%; }
+      .exitosa-area h2 { font-size: 1.6rem; }
+      .cart-icon-big { width: 110px; height: 110px; }
     }
-
-    .product-card {
-      background: var(--white);
-      border-radius: 14px; border: 1px solid #eee;
-      overflow: hidden;
-      display: flex; flex-direction: column;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-      transition: box-shadow 0.2s, transform 0.2s;
-    }
-    .product-card:hover { box-shadow: 0 6px 24px rgba(157,0,139,0.13); transform: translateY(-3px); }
-
-    .product-img-placeholder {
-      width: 100%; aspect-ratio: 1 / 1;
-      background: linear-gradient(135deg, #f9eeff 0%, #f0d8f8 100%);
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
-      gap: 8px; color: #bbb; font-size: 0.78rem; font-weight: 600;
-    }
-    .product-img-placeholder svg {
-      width: 38px; height: 38px;
-      stroke: #ccc; fill: none;
-      stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round;
-    }
-
-    .product-body {
-      padding: 12px 14px 6px;
-      display: flex; flex-direction: column; gap: 5px;
-      flex: 1; text-align: center;
-    }
-    .product-name { font-size: 0.93rem; font-weight: 800; color: var(--text-dark); }
-    .product-desc { font-size: 0.78rem; color: var(--text-mid); }
-    .product-rating { display: flex; align-items: center; justify-content: center; gap: 5px; }
-    .rating-count { font-size: 0.76rem; color: var(--text-mid); }
-
-    .product-actions { padding: 8px 12px 12px; display: flex; flex-direction: column; gap: 7px; }
-
-    .btn-cart {
-      width: 100%; padding: 10px;
-      background: var(--pink); color: var(--white);
-      border: none; border-radius: 50px;
-      font-family: 'Nunito', sans-serif; font-size: 0.86rem; font-weight: 800;
-      cursor: pointer; transition: background 0.2s;
-    }
-    .btn-cart:hover { background: #c8308a; }
-
-    .btn-historial {
-      width: 100%; padding: 8px;
-      background: transparent; color: var(--pink);
-      border: 1.5px solid var(--pink); border-radius: 50px;
-      font-family: 'Nunito', sans-serif; font-size: 0.86rem; font-weight: 800;
-      cursor: pointer; transition: background 0.2s;
-    }
-    .btn-historial:hover { background: var(--pink-light); }
-
-    /* Botón Pagar (en carrito) */
-    .btn-pagar {
-      width: 100%; padding: 10px;
-      background: var(--pink); color: var(--white);
-      border: none; border-radius: 50px;
-      font-family: 'Nunito', sans-serif; font-size: 0.86rem; font-weight: 800;
-      cursor: pointer; transition: background 0.2s;
-    }
-    .btn-pagar:hover { background: #c8308a; }
-
-    /* Botón Pagar Todo */
-    .btn-pagar-todo {
-      display: block; margin: 28px auto 8px;
-      padding: 13px 56px;
-      background: var(--pink); color: var(--white);
-      border: none; border-radius: 50px;
-      font-family: 'Nunito', sans-serif; font-size: 1rem; font-weight: 800;
-      cursor: pointer; transition: background 0.2s;
-    }
-    .btn-pagar-todo:hover { background: #c8308a; }
-
-    /* Carrito vacío */
-    .empty-cart {
-      flex: 1; display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
-      padding: 60px 20px; text-align: center; gap: 14px;
-      color: var(--text-mid);
-    }
-    .empty-cart svg { width: 70px; height: 70px; stroke: #ccc; fill: none; stroke-width: 1.5; }
-    .empty-cart p { font-size: 1rem; font-weight: 700; }
-
-    /* Formulario de pago */
-    .pago-wrap {
-      flex: 1; display: flex;
-      align-items: flex-start; justify-content: flex-start;
-      padding: 0;
-    }
-    .pago-form-box {
-      background: var(--pink-card);
-      border-radius: var(--radius);
-      padding: 36px 36px;
-      width: 100%; max-width: 420px;
-      box-shadow: 0 8px 32px rgba(224,64,160,0.1);
-    }
-    .pago-form-box h2 { font-size: 1.3rem; font-weight: 800; margin-bottom: 22px; }
-    .pago-label { font-size: 0.85rem; font-weight: 700; color: var(--text-dark); display: block; margin-bottom: 6px; }
-    .pago-form-box input[type="text"] {
-      width: 100%; padding: 11px 14px;
-      border: none; border-radius: 8px;
-      background: #ececec;
-      font-family: 'Nunito', sans-serif; font-size: 0.93rem;
-      margin-bottom: 16px; outline: none;
-    }
-    .medio-wrap { display: flex; gap: 12px; margin-bottom: 20px; flex-wrap: wrap; }
-    .medio-opt {
-      display: flex; align-items: center; gap: 8px;
-      padding: 10px 18px;
-      border: 2px solid #ddd; border-radius: 10px;
-      cursor: pointer; font-size: 0.88rem; font-weight: 700;
-      background: white; transition: border-color 0.2s, background 0.2s;
-      user-select: none;
-    }
-    .medio-opt input[type="radio"] { accent-color: var(--pink); cursor: pointer; }
-    .medio-opt:has(input:checked) { border-color: var(--pink); background: var(--pink-light); }
-    .btn-finalizar {
-      width: 100%; padding: 13px;
-      background: var(--pink); color: var(--white);
-      border: none; border-radius: 50px;
-      font-family: 'Nunito', sans-serif; font-size: 1rem; font-weight: 800;
-      cursor: pointer; transition: background 0.2s; margin-top: 6px;
-      }
-    /* Celular */
-    @media (max-width: 768px) {
-      nav { padding: 12px 20px;}
-      .nav-buttons {gap: 6px;}
-      .search-bar {flex-direction: column;
-        align-items: stretch;}
-      .btn-search,
-      .btn-img-search {width: 100%; }
-      .hero h1 {font-size: 1.5rem;}
-      .features { padding: 20px;}
-    }
-
-    /* TABLET */
-    @media (min-width: 769px) and (max-width: 1024px) {
-      .features {justify-content: center;}
-    }
-    /* TABLET Y CELULAR */
+    @media (max-width: 768px) { header { padding: 12px 20px; } .header-buttons { gap: 6px; } .search-bar { flex-direction: column; align-items: stretch; } .btn-search,.btn-img-search { width: 100%; } .hero h1 { font-size: 1.5rem; } .features { padding: 20px; } }
+    @media (min-width: 769px) and (max-width: 1024px) { .features { justify-content: center; } }
     @media (max-width: 1024px) {
-    .auth-page {
-      flex-direction: column;
-      justify-content: center;
-      gap: 24px;
-    }
-
-    .auth-logo {
-      position: static;
-      transform: none;
-      right: auto;
-      top: auto;
-      order: 2;
-      display: flex;
-      justify-content: center;
-      width: 100%;
-      margin-top: 8px;
-    }
-
-    .auth-box {
-      order: 1;
-    }
-
-    .auth-logo .logo-img-big {
-      width: clamp(120px, 28vw, 220px);
-      max-width: none;
-      margin: 0 auto;
-      display: block;
+      .auth-page { flex-direction: column; justify-content: center; gap: 24px; }
+      .auth-logo { position: static; transform: none; right: auto; top: auto; order: 2; display: flex; justify-content: center; width: 100%; margin-top: 8px; }
+      .auth-box { order: 1; }
+      .auth-logo .logo-img-big { width: clamp(120px,28vw,220px); max-width: none; margin: 0 auto; display: block; }
     }
   }
   </style>
 </head>
 <body>
- 
+
+<!-- ══════════ TOAST NOTIFICACIÓN ══════════ -->
+<div id="toast-notif" class="toast-notif">Primero debes iniciar sesión</div>
+
 <!-- ══════════ INICIO ══════════ -->
 <div id="page-home" class="page active">
-  <nav>
-    <span class="logo" onclick="goTo('home')">
-      <img  src="/assets/Logo fondo blanco.png" class = "logo-img" alt="logo">
-      ChipSail
-    </span>
-    <div class="nav-buttons">
-      <button class="btn-outline" onclick="goTo('login')">Inicio de Sesión</button>
-      <button class="btn-outline" onclick="goTo('registro')">Registro</button>
+  <header>
+    <span tabindex="0" class="logo" onclick="goTo('home')"><img src="Logo fondo blanco.png" class="logo-img"> ChipSail</span>
+    <div class="header-buttons">
+      <button  class="btn-outline" onclick="goTo('login')">Inicio de Sesión</button>
+      <button  class="btn-outline" onclick="goTo('registro')">Registro</button>
     </div>
-  </nav>
+  </header>
   <div class="search-bar">
     <input type="text" placeholder="Busca productos">
-    <button class="btn-search">Buscar</button>
-    <button class="btn-img-search">Búsqueda por imagen</button>
+    <button  class="btn-search" onclick="handleHomeSearch()">Buscar</button>
+    <button  class="btn-img-search" onclick="handleHomeImageSearch()">Búsqueda por imagen</button>
   </div>
-  <div class="hero">
-    <img src="/assets/Logo fondo blanco.png" class = "logo-img-big" alt="logo">
-    <h1>Encuentra los mejores precios de toda la web</h1>
-    <p>Busqueda de productos y sus precios en diferentes aplicaciones como Amazon, eBay, Walmart, Target, y BestBuy</p>
-  </div>
-  <div class="features">
-    <div class="feature-card">
-      <h3>Busqueda por texto</h3>
-      <p>Se puede realizar una busqueda del producto por texto</p>
-    </div>
-    <div class="feature-card">
-      <h3>Busqueda por imagen</h3>
-      <p>Se puede realizar una busqueda del producto por el apartado de imagenes</p>
-    </div>
-    <div class="feature-card">
-      <h3>Historial de precios</h3>
-      <p>Se puede realizar una visualizacion de los precios anteriores de dicho producto</p>
-    </div>
-  </div>
-  <p>&nbsp;&nbsp;&nbsp;</p>
-  <footer>
-    <a href="#">ChipSail</a>
-    <a href="#">Marcas Registradas</a>
-    <a href="#">Privacidad y Cookies</a>
-    <a href="#">Contáctanos</a>
-    <a href="#">Aviso Legal</a>
-  </footer>
+  <article class="hero">
+    <img tabindex="0" src="Logo fondo blanco.png" class="logo-img-big" atl="Logo Chip Sale">
+    <h1 tabindex="0">Encuentra los mejores precios de toda la web</h1>
+    <p tabindex="0">Busqueda de productos y sus precios en diferentes aplicaciones como Amazon, eBay, Walmart, Target, y BestBuy</p>
+  </article>
+  <article class="features">
+    <div tabindex="0" class="feature-card"><h3>Busqueda por texto</h3><p>Se puede realizar una busqueda del producto por texto</p></div>
+    <div tabindex="0" class="feature-card"><h3>Busqueda por imagen</h3><p>Se puede realizar una busqueda del producto por el apartado de imagenes</p></div>
+    <div tabindex="0" class="feature-card"><h3>Historial de precios</h3><p>Se puede realizar una visualizacion de los precios anteriores de dicho producto</p></div>
+  </article>
+  <p>&nbsp;</p>
+  <footer><a href="#">ChipSail</a><a href="#">Marcas Registradas</a><a href="#">Privacidad y Cookies</a><a href="#">Contáctanos</a><a href="#">Aviso Legal</a></footer>
 </div>
- 
+
 <!-- ══════════ LOGIN ══════════ -->
 <div id="page-login" class="page" style="flex-direction:column;">
-  <nav>
-    <span class="logo" onclick="goTo('home')">
-      <img  src="/assets/Logo fondo blanco.png" class = "logo-img" alt="logo">
-      ChipSail
-    </span>
-    <div class="nav-buttons">
-      <button class="btn-outline" onclick="goTo('login')">Inicio de Sesión</button>
-      <button class="btn-outline" onclick="goTo('registro')">Registro</button>
-    </div>
-  </nav>
-  <div class="auth-page">
+  <header>
+    
+      <span tabindex="0" class="logo" onclick="goTo('home')"><img src="Logo fondo blanco.png" class="logo-img"> ChipSail</span>
+      <div class="header-buttons">
+        <button  class="btn-outline" onclick="goTo('login')">Inicio de Sesión</button>
+        <button  class="btn-outline" onclick="goTo('registro')">Registro</button>
+      </div>
+    
+  </header>   
+  <article class="auth-page">
     <div class="auth-box">
-      <h2>Iniciar Sesión</h2>
-      <input type="text" placeholder="User Name">
-      <input type="password" placeholder="Password">
-      <button class="btn-auth" onclick="goTo('resultados')">Sign In</button>
+      <h2 tabindex="0" >Iniciar Sesión</h2>
+      <div class="field-wrap">
+        <input type="text" id="login-user" placeholder="User Name">
+        <div tabindex="0" class="field-error" id="err-login-user">Este campo es obligatorio</div>
+      </div>
+      <div class="field-wrap">
+        <input type="password" id="login-pass" placeholder="Password">
+        <div tabindex="0" class="field-error" id="err-login-pass">Este campo es obligatorio</div>
+        <div tabindex="0" class="field-error" id="err-login-pass-len">La contraseña debe tener mínimo 8 caracteres</div>
+      </div>
+      <button tabindex="0" class="btn-auth" onclick="validarLogin()">Sign In</button>
     </div>
-    <div class="auth-logo">
-      <img src="/assets/Logo fondo blanco.png" class = "logo-img-big" alt="logo">
-    </div>
-  </div>
-  <footer>
-    <a href="#">ChipSail</a><a href="#">Marcas Registradas</a>
-    <a href="#">Privacidad y Cookies</a><a href="#">Contáctanos</a><a href="#">Aviso Legal</a>
-  </footer>
+    <div class="auth-logo"><img src="Logo fondo blanco.png" class="logo-img-big"></div>
+  </article>
+  <footer><a href="#">ChipSail</a><a href="#">Marcas Registradas</a><a href="#">Privacidad y Cookies</a><a href="#">Contáctanos</a><a href="#">Aviso Legal</a></footer>
 </div>
- 
+
 <!-- ══════════ REGISTRO ══════════ -->
 <div id="page-registro" class="page" style="flex-direction:column;">
-  <nav>
-    <span class="logo" onclick="goTo('home')">
-      <img src="/assets/Logo fondo blanco.png" class = "logo-img" alt="logo">
-      ChipSail
-    </span>
-    <div class="nav-buttons">
+  <header>
+    <span class="logo" onclick="goTo('home')"><img src="Logo fondo blanco.png" class="logo-img"> ChipSail</span>
+    <div class="header-buttons">
       <button class="btn-outline" onclick="goTo('login')">Inicio de Sesión</button>
       <button class="btn-outline" onclick="goTo('registro')">Registro</button>
     </div>
-  </nav>
+  </header>
   <div class="auth-page">
     <div class="auth-box">
       <h2>Registro</h2>
-      <input type="text" placeholder="User Name">
-      <input type="password" placeholder="Password">
-      <input type="password" placeholder="Password">
-      <button class="btn-auth" onclick="goTo('resultados')">Register</button>
+      <div class="field-wrap">
+        <input type="text" id="reg-user" placeholder="User Name">
+        <div class="field-error" id="err-reg-user">Este campo es obligatorio</div>
+      </div>
+      <div class="field-wrap">
+        <input type="password" id="reg-pass" placeholder="Password" oninput="checkPwdStrength()">
+        <div class="field-error" id="err-reg-pass">Este campo es obligatorio</div>
+        <ul class="pwd-checklist" id="pwd-checklist">
+          <li id="chk-len">Mínimo 8 caracteres</li>
+          <li id="chk-upper">Al menos una mayúscula</li>
+          <li id="chk-lower">Al menos una minúscula</li>
+          <li id="chk-special">Al menos un carácter especial (!@#$%...)</li>
+        </ul>
+      </div>
+      <div class="field-wrap">
+        <input type="password" id="reg-pass2" placeholder="Confirmar Password">
+        <div class="field-error" id="err-reg-pass2">Este campo es obligatorio</div>
+        <div class="field-error" id="err-reg-pass-match">Las contraseñas no coinciden</div>
+      </div>
+      <button class="btn-auth" onclick="validarRegistro()">Register</button>
     </div>
-    <div class="auth-logo">
-      <img src="/assets/Logo fondo blanco.png" class = "logo-img-big" alt="logo">
-    </div>
+    <div class="auth-logo"><img src="Logo fondo blanco.png" class="logo-img-big"></div>
   </div>
-  <footer>
-    <a href="#">ChipSail</a><a href="#">Marcas Registradas</a>
-    <a href="#">Privacidad y Cookies</a><a href="#">Contáctanos</a><a href="#">Aviso Legal</a>
-  </footer>
+  <footer><a href="#">ChipSail</a><a href="#">Marcas Registradas</a><a href="#">Privacidad y Cookies</a><a href="#">Contáctanos</a><a href="#">Aviso Legal</a></footer>
 </div>
- 
+
+<!-- Modal de registro exitoso -->
+<div id="modal-registro" class="success-modal" style="display:none;">
+  <div class="success-box">
+    <h3>¡Registro completado!</h3>
+    <p>Su registro ha sido completado exitosamente. Ya puede iniciar sesión.</p>
+    <button onclick="cerrarModalRegistro()">Iniciar Sesión</button>
+  </div>
+</div>
+
 <!-- ══════════ RESULTADOS ══════════ -->
 <div id="page-resultados" class="page" style="flex-direction:column;">
-  <nav>
-    <span class="logo" onclick="goTo('home')">
-      <img src="/assets/Logo fondo blanco.png" class = "logo-img" alt="logo">
-      ChipSail
-    </span>
-    <div class="nav-user-area">
-      <button class="user-btn" onclick="toggleDD('dd-res')" aria-label="Menú">
-        <svg viewBox="0 0 24 24"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/></svg>
-      </button>
-      <div class="user-dropdown" id="dd-res">
-        <a class="dd-item" href="#" onclick="event.preventDefault();goTo('carrito');closeDD()">
-          <svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6L18 2z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
-          Carrito
-        </a>
-        <a class="dd-item" href="#" onclick="event.preventDefault();goTo('home');closeDD()">
-          <svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
-          Salir
-        </a>
+  <header>
+    
+      <span class="logo" onclick="goTo('home')"><img src="/assets/Logo fondo blanco.png" class="logo-img" alt="logo"> ChipSail</span>
+      <div class="header-user-area">
+        <button class="user-btn" onclick="toggleDD('dd-res')" aria-label="Menú">
+          <svg viewBox="0 0 24 24"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/></svg>
+        </button>
+        <div class="user-dropdown" id="dd-res">
+          <a class="dd-item" href="#" onclick="event.preventDefault();goTo('carrito');closeDD()"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6L18 2z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>Carrito</a>
+          <a class="dd-item" href="#" onclick="event.preventDefault();goTo('home');closeDD()"><svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>Salir</a>
+        </div>
       </div>
-    </div>
-  </nav>
-  <div class="search-bar-r">
-    <input type="text" placeholder="Busca productos" value="Camiseta de playa">
-    <button class="btn-search">Buscar</button>
-    <button class="btn-img-search">Búsqueda por imagen</button>
+    
+  </header>
+  <div class="search-bar-r" id="searchbar-res">
+    <input type="text" placeholder="Busca productos" value="Camiseta" id="search-input-res">
+    <button class="btn-search" onclick="goTo('resultados')">Buscar</button>
+    <button class="btn-img-search" onclick="abrirBusquedaImagen()">Búsqueda por imagen</button>
   </div>
   <div class="results-main">
     <aside class="results-sidebar">
-      <div class="sidebar-section-title">Vendedor</div>
+      <div class="sidebar-section-title">Filtros</div>
+      <div class="sidebar-sub-title">Precio máx.</div>
       <div class="price-range-wrap">
-        <input type="range" class="price-slider" id="sl-res" min="0" max="100" step="100" value="0" oninput="onSlider('res',this)">
-        <div class="price-val" id="pv-res">$ 0</div>
+        <input type="range" class="price-slider" id="sl-res" min="10" max="100" step="10" value="100" oninput="onSliderPage('res',this)">
+        <div class="price-val" id="pv-res">$ 100</div>
       </div>
-      <ul class="vendor-list">
-        <li class="vendor-item"><input type="radio" name="vd-res" value="amazon" onchange="onVendorRes('amazon')"> Amazon</li>
-        <li class="vendor-item"><input type="radio" name="vd-res" value="ebay" onchange="onVendorRes('ebay')"> eBay</li>
-        <li class="vendor-item"><input type="radio" name="vd-res" value="walmart" onchange="onVendorRes('walmart')"> Walmart</li>
-        <li class="vendor-item"><input type="radio" name="vd-res" value="target" onchange="onVendorRes('target')"> Target</li>
-        <li class="vendor-item"><input type="radio" name="vd-res" value="bestbuy" onchange="onVendorRes('bestbuy')"> BestBuy</li>
+      <div class="sidebar-sub-title">Tienda</div>
+      <ul class="vendor-list" id="vendor-list-res">
+        <li class="vendor-item"><input type="checkbox" id="res-chk-amazon"  value="amazon"  onchange="onVendorPage('res')"> <label for="res-chk-amazon">Amazon</label></li>
+        <li class="vendor-item"><input type="checkbox" id="res-chk-ebay"    value="ebay"    onchange="onVendorPage('res')"> <label for="res-chk-ebay">eBay</label></li>
+        <li class="vendor-item"><input type="checkbox" id="res-chk-walmart" value="walmart" onchange="onVendorPage('res')"> <label for="res-chk-walmart">Walmart</label></li>
+        <li class="vendor-item"><input type="checkbox" id="res-chk-target"  value="target"  onchange="onVendorPage('res')"> <label for="res-chk-target">Target</label></li>
+        <li class="vendor-item"><input type="checkbox" id="res-chk-bestbuy" value="bestbuy" onchange="onVendorPage('res')"> <label for="res-chk-bestbuy">BestBuy</label></li>
       </ul>
-      <ul class="rating-filter-list">
-        <li class="rating-filter-item"><div class="stars-row"><span class="sf">★</span><span class="sf">★</span><span class="sf">★</span><span class="sf">★</span><span class="se">★</span></div>&amp; up</li>
-        <li class="rating-filter-item"><div class="stars-row"><span class="sf">★</span><span class="sf">★</span><span class="sf">★</span><span class="se">★</span><span class="se">★</span></div>&amp; up</li>
-        <li class="rating-filter-item"><div class="stars-row"><span class="sf">★</span><span class="sf">★</span><span class="se">★</span><span class="se">★</span><span class="se">★</span></div>&amp; up</li>
-        <li class="rating-filter-item"><div class="stars-row"><span class="sf">★</span><span class="se">★</span><span class="se">★</span><span class="se">★</span><span class="se">★</span></div>&amp; up</li>
-        <li class="all-ratings-lbl">All Ratings</li>
+      <div class="sidebar-sub-title">Calificación</div>
+      <ul class="rating-filter-list" id="rating-list-res">
+        <li tabindex="0" role="button" class="rating-filter-item" data-min="4" onclick="onRatingClick(this,'res')"><div  aria-label="4 estrellas" class="stars-row"><span class="sf">★</span><span class="sf">★</span><span class="sf">★</span><span class="sf">★</span><span class="se">★</span></div>&amp; up</li>
+        <li tabindex="0" role="button" class="rating-filter-item" data-min="3" onclick="onRatingClick(this,'res')"><div  aria-label="3 estrellas" class="stars-row"><span class="sf">★</span><span class="sf">★</span><span class="sf">★</span><span class="se">★</span><span class="se">★</span></div>&amp; up</li>
+        <li tabindex="0" role="button" class="rating-filter-item" data-min="2" onclick="onRatingClick(this,'res')"><div  aria-label="2 estrellas" class="stars-row"><span class="sf">★</span><span class="sf">★</span><span class="se">★</span><span class="se">★</span><span class="se">★</span></div>&amp; up</li>
+        <li tabindex="0" role="button" class="rating-filter-item" data-min="1" onclick="onRatingClick(this,'res')"><div aria-label="1 estrellas" class="stars-row"><span class="sf">★</span><span class="se">★</span><span class="se">★</span><span class="se">★</span><span class="se">★</span></div>&amp; up</li>
+        <li tabindex="0" role="button" class="all-ratings-lbl active" onclick="onRatingAll('res')">Todas las calificaciones</li>
       </ul>
     </aside>
     <div class="products-area">
       <div class="products-grid" id="grid-res"></div>
     </div>
   </div>
-  <footer>
-    <a href="#">ChipSail</a><a href="#">Marcas Registradas</a>
-    <a href="#">Privacidad y Cookies</a><a href="#">Contáctanos</a><a href="#">Aviso Legal</a>
-  </footer>
-</div>
- 
-<!-- ══════════ AMAZON ══════════ -->
-<div id="page-amazon" class="page" style="flex-direction:column;">
-  <nav>
-    <span class="logo" onclick="goTo('home')"><img  src="/assets/Logo fondo blanco.png" class = "logo-img" alt="logo"> ChipSail</span>
-    <div class="nav-user-area">
-      <button class="user-btn" onclick="toggleDD('dd-amazon')"><svg viewBox="0 0 24 24"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/></svg></button>
-      <div class="user-dropdown" id="dd-amazon">
-        <a class="dd-item" href="#" onclick="event.preventDefault();goTo('carrito');closeDD()"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6L18 2z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>Carrito</a>
-        <a class="dd-item" href="#" onclick="event.preventDefault();goTo('home');closeDD()"><svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>Salir</a>
-      </div>
-    </div>
-  </nav>
-  <div class="search-bar-r">
-    <input type="text" value="Camiseta de playa">
-    <button class="btn-search">Buscar</button>
-    <button class="btn-img-search">Búsqueda por imagen</button>
-  </div>
-  <div class="results-main">
-    <aside class="results-sidebar">
-      <div class="sidebar-section-title">Vendedor</div>
-      <div class="price-range-wrap">
-        <input type="range" class="price-slider" id="sl-amazon" min="0" max="100" step="100" value="0" oninput="onSlider('amazon',this)">
-        <div class="price-val" id="pv-amazon">$ 0</div>
-      </div>
-      <ul class="vendor-list">
-        <li class="vendor-item"><input type="radio" name="vd-amazon" value="amazon" checked onchange="switchVendor('amazon')"> Amazon</li>
-        <li class="vendor-item"><input type="radio" name="vd-amazon" value="ebay" onchange="switchVendor('ebay')"> eBay</li>
-        <li class="vendor-item"><input type="radio" name="vd-amazon" value="walmart" onchange="switchVendor('walmart')"> Walmart</li>
-        <li class="vendor-item"><input type="radio" name="vd-amazon" value="target" onchange="switchVendor('target')"> Target</li>
-        <li class="vendor-item"><input type="radio" name="vd-amazon" value="bestbuy" onchange="switchVendor('bestbuy')"> BestBuy</li>
-      </ul>
-      <ul class="rating-filter-list">
-        <li class="rating-filter-item"><div class="stars-row"><span class="sf">★</span><span class="sf">★</span><span class="sf">★</span><span class="sf">★</span><span class="se">★</span></div>&amp; up</li>
-        <li class="rating-filter-item"><div class="stars-row"><span class="sf">★</span><span class="sf">★</span><span class="sf">★</span><span class="se">★</span><span class="se">★</span></div>&amp; up</li>
-        <li class="rating-filter-item"><div class="stars-row"><span class="sf">★</span><span class="sf">★</span><span class="se">★</span><span class="se">★</span><span class="se">★</span></div>&amp; up</li>
-        <li class="rating-filter-item"><div class="stars-row"><span class="sf">★</span><span class="se">★</span><span class="se">★</span><span class="se">★</span><span class="se">★</span></div>&amp; up</li>
-        <li class="all-ratings-lbl">All Ratings</li>
-      </ul>
-    </aside>
-    <div class="products-area">
-      <div class="products-grid" id="grid-amazon"></div>
-    </div>
-  </div>
   <footer><a href="#">ChipSail</a><a href="#">Marcas Registradas</a><a href="#">Privacidad y Cookies</a><a href="#">Contáctanos</a><a href="#">Aviso Legal</a></footer>
 </div>
- 
-<!-- ══════════ EBAY ══════════ -->
-<div id="page-ebay" class="page" style="flex-direction:column;">
-  <nav>
-    <span class="logo" onclick="goTo('home')"><img  src="/assets/Logo fondo blanco.png" class = "logo-img" alt="logo"> ChipSail</span>
-    <div class="nav-user-area">
-      <button class="user-btn" onclick="toggleDD('dd-ebay')"><svg viewBox="0 0 24 24"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/></svg></button>
-      <div class="user-dropdown" id="dd-ebay">
-        <a class="dd-item" href="#" onclick="event.preventDefault();goTo('carrito');closeDD()"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6L18 2z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>Carrito</a>
-        <a class="dd-item" href="#" onclick="event.preventDefault();goTo('home');closeDD()"><svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>Salir</a>
-      </div>
-    </div>
-  </nav>
-  <div class="search-bar-r">
-    <input type="text" value="Camiseta de playa">
-    <button class="btn-search">Buscar</button>
-    <button class="btn-img-search">Búsqueda por imagen</button>
-  </div>
-  <div class="results-main">
-    <aside class="results-sidebar">
-      <div class="sidebar-section-title">Vendedor</div>
-      <div class="price-range-wrap">
-        <input type="range" class="price-slider" id="sl-ebay" min="0" max="100" step="100" value="0" oninput="onSlider('ebay',this)">
-        <div class="price-val" id="pv-ebay">$ 0</div>
-      </div>
-      <ul class="vendor-list">
-        <li class="vendor-item"><input type="radio" name="vd-ebay" value="amazon" onchange="switchVendor('amazon')"> Amazon</li>
-        <li class="vendor-item"><input type="radio" name="vd-ebay" value="ebay" checked onchange="switchVendor('ebay')"> eBay</li>
-        <li class="vendor-item"><input type="radio" name="vd-ebay" value="walmart" onchange="switchVendor('walmart')"> Walmart</li>
-        <li class="vendor-item"><input type="radio" name="vd-ebay" value="target" onchange="switchVendor('target')"> Target</li>
-        <li class="vendor-item"><input type="radio" name="vd-ebay" value="bestbuy" onchange="switchVendor('bestbuy')"> BestBuy</li>
-      </ul>
-      <ul class="rating-filter-list">
-        <li class="rating-filter-item"><div class="stars-row"><span class="sf">★</span><span class="sf">★</span><span class="sf">★</span><span class="sf">★</span><span class="se">★</span></div>&amp; up</li>
-        <li class="rating-filter-item"><div class="stars-row"><span class="sf">★</span><span class="sf">★</span><span class="sf">★</span><span class="se">★</span><span class="se">★</span></div>&amp; up</li>
-        <li class="rating-filter-item"><div class="stars-row"><span class="sf">★</span><span class="sf">★</span><span class="se">★</span><span class="se">★</span><span class="se">★</span></div>&amp; up</li>
-        <li class="rating-filter-item"><div class="stars-row"><span class="sf">★</span><span class="se">★</span><span class="se">★</span><span class="se">★</span><span class="se">★</span></div>&amp; up</li>
-        <li class="all-ratings-lbl">All Ratings</li>
-      </ul>
-    </aside>
-    <div class="products-area">
-      <div class="products-grid" id="grid-ebay"></div>
-    </div>
-  </div>
-  <footer><a href="#">ChipSail</a><a href="#">Marcas Registradas</a><a href="#">Privacidad y Cookies</a><a href="#">Contáctanos</a><a href="#">Aviso Legal</a></footer>
-</div>
- 
-<!-- ══════════ WALMART ══════════ -->
-<div id="page-walmart" class="page" style="flex-direction:column;">
-  <nav>
-    <span class="logo" onclick="goTo('home')"><img  src="/assets/Logo fondo blanco.png" class = "logo-img" alt="logo"> ChipSail</span>
-    <div class="nav-user-area">
-      <button class="user-btn" onclick="toggleDD('dd-walmart')"><svg viewBox="0 0 24 24"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/></svg></button>
-      <div class="user-dropdown" id="dd-walmart">
-        <a class="dd-item" href="#" onclick="event.preventDefault();goTo('carrito');closeDD()"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6L18 2z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>Carrito</a>
-        <a class="dd-item" href="#" onclick="event.preventDefault();goTo('home');closeDD()"><svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>Salir</a>
-      </div>
-    </div>
-  </nav>
-  <div class="search-bar-r">
-    <input type="text" value="Camiseta de playa">
-    <button class="btn-search">Buscar</button>
-    <button class="btn-img-search">Búsqueda por imagen</button>
-  </div>
-  <div class="results-main">
-    <aside class="results-sidebar">
-      <div class="sidebar-section-title">Vendedor</div>
-      <div class="price-range-wrap">
-        <input type="range" class="price-slider" id="sl-walmart" min="0" max="100" step="100" value="0" oninput="onSlider('walmart',this)">
-        <div class="price-val" id="pv-walmart">$ 0</div>
-      </div>
-      <ul class="vendor-list">
-        <li class="vendor-item"><input type="radio" name="vd-walmart" value="amazon" onchange="switchVendor('amazon')"> Amazon</li>
-        <li class="vendor-item"><input type="radio" name="vd-walmart" value="ebay" onchange="switchVendor('ebay')"> eBay</li>
-        <li class="vendor-item"><input type="radio" name="vd-walmart" value="walmart" checked onchange="switchVendor('walmart')"> Walmart</li>
-        <li class="vendor-item"><input type="radio" name="vd-walmart" value="target" onchange="switchVendor('target')"> Target</li>
-        <li class="vendor-item"><input type="radio" name="vd-walmart" value="bestbuy" onchange="switchVendor('bestbuy')"> BestBuy</li>
-      </ul>
-      <ul class="rating-filter-list">
-        <li class="rating-filter-item"><div class="stars-row"><span class="sf">★</span><span class="sf">★</span><span class="sf">★</span><span class="sf">★</span><span class="se">★</span></div>&amp; up</li>
-        <li class="rating-filter-item"><div class="stars-row"><span class="sf">★</span><span class="sf">★</span><span class="sf">★</span><span class="se">★</span><span class="se">★</span></div>&amp; up</li>
-        <li class="rating-filter-item"><div class="stars-row"><span class="sf">★</span><span class="sf">★</span><span class="se">★</span><span class="se">★</span><span class="se">★</span></div>&amp; up</li>
-        <li class="rating-filter-item"><div class="stars-row"><span class="sf">★</span><span class="se">★</span><span class="se">★</span><span class="se">★</span><span class="se">★</span></div>&amp; up</li>
-        <li class="all-ratings-lbl">All Ratings</li>
-      </ul>
-    </aside>
-    <div class="products-area">
-      <div class="products-grid" id="grid-walmart"></div>
-    </div>
-  </div>
-  <footer><a href="#">ChipSail</a><a href="#">Marcas Registradas</a><a href="#">Privacidad y Cookies</a><a href="#">Contáctanos</a><a href="#">Aviso Legal</a></footer>
-</div>
- 
-<!-- ══════════ TARGET ══════════ -->
-<div id="page-target" class="page" style="flex-direction:column;">
-  <nav>
-    <span class="logo" onclick="goTo('home')"><img  src="/assets/Logo fondo blanco.png" class = "logo-img" alt="logo"> ChipSail</span>
-    <div class="nav-user-area">
-      <button class="user-btn" onclick="toggleDD('dd-target')"><svg viewBox="0 0 24 24"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/></svg></button>
-      <div class="user-dropdown" id="dd-target">
-        <a class="dd-item" href="#" onclick="event.preventDefault();goTo('carrito');closeDD()"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6L18 2z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>Carrito</a>
-        <a class="dd-item" href="#" onclick="event.preventDefault();goTo('home');closeDD()"><svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>Salir</a>
-      </div>
-    </div>
-  </nav>
-  <div class="search-bar-r">
-    <input type="text" value="Camiseta de playa">
-    <button class="btn-search">Buscar</button>
-    <button class="btn-img-search">Búsqueda por imagen</button>
-  </div>
-  <div class="results-main">
-    <aside class="results-sidebar">
-      <div class="sidebar-section-title">Vendedor</div>
-      <div class="price-range-wrap">
-        <input type="range" class="price-slider" id="sl-target" min="0" max="100" step="100" value="0" oninput="onSlider('target',this)">
-        <div class="price-val" id="pv-target">$ 0</div>
-      </div>
-      <ul class="vendor-list">
-        <li class="vendor-item"><input type="radio" name="vd-target" value="amazon" onchange="switchVendor('amazon')"> Amazon</li>
-        <li class="vendor-item"><input type="radio" name="vd-target" value="ebay" onchange="switchVendor('ebay')"> eBay</li>
-        <li class="vendor-item"><input type="radio" name="vd-target" value="walmart" onchange="switchVendor('walmart')"> Walmart</li>
-        <li class="vendor-item"><input type="radio" name="vd-target" value="target" checked onchange="switchVendor('target')"> Target</li>
-        <li class="vendor-item"><input type="radio" name="vd-target" value="bestbuy" onchange="switchVendor('bestbuy')"> BestBuy</li>
-      </ul>
-      <ul class="rating-filter-list">
-        <li class="rating-filter-item"><div class="stars-row"><span class="sf">★</span><span class="sf">★</span><span class="sf">★</span><span class="sf">★</span><span class="se">★</span></div>&amp; up</li>
-        <li class="rating-filter-item"><div class="stars-row"><span class="sf">★</span><span class="sf">★</span><span class="sf">★</span><span class="se">★</span><span class="se">★</span></div>&amp; up</li>
-        <li class="rating-filter-item"><div class="stars-row"><span class="sf">★</span><span class="sf">★</span><span class="se">★</span><span class="se">★</span><span class="se">★</span></div>&amp; up</li>
-        <li class="rating-filter-item"><div class="stars-row"><span class="sf">★</span><span class="se">★</span><span class="se">★</span><span class="se">★</span><span class="se">★</span></div>&amp; up</li>
-        <li class="all-ratings-lbl">All Ratings</li>
-      </ul>
-    </aside>
-    <div class="products-area">
-      <div class="products-grid" id="grid-target"></div>
-    </div>
-  </div>
-  <footer><a href="#">ChipSail</a><a href="#">Marcas Registradas</a><a href="#">Privacidad y Cookies</a><a href="#">Contáctanos</a><a href="#">Aviso Legal</a></footer>
-</div>
- 
-<!-- ══════════ BESTBUY ══════════ -->
-<div id="page-bestbuy" class="page" style="flex-direction:column;">
-  <nav>
-    <span class="logo" onclick="goTo('home')"><img  src="/assets/Logo fondo blanco.png" class = "logo-img" alt="logo"> ChipSail</span>
-    <div class="nav-user-area">
-      <button class="user-btn" onclick="toggleDD('dd-bestbuy')"><svg viewBox="0 0 24 24"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/></svg></button>
-      <div class="user-dropdown" id="dd-bestbuy">
-        <a class="dd-item" href="#" onclick="event.preventDefault();goTo('carrito');closeDD()"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6L18 2z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>Carrito</a>
-        <a class="dd-item" href="#" onclick="event.preventDefault();goTo('home');closeDD()"><svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>Salir</a>
-      </div>
-    </div>
-  </nav>
-  <div class="search-bar-r">
-    <input type="text" value="Camiseta de playa">
-    <button class="btn-search">Buscar</button>
-    <button class="btn-img-search">Búsqueda por imagen</button>
-  </div>
-  <div class="results-main">
-    <aside class="results-sidebar">
-      <div class="sidebar-section-title">Vendedor</div>
-      <div class="price-range-wrap">
-        <input type="range" class="price-slider" id="sl-bestbuy" min="0" max="100" step="100" value="0" oninput="onSlider('bestbuy',this)">
-        <div class="price-val" id="pv-bestbuy">$ 0</div>
-      </div>
-      <ul class="vendor-list">
-        <li class="vendor-item"><input type="radio" name="vd-bestbuy" value="amazon" onchange="switchVendor('amazon')"> Amazon</li>
-        <li class="vendor-item"><input type="radio" name="vd-bestbuy" value="ebay" onchange="switchVendor('ebay')"> eBay</li>
-        <li class="vendor-item"><input type="radio" name="vd-bestbuy" value="walmart" onchange="switchVendor('walmart')"> Walmart</li>
-        <li class="vendor-item"><input type="radio" name="vd-bestbuy" value="target" onchange="switchVendor('target')"> Target</li>
-        <li class="vendor-item"><input type="radio" name="vd-bestbuy" value="bestbuy" checked onchange="switchVendor('bestbuy')"> BestBuy</li>
-      </ul>
-      <ul class="rating-filter-list">
-        <li class="rating-filter-item"><div class="stars-row"><span class="sf">★</span><span class="sf">★</span><span class="sf">★</span><span class="sf">★</span><span class="se">★</span></div>&amp; up</li>
-        <li class="rating-filter-item"><div class="stars-row"><span class="sf">★</span><span class="sf">★</span><span class="sf">★</span><span class="se">★</span><span class="se">★</span></div>&amp; up</li>
-        <li class="rating-filter-item"><div class="stars-row"><span class="sf">★</span><span class="sf">★</span><span class="se">★</span><span class="se">★</span><span class="se">★</span></div>&amp; up</li>
-        <li class="rating-filter-item"><div class="stars-row"><span class="sf">★</span><span class="se">★</span><span class="se">★</span><span class="se">★</span><span class="se">★</span></div>&amp; up</li>
-        <li class="all-ratings-lbl">All Ratings</li>
-      </ul>
-    </aside>
-    <div class="products-area">
-      <div class="products-grid" id="grid-bestbuy"></div>
-    </div>
-  </div>
-  <footer><a href="#">ChipSail</a><a href="#">Marcas Registradas</a><a href="#">Privacidad y Cookies</a><a href="#">Contáctanos</a><a href="#">Aviso Legal</a></footer>
-</div>
- 
+
 <!-- ══════════ CARRITO ══════════ -->
 <div id="page-carrito" class="page" style="flex-direction:column;">
-  <nav>
-    <span class="logo" onclick="goTo('resultados')"><img  src="/assets/Logo fondo blanco.png" class = "logo-img" alt="logo"> ChipSail</span>
-    <div class="nav-user-area">
+  <header>
+    <span class="logo" onclick="goTo('resultados')"><img src="/assets/Logo fondo blanco.png" class="logo-img" alt="logo"> ChipSail</span>
+    <div class="header-user-area">
       <button class="user-btn" onclick="toggleDD('dd-carrito')"><svg viewBox="0 0 24 24"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/></svg></button>
       <div class="user-dropdown" id="dd-carrito">
         <a class="dd-item" href="#" onclick="event.preventDefault();closeDD()"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6L18 2z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>Carrito</a>
         <a class="dd-item" href="#" onclick="event.preventDefault();goTo('home');closeDD()"><svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>Salir</a>
       </div>
     </div>
-  </nav>
+  </header>
   <div class="search-bar-r">
-    <input type="text" value="Camiseta de playa">
-    <button class="btn-search">Buscar</button>
-    <button class="btn-img-search">Búsqueda por imagen</button>
+    <input type="text" value="Camiseta">
+    <button class="btn-search" onclick="goTo('resultados')">Buscar</button>
+    <button class="btn-img-search" onclick="abrirBusquedaImagen()">Búsqueda por imagen</button>
   </div>
   <div class="results-main">
     <aside class="results-sidebar">
-      <div class="sidebar-section-title">Agrega más productos:</div>
+      <div class="sidebar-section-title">Filtrar carrito</div>
+      <div class="sidebar-sub-title">Precio máx.</div>
       <div class="price-range-wrap">
-        <input type="range" class="price-slider" min="0" max="100" step="100" value="100">
-        <div class="price-val">$ 100</div>
+        <input type="range" class="price-slider" id="sl-carrito" min="10" max="100" step="10" value="100" oninput="onSliderPage('carrito',this)">
+        <div class="price-val" id="pv-carrito">$ 100</div>
       </div>
-      <ul class="vendor-list">
-        <li class="vendor-item"><input type="radio" name="vd-carrito"> Amazon</li>
-        <li class="vendor-item"><input type="radio" name="vd-carrito"> eBay</li>
-        <li class="vendor-item"><input type="radio" name="vd-carrito"> Walmart</li>
-        <li class="vendor-item"><input type="radio" name="vd-carrito"> Target</li>
-        <li class="vendor-item"><input type="radio" name="vd-carrito" checked> BestBuy</li>
+      <div class="sidebar-sub-title">Tienda</div>
+      <ul class="vendor-list" id="vendor-list-carrito">
+        <li class="vendor-item"><input type="checkbox" id="carrito-chk-amazon"  value="amazon"  onchange="onVendorPage('carrito')"> <label for="carrito-chk-amazon">Amazon</label></li>
+        <li class="vendor-item"><input type="checkbox" id="carrito-chk-ebay"    value="ebay"    onchange="onVendorPage('carrito')"> <label for="carrito-chk-ebay">eBay</label></li>
+        <li class="vendor-item"><input type="checkbox" id="carrito-chk-walmart" value="walmart" onchange="onVendorPage('carrito')"> <label for="carrito-chk-walmart">Walmart</label></li>
+        <li class="vendor-item"><input type="checkbox" id="carrito-chk-target"  value="target"  onchange="onVendorPage('carrito')"> <label for="carrito-chk-target">Target</label></li>
+        <li class="vendor-item"><input type="checkbox" id="carrito-chk-bestbuy" value="bestbuy" onchange="onVendorPage('carrito')"> <label for="carrito-chk-bestbuy">BestBuy</label></li>
       </ul>
-      <ul class="rating-filter-list">
-        <li class="rating-filter-item"><div class="stars-row"><span class="sf">★</span><span class="sf">★</span><span class="sf">★</span><span class="sf">★</span><span class="se">★</span></div>&amp; up</li>
-        <li class="rating-filter-item"><div class="stars-row"><span class="sf">★</span><span class="sf">★</span><span class="sf">★</span><span class="se">★</span><span class="se">★</span></div>&amp; up</li>
-        <li class="rating-filter-item"><div class="stars-row"><span class="sf">★</span><span class="sf">★</span><span class="se">★</span><span class="se">★</span><span class="se">★</span></div>&amp; up</li>
-        <li class="rating-filter-item"><div class="stars-row"><span class="sf">★</span><span class="se">★</span><span class="se">★</span><span class="se">★</span><span class="se">★</span></div>&amp; up</li>
-        <li class="all-ratings-lbl">All Ratings</li>
+      <div class="sidebar-sub-title">Calificación</div>
+      <ul class="rating-filter-list" id="rating-list-carrito">
+        <li class="rating-filter-item" data-min="4" onclick="onRatingClick(this,'carrito')"><div class="stars-row"><span class="sf">★</span><span class="sf">★</span><span class="sf">★</span><span class="sf">★</span><span class="se">★</span></div>&amp; up</li>
+        <li class="rating-filter-item" data-min="3" onclick="onRatingClick(this,'carrito')"><div class="stars-row"><span class="sf">★</span><span class="sf">★</span><span class="sf">★</span><span class="se">★</span><span class="se">★</span></div>&amp; up</li>
+        <li class="rating-filter-item" data-min="2" onclick="onRatingClick(this,'carrito')"><div class="stars-row"><span class="sf">★</span><span class="sf">★</span><span class="se">★</span><span class="se">★</span><span class="se">★</span></div>&amp; up</li>
+        <li class="rating-filter-item" data-min="1" onclick="onRatingClick(this,'carrito')"><div class="stars-row"><span class="sf">★</span><span class="se">★</span><span class="se">★</span><span class="se">★</span><span class="se">★</span></div>&amp; up</li>
+        <li class="all-ratings-lbl active" onclick="onRatingAll('carrito')">Todas las calificaciones</li>
       </ul>
     </aside>
     <div class="products-area" id="carrito-area"></div>
   </div>
   <footer><a href="#">ChipSail</a><a href="#">Marcas Registradas</a><a href="#">Privacidad y Cookies</a><a href="#">Contáctanos</a><a href="#">Aviso Legal</a></footer>
 </div>
- 
+
 <!-- ══════════ PAGO ══════════ -->
 <div id="page-pago" class="page" style="flex-direction:column;">
-  <nav>
-    <span class="logo" onclick="goTo('carrito')"><img  src="/assets/Logo fondo blanco.png" class = "logo-img" alt="logo"> ChipSail</span>
-    <div class="nav-user-area">
+  <header>
+    <span class="logo" onclick="goTo('carrito')"><img src="/assets/Logo fondo blanco.png" class="logo-img" alt="logo"> ChipSail</span>
+    <div class="header-user-area">
       <button class="user-btn" onclick="toggleDD('dd-pago')"><svg viewBox="0 0 24 24"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/></svg></button>
       <div class="user-dropdown" id="dd-pago">
         <a class="dd-item" href="#" onclick="event.preventDefault();goTo('carrito');closeDD()"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6L18 2z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>Carrito</a>
         <a class="dd-item" href="#" onclick="event.preventDefault();goTo('home');closeDD()"><svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>Salir</a>
       </div>
     </div>
-  </nav>
+  </header>
   <div class="search-bar-r">
-    <input type="text" value="Camiseta de playa">
-    <button class="btn-search">Buscar</button>
-    <button class="btn-img-search">Búsqueda por imagen</button>
+    <input type="text" value="Camiseta">
+    <button class="btn-search" onclick="goTo('resultados')">Buscar</button>
+    <button class="btn-img-search" onclick="abrirBusquedaImagen()">Búsqueda por imagen</button>
   </div>
   <div class="results-main">
     <aside class="results-sidebar">
-      <div class="sidebar-section-title">Agrega más productos:</div>
-      <div class="price-range-wrap">
-        <input type="range" class="price-slider" min="0" max="100" step="100" value="100">
-        <div class="price-val">$ 100</div>
-      </div>
-      <ul class="vendor-list">
-        <li class="vendor-item"><input type="radio" name="vd-pago"> Amazon</li>
-        <li class="vendor-item"><input type="radio" name="vd-pago"> eBay</li>
-        <li class="vendor-item"><input type="radio" name="vd-pago"> Walmart</li>
-        <li class="vendor-item"><input type="radio" name="vd-pago"> Target</li>
-        <li class="vendor-item"><input type="radio" name="vd-pago" checked> BestBuy</li>
-      </ul>
-      <ul class="rating-filter-list">
-        <li class="rating-filter-item"><div class="stars-row"><span class="sf">★</span><span class="sf">★</span><span class="sf">★</span><span class="sf">★</span><span class="se">★</span></div>&amp; up</li>
-        <li class="rating-filter-item"><div class="stars-row"><span class="sf">★</span><span class="sf">★</span><span class="sf">★</span><span class="se">★</span><span class="se">★</span></div>&amp; up</li>
-        <li class="rating-filter-item"><div class="stars-row"><span class="sf">★</span><span class="sf">★</span><span class="se">★</span><span class="se">★</span><span class="se">★</span></div>&amp; up</li>
-        <li class="rating-filter-item"><div class="stars-row"><span class="sf">★</span><span class="se">★</span><span class="se">★</span><span class="se">★</span><span class="se">★</span></div>&amp; up</li>
-        <li class="all-ratings-lbl">All Ratings</li>
-      </ul>
+      <div tabindex="0" class="sidebar-section-title">Resumen de pago</div>
+      <div tabindex="0" class="sidebar-sub-title" style="margin-top:0">Total del carrito:</div>
+      <div id="pago-total" style="font-size:1.2rem;font-weight:800;color:var(--pink);margin-bottom:12px;">$ 0</div>
+      <p style="font-size:0.82rem;color:var(--text-mid);line-height:1.5;">Completa tus datos para finalizar la compra.</p>
     </aside>
     <div class="pago-wrap">
       <div class="pago-form-box">
         <h2>Datos de envío y pago</h2>
-        <label class="pago-label">Nombre completo</label>
-        <input type="text" placeholder="Tu nombre completo">
-        <label class="pago-label">Dirección de envío</label>
-        <input type="text" placeholder="Calle, ciudad, país">
-        <label class="pago-label">Medio de pago</label>
-        <div class="medio-wrap">
-          <label class="medio-opt"><input type="radio" name="medio"> Efectivo</label>
-          <label class="medio-opt"><input type="radio" name="medio"> Tarjeta</label>
+        <div class="pago-row" style="margin-bottom:16px;">
+          <div class="pago-field">
+            <label class="pago-label">Nombre completo</label>
+            <div class="field-wrap">
+              <input type="text" id="pago-nombre" placeholder="Tu nombre completo">
+              <div tabindex="0" class="field-error" id="err-pago-nombre">Este campo es obligatorio</div>
+            </div>
+          </div>
+          <div class="pago-field">
+            <label class="pago-label">Correo electrónico</label>
+            <div class="field-wrap">
+              <input type="text" id="pago-email" placeholder="correo@ejemplo.com">
+              <div tabindex="0" class="field-error" id="err-pago-email-empty">Este campo es obligatorio</div>
+              <div tabindex="0" class="field-error" id="err-pago-email-at">Introduce una dirección de correo válida (debe contener @)</div>
+            </div>
+          </div>
         </div>
-        <button class="btn-finalizar" onclick="goTo('exitosa')">Finalizar pago</button>
+        <div class="pago-row" style="margin-bottom:16px;">
+          <div class="pago-field">
+            <label class="pago-label">Dirección de envío</label>
+            <div class="field-wrap">
+              <input type="text" id="pago-dir" placeholder="Calle y número">
+              <div tabindex="0" class="field-error" id="err-pago-dir">Este campo es obligatorio</div>
+            </div>
+          </div>
+          <div class="pago-field">
+            <label class="pago-label">Ciudad / País</label>
+            <div class="field-wrap">
+              <input type="text" id="pago-ciudad" placeholder="Ciudad, País">
+              <div tabindex="0" class="field-error" id="err-pago-ciudad">Este campo es obligatorio</div>
+            </div>
+          </div>
+        </div>
+        <div class="pago-row" style="margin-bottom:16px;">
+          <div class="pago-field">
+            <label class="pago-label">Código postal</label>
+            <div class="field-wrap">
+              <input type="text" id="pago-cp" placeholder="Ej: 110111" maxlength="6" oninput="this.value=this.value.replace(/\D/g,'').slice(0,6)">
+              <div tabindex="0" class="field-error" id="err-pago-cp-empty">Este campo es obligatorio</div>
+              <div tabindex="0" class="field-error" id="err-pago-cp-len">El código postal debe tener 6 dígitos</div>
+            </div>
+          </div>
+          <div class="pago-field">
+            <label class="pago-label">Teléfono de contacto</label>
+            <div class="field-wrap">
+              <input type="text" id="pago-tel" placeholder="Ej: 3000000000" maxlength="10" oninput="this.value=this.value.replace(/\D/g,'').slice(0,10)">
+              <div class="field-error" id="err-pago-tel-empty">Este campo es obligatorio</div>
+              <div class="field-error" id="err-pago-tel-len">El teléfono debe tener 10 dígitos</div>
+            </div>
+          </div>
+        </div>
+        <label class="pago-label">Medio de pago</label>
+        <div class="medio-wrap" id="medio-wrap-pago">
+          <label class="medio-opt"><input type="radio" name="medio" value="pse"> PSE</label>
+          <label class="medio-opt"><input type="radio" name="medio" value="credito"> Tarjeta de crédito</label>
+          <label class="medio-opt"><input type="radio" name="medio" value="debito"> Tarjeta de débito</label>
+          <label class="medio-opt"><input type="radio" name="medio" value="efectivo"> Efectivo</label>
+        </div>
+        <div class="field-error" id="err-pago-medio" style="margin-bottom:10px;">Selecciona un medio de pago</div>
+        <button class="btn-finalizar" onclick="validarPago()">Finalizar pago</button>
       </div>
     </div>
   </div>
   <footer><a href="#">ChipSail</a><a href="#">Marcas Registradas</a><a href="#">Privacidad y Cookies</a><a href="#">Contáctanos</a><a href="#">Aviso Legal</a></footer>
 </div>
- 
+
 <!-- ══════════ COMPRA EXITOSA ══════════ -->
 <div id="page-exitosa" class="page" style="flex-direction:column;">
-  <nav>
-    <span class="logo" onclick="goTo('home')"><img  src="/assets/Logo fondo blanco.png" class = "logo-img" ChipSail</span>
-    <div class="nav-user-area">
+  <header>
+    <span class="logo" onclick="goTo('home')"><img src="/assets/Logo fondo blanco.png" class="logo-img" alt="logo"> ChipSail</span>
+    <div class="header-user-area">
       <button class="user-btn" onclick="toggleDD('dd-exitosa')"><svg viewBox="0 0 24 24"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/></svg></button>
       <div class="user-dropdown" id="dd-exitosa">
         <a class="dd-item" href="#" onclick="event.preventDefault();goTo('carrito');closeDD()"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6L18 2z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>Carrito</a>
         <a class="dd-item" href="#" onclick="event.preventDefault();goTo('home');closeDD()"><svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>Salir</a>
       </div>
     </div>
-  </nav>
+  </header>
   <div class="search-bar-r">
-    <input type="text" value="Camiseta de playa">
-    <button class="btn-search">Buscar</button>
-    <button class="btn-img-search">Búsqueda por imagen</button>
+    <input type="text" value="Camiseta">
+    <button class="btn-search" onclick="goTo('resultados')">Buscar</button>
+    <button class="btn-img-search" onclick="abrirBusquedaImagen()">Búsqueda por imagen</button>
   </div>
-  <div class="results-main">
-    <aside class="results-sidebar">
-      <div class="sidebar-section-title">Agrega más productos:</div>
-      <div class="price-range-wrap">
-        <input type="range" class="price-slider" min="0" max="100" step="100" value="100">
-        <div class="price-val">$ 100</div>
-      </div>
-      <ul class="vendor-list">
-        <li class="vendor-item"><input type="radio" name="vd-exitosa"> Amazon</li>
-        <li class="vendor-item"><input type="radio" name="vd-exitosa"> eBay</li>
-        <li class="vendor-item"><input type="radio" name="vd-exitosa"> Walmart</li>
-        <li class="vendor-item"><input type="radio" name="vd-exitosa"> Target</li>
-        <li class="vendor-item"><input type="radio" name="vd-exitosa"> BestBuy</li>
-      </ul>
-      <ul class="rating-filter-list">
-        <li class="rating-filter-item"><div class="stars-row"><span class="sf">★</span><span class="sf">★</span><span class="sf">★</span><span class="sf">★</span><span class="se">★</span></div>&amp; up</li>
-        <li class="rating-filter-item"><div class="stars-row"><span class="sf">★</span><span class="sf">★</span><span class="sf">★</span><span class="se">★</span><span class="se">★</span></div>&amp; up</li>
-        <li class="rating-filter-item"><div class="stars-row"><span class="sf">★</span><span class="sf">★</span><span class="se">★</span><span class="se">★</span><span class="se">★</span></div>&amp; up</li>
-        <li class="rating-filter-item"><div class="stars-row"><span class="sf">★</span><span class="se">★</span><span class="se">★</span><span class="se">★</span><span class="se">★</span></div>&amp; up</li>
-        <li class="all-ratings-lbl">All Ratings</li>
-      </ul>
-    </aside>
+  <!-- CAMBIO: contenedor centrado para la sección exitosa -->
+  <div style="flex:1;display:flex;align-items:center;justify-content:center;">
     <div class="exitosa-area">
       <h2>¡Tu compra fue exitosa!</h2>
       <svg class="cart-icon-big" viewBox="0 0 120 100" xmlns="http://www.w3.org/2000/svg">
-        <!-- carrito -->
         <path d="M10 15 H28 L48 68 H95 L110 30 H35" stroke-linecap="round" stroke-linejoin="round"/>
         <circle cx="52" cy="84" r="8"/>
         <circle cx="88" cy="84" r="8"/>
       </svg>
-      <p>¡Agrega más productos!</p>
+      <p>¡Gracias por tu compra!</p>
+      <button class="btn-cart" style="max-width:220px;padding:13px 32px;font-size:1rem;" onclick="goTo('resultados')">Seguir comprando</button>
     </div>
   </div>
   <footer><a href="#">ChipSail</a><a href="#">Marcas Registradas</a><a href="#">Privacidad y Cookies</a><a href="#">Contáctanos</a><a href="#">Aviso Legal</a></footer>
 </div>
- 
+
+<!-- ══════════ MODAL BÚSQUEDA POR IMAGEN ══════════ -->
+<div tabindex="0"id="img-search-overlay" class="img-search-overlay" style="display:none;" onclick="handleOverlayClick(event)">
+  <div tabindex="0" class="img-search-box" onclick="event.stopPropagation()">
+    <button class="btn-close-img-search" onclick="cerrarBusquedaImagen()">✕</button>
+    <div tabindex="0" class="img-search-header">
+      <svg class="img-search-icon" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+        <rect x="5" y="10" width="55" height="48" rx="4" ry="4" fill="#e8d0f8" stroke="#9d008b" stroke-width="3"/>
+        <rect x="8" y="13" width="49" height="39" rx="2" ry="2" fill="white" opacity="0.6"/>
+        <line x1="8" y1="22" x2="57" y2="22" stroke="#ccc" stroke-width="1.5"/>
+        <line x1="8" y1="30" x2="57" y2="30" stroke="#ccc" stroke-width="1.5"/>
+        <line x1="8" y1="38" x2="40" y2="38" stroke="#ccc" stroke-width="1.5"/>
+        <circle cx="57" cy="54" r="16" fill="#fff3fe" stroke="#9d008b" stroke-width="3"/>
+        <circle cx="55" cy="52" r="8" fill="none" stroke="#F5A623" stroke-width="3"/>
+        <line x1="61" y1="58" x2="69" y2="66" stroke="#F5A623" stroke-width="3.5" stroke-linecap="round"/>
+      </svg>
+      <p tabindex="0" >Busca por imagen arrastrando una imagen a este campo para facilitar tu busqueda de producto.<br><br>Imágenes por defecto:</p>
+    </div>
+    <div class="img-search-divider"></div>
+
+    <!-- 5 miniaturas aleatorias -->
+    <div class="img-thumbnails" id="img-thumbnails"></div>
+
+    <!-- Búsqueda por número -->
+    <div class="img-search-sub">Buscar producto por número</div>
+    <div class="img-search-num-row">
+      <input type="number" id="img-search-num" min="1" max="30" placeholder="Buscar producto por número">
+      <button class="btn-buscar-img" onclick="ejecutarBusquedaImagen()">Buscar</button>
+    </div>
+    <div class="img-search-error" id="img-search-error">Selecciona o ingresa una opción válida</div>
+
+    <!-- Botón limpiar (visible sólo después de buscar) -->
+    <button class="btn-limpiar" id="btn-limpiar-busqueda" style="display:none;" onclick="limpiarBusquedaImagen()">Limpiar búsqueda</button>
+  </div>
+</div>
+
+<!-- ══════════ MODAL HISTORIAL ══════════ -->
+<div id="historial-overlay" class="historial-overlay" style="display:none;" onclick="cerrarHistorial(event)">
+  <div class="historial-box" onclick="event.stopPropagation()">
+    <button class="btn-close-historial" onclick="cerrarHistorial()">✕</button>
+    <h3>Historial de productos comprados internacionalmente</h3>
+    <canvas id="historial-chart" width="480" height="280"></canvas>
+  </div>
+</div>
+
 <!-- ══════════ SCRIPT ══════════ -->
 <script>
-  /* ── Estado global ── */
-  const cart = []; // { key, vendor, name, desc, stars, count }
- 
-  /* ── Catálogo de productos por vendedor (6 fichas cada uno) ── */
+  /* ═══════════════════════════════
+     ESTADO DE SESIÓN
+  ═══════════════════════════════ */
+  let sesionIniciada = false;
+
+  /* Toast de notificación */
+  let toastTimer = null;
+  function mostrarToast(msg) {
+    const toast = document.getElementById('toast-notif');
+    toast.textContent = msg || 'Primero debes iniciar sesión';
+    toast.classList.add('show');
+    if (toastTimer) clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => { toast.classList.remove('show'); }, 2800);
+  }
+
+  /* Interceptores para búsqueda desde la home (sin sesión) */
+  function handleHomeSearch() {
+    if (!sesionIniciada) {
+      mostrarToast('Primero debes iniciar sesión');
+      goTo('login');
+    } else {
+      goTo('resultados');
+    }
+  }
+
+  function handleHomeImageSearch() {
+    if (!sesionIniciada) {
+      mostrarToast('Primero debes iniciar sesión');
+      goTo('login');
+    } else {
+      abrirBusquedaImagen();
+    }
+  }
+
+  /* ═══════════════════════════════
+     CATÁLOGO — precios entre $10 y $100
+  ═══════════════════════════════ */
   const catalog = {
-    amazon:  [
-      { name:'Amazon Camiseta de playa',   desc:'Camiseta de alta calidad y durabilidad', stars:3, count:60  },
-      { name:'Amazon Camiseta de playa',   desc:'Camiseta de alta calidad y durabilidad', stars:4, count:98  },
-      { name:'Amazon Camiseta Hawaii',     desc:'Estampado hawaiano original',             stars:4, count:74  },
-      { name:'Amazon Camiseta Tropical',   desc:'Diseño tropical de alta calidad',          stars:3, count:55  },
-      { name:'Amazon Camiseta Sport',      desc:'Camiseta deportiva para playa',            stars:5, count:120 },
-      { name:'Amazon Camiseta Surf',       desc:'Ideal para los amantes del surf',          stars:4, count:88  },
+    amazon: [
+      { name:'Amazon Camiseta de playa',  desc:'Camiseta de alta calidad y durabilidad', stars:3, count:60,  price:25,  img:'23.jpg'  },
+      { name:'Amazon Camiseta de playa',  desc:'Camiseta de alta calidad y durabilidad', stars:4, count:98,  price:40,  img:'8.jpg'   },
+      { name:'Amazon Camiseta Hawaii',    desc:'Estampado hawaiano original',             stars:4, count:74,  price:35,  img:'15.jpg'  },
+      { name:'Amazon Camiseta Tropical',  desc:'Diseño tropical de alta calidad',         stars:3, count:55,  price:20,  img:'29.jpg'  },
+      { name:'Amazon Camiseta Sport',     desc:'Camiseta deportiva para playa',           stars:5, count:120, price:55,  img:'3.jpg'   },
+      { name:'Amazon Camiseta Surf',      desc:'Ideal para los amantes del surf',         stars:4, count:88,  price:45,  img:'19.jpg'  },
     ],
     ebay: [
-      { name:'eBay Camiseta de playa',     desc:'Camiseta de alta calidad y durabilidad', stars:4, count:72  },
-      { name:'eBay Camiseta Tropical',     desc:'Diseño tropical vibrante',                stars:3, count:45  },
-      { name:'eBay Camiseta Hawaii',       desc:'Estampado hawaiano original',             stars:5, count:103 },
-      { name:'eBay Camiseta Surf',         desc:'Para los amantes del surf',               stars:4, count:61  },
-      { name:'eBay Camiseta Sport',        desc:'Camiseta deportiva para playa',           stars:3, count:39  },
-      { name:'eBay Camiseta Premium',      desc:'Calidad premium al mejor precio',         stars:5, count:90  },
+      { name:'eBay Camiseta de playa',    desc:'Camiseta de alta calidad y durabilidad', stars:4, count:72,  price:30,  img:'26.jpg'  },
+      { name:'eBay Camiseta Tropical',    desc:'Diseño tropical vibrante',               stars:3, count:45,  price:15,  img:'11.jpg'  },
+      { name:'eBay Camiseta Hawaii',      desc:'Estampado hawaiano original',             stars:5, count:103, price:60,  img:'21.jpg'  },
+      { name:'eBay Camiseta Surf',        desc:'Para los amantes del surf',              stars:4, count:61,  price:50,  img:'6.jpeg'  },
+      { name:'eBay Camiseta Sport',       desc:'Camiseta deportiva para playa',          stars:3, count:39,  price:22,  img:'30.jpg'  },
+      { name:'eBay Camiseta Premium',     desc:'Calidad premium al mejor precio',        stars:5, count:90,  price:75,  img:'13.jpg'  },
     ],
     walmart: [
-      { name:'Walmart Camiseta de playa',  desc:'Camiseta de alta calidad y durabilidad', stars:4, count:80  },
-      { name:'Walmart Camiseta Tropical',  desc:'Diseño tropical de temporada',            stars:3, count:52  },
-      { name:'Walmart Camiseta Hawaii',    desc:'Estampado hawaiano',                      stars:4, count:67  },
-      { name:'Walmart Camiseta Sport',     desc:'Ligera y cómoda para el verano',          stars:5, count:111 },
-      { name:'Walmart Camiseta Surf',      desc:'Ideal para surf y playa',                 stars:3, count:43  },
-      { name:'Walmart Camiseta Básica',    desc:'Básica y de buena calidad',               stars:4, count:76  },
+      { name:'Walmart Camiseta de playa', desc:'Camiseta de alta calidad y durabilidad', stars:4, count:80,  price:18,  img:'25.jpg'  },
+      { name:'Walmart Camiseta Tropical', desc:'Diseño tropical de temporada',           stars:3, count:52,  price:12,  img:'4.jpg'   },
+      { name:'Walmart Camiseta Hawaii',   desc:'Estampado hawaiano',                     stars:4, count:67,  price:28,  img:'17.jpg'  },
+      { name:'Walmart Camiseta Sport',    desc:'Ligera y cómoda para el verano',         stars:5, count:111, price:38,  img:'9.jpg'   },
+      { name:'Walmart Camiseta Surf',     desc:'Ideal para surf y playa',                stars:3, count:43,  price:22,  img:'28.jpg'  },
+      { name:'Walmart Camiseta Básica',   desc:'Básica y de buena calidad',              stars:4, count:76,  price:10,  img:'1.jpg'   },
     ],
     target: [
-      { name:'Target Camiseta de playa',   desc:'Camiseta de alta calidad y durabilidad', stars:4, count:85  },
-      { name:'Target Camiseta Tropical',   desc:'Colores vivos para el verano',            stars:3, count:58  },
-      { name:'Target Camiseta Hawaii',     desc:'Estilo hawaiano garantizado',             stars:5, count:95  },
-      { name:'Target Camiseta Surf',       desc:'Para los días de olas grandes',           stars:4, count:69  },
-      { name:'Target Camiseta Sport',      desc:'Tejido transpirable sport',               stars:3, count:41  },
-      { name:'Target Camiseta Premium',    desc:'Calidad premium Target',                  stars:5, count:102 },
+      { name:'Target Camiseta de playa',  desc:'Camiseta de alta calidad y durabilidad', stars:4, count:85,  price:32,  img:'14.jpg'  },
+      { name:'Target Camiseta Tropical',  desc:'Colores vivos para el verano',           stars:3, count:58,  price:20,  img:'22.jpg'  },
+      { name:'Target Camiseta Hawaii',    desc:'Estilo hawaiano garantizado',             stars:5, count:95,  price:65,  img:'7.jpg'   },
+      { name:'Target Camiseta Surf',      desc:'Para los días de olas grandes',          stars:4, count:69,  price:48,  img:'27.jpg'  },
+      { name:'Target Camiseta Sport',     desc:'Tejido transpirable sport',              stars:3, count:41,  price:27,  img:'10.jpg'  },
+      { name:'Target Camiseta Premium',   desc:'Calidad premium Target',                 stars:5, count:102, price:90,  img:'24.jpg'  },
     ],
     bestbuy: [
-      { name:'BestBuy Camiseta de playa',  desc:'Camiseta de alta calidad y durabilidad', stars:4, count:77  },
-      { name:'BestBuy Camiseta Tropical',  desc:'Estampado tropical de lujo',              stars:3, count:49  },
-      { name:'BestBuy Camiseta Hawaii',    desc:'Auténtico diseño hawaiano',               stars:5, count:118 },
-      { name:'BestBuy Camiseta Surf',      desc:'Resistente al agua y al sol',             stars:4, count:63  },
-      { name:'BestBuy Camiseta Sport',     desc:'Deporte y playa combinados',              stars:3, count:37  },
-      { name:'BestBuy Camiseta Premium',   desc:'Lo mejor en camisetas de playa',          stars:5, count:130 },
+      { name:'BestBuy Camiseta de playa', desc:'Camiseta de alta calidad y durabilidad', stars:4, count:77,  price:42,  img:'16.jpg'  },
+      { name:'BestBuy Camiseta Tropical', desc:'Estampado tropical de lujo',             stars:3, count:49,  price:33,  img:'5.jpg'   },
+      { name:'BestBuy Camiseta Hawaii',   desc:'Auténtico diseño hawaiano',              stars:5, count:118, price:80,  img:'20.jpg'  },
+      { name:'BestBuy Camiseta Surf',     desc:'Resistente al agua y al sol',            stars:4, count:63,  price:58,  img:'2.jpg'   },
+      { name:'BestBuy Camiseta Sport',    desc:'Deporte y playa combinados',             stars:3, count:37,  price:25,  img:'12.jpg'  },
+      { name:'BestBuy Camiseta Premium',  desc:'Lo mejor en camisetas de playa',         stars:5, count:130, price:100, img:'18.jpg'  },
     ],
   };
- 
-  /* ── Helpers ── */
+
+  const allVendors = ['amazon', 'ebay', 'walmart', 'target', 'bestbuy'];
+
+  const flatProducts = [];
+  allVendors.forEach(vendor => {
+    catalog[vendor].forEach((p, idx) => {
+      flatProducts.push({ vendor, idx, globalNum: flatProducts.length + 1, ...p });
+    });
+  });
+
+  const state = {
+    res:     { maxPrice: 100, minStars: 0 },
+    carrito: { maxPrice: 100, minStars: 0 },
+  };
+
+  const cart = [];
+
+  let imgSearchSelectedNum = null;
+  let imgSearchResult = null;
+  let imgSearchThumbNums = [];
+
+  /* ═══════════════════════════════
+     HELPERS HTML
+  ═══════════════════════════════ */
   function starsHtml(n) {
     let h = '';
-    for (let i = 1; i <= 5; i++) h += `<span class="${i<=n?'sf':'se'}">★</span>`;
+    for (let i = 1; i <= 5; i++) h += `<span class="${i <= n ? 'sf' : 'se'}">★</span>`;
     return h;
   }
- 
-  function imgPlaceholder() {
-    return `<div class="product-img-placeholder">
-      <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-      Imagen del producto
-    </div>`;
+
+  function productImg(imgFile) {
+    return `<img tabindex="0" src="/assets/${imgFile}" alt="producto" style="width:100%;aspect-ratio:1/1;object-fit:cover;display:block;">`;
   }
- 
-  function cardHtml(vendor, idx, cartMode) {
+
+  function cardResHtml(vendor, idx, globalNum) {
     const p = catalog[vendor][idx];
     const key = vendor + '_' + idx;
     const inCart = cart.some(c => c.key === key);
-    const actions = cartMode
-      ? `<button class="btn-pagar" onclick="goTo('pago')">Pagar</button>`
-      : `<button class="btn-cart" onclick="addToCart('${vendor}',${idx})" ${inCart?'style="opacity:.5;cursor:default;"':''}>
-           ${inCart ? 'En carrito ✓' : 'Agregar a carro'}
-         </button>
-         <button class="btn-historial">Historial</button>`;
     return `<div class="product-card">
-      ${imgPlaceholder()}
+      <div class="product-number-badge">${globalNum}</div>
+      ${productImg(p.img)}
       <div class="product-body">
-        <div class="product-name">${p.name}</div>
-        <div class="product-desc">${p.desc}</div>
-        <div class="product-rating"><div class="stars-row">${starsHtml(p.stars)}</div><span class="rating-count">(${p.count})</span></div>
+        <div tabindex="0" class="product-name">${p.name}</div>
+        <div tabindex="0" class="product-desc">${p.desc}</div>
+        <div tabindex="0" class="product-price">$ ${p.price}</div>
+        <div tabindex="0" class="product-rating"><div class="stars-row">${starsHtml(p.stars)}</div><span class="rating-count">(${p.count})</span></div>
       </div>
-      <div class="product-actions">${actions}</div>
+      <div class="product-actions">
+        <button class="btn-cart" onclick="addToCart('${vendor}',${idx})" ${inCart ? 'style="opacity:.5;cursor:default;"' : ''}>
+          ${inCart ? 'En carrito ✓' : 'Agregar a carro'}
+        </button>
+        <button class="btn-historial" onclick="abrirHistorial()">Historial</button>
+      </div>
     </div>`;
   }
- 
-  /* ── Navegación ── */
+
+  const cartQty = {};
+
+  function cardCartHtml(item) {
+    const qty = cartQty[item.key] || 1;
+    const totalItem = item.price * qty;
+    return `<div class="product-card">
+      <div class="product-number-badge">${item.globalNum}</div>
+      ${productImg(item.img)}
+      <div class="product-body">
+        <div class="product-name">${item.name}</div>
+        <div class="product-desc">${item.desc}</div>
+        <div class="qty-control">
+          <button class="qty-btn" onclick="changeQty('${item.key}',-1)">−</button>
+          <span class="qty-num" id="qty-${item.key}">${qty}</span>
+          <button class="qty-btn" onclick="changeQty('${item.key}',1)">+</button>
+        </div>
+        <div class="product-price-total">$ ${totalItem}</div>
+        <div class="product-rating"><div class="stars-row">${starsHtml(item.stars)}</div><span class="rating-count">(${item.count})</span></div>
+      </div>
+      <div class="product-actions">
+        <button class="btn-pagar" onclick="pagarItem('${item.key}')">Pagar</button>
+      </div>
+    </div>`;
+  }
+
+  function getChecked(pageId) {
+    return allVendors.filter(v => {
+      const el = document.getElementById(pageId + '-chk-' + v);
+      return el && el.checked;
+    });
+  }
+
+  function renderResultados(filterToNum) {
+    const grid = document.getElementById('grid-res');
+    if (!grid) return;
+    const { maxPrice, minStars } = state.res;
+    const checked = getChecked('res');
+    const vendors = checked.length > 0 ? checked : allVendors;
+    let html = '';
+    let gNum = 0;
+    allVendors.forEach(vendor => {
+      catalog[vendor].forEach((p, i) => {
+        gNum++;
+        if (!vendors.includes(vendor)) return;
+        if (filterToNum !== undefined && gNum !== filterToNum) return;
+        if (p.price <= maxPrice && (minStars === 0 || p.stars >= minStars)) {
+          html += cardResHtml(vendor, i, gNum);
+        }
+      });
+    });
+    grid.innerHTML = html || `<div class="no-results">No hay productos que cumplan los filtros seleccionados.</div>`;
+  }
+
+  function renderCarrito() {
+    const area = document.getElementById('carrito-area');
+    if (!area) return;
+
+    if (cart.length === 0) {
+      area.innerHTML = `
+        <div style="width:100%;display:flex;flex-direction:column;align-items:center;">
+          <div style="align-self:flex-start;">
+            <button class="btn-volver" onclick="goTo('resultados')">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+              Volver a productos
+            </button>
+          </div>
+          <div class="empty-cart">
+            <svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6L18 2z" stroke-linecap="round" stroke-linejoin="round"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+            <p>Tu carrito está vacío.<br>¡Agrega productos desde las tiendas!</p>
+          </div>
+        </div>`;
+      return;
+    }
+
+    const { maxPrice, minStars } = state.carrito;
+    const checked = getChecked('carrito');
+    const visible = cart.filter(item => {
+      const vendorOk = checked.length === 0 || checked.includes(item.vendor);
+      const priceOk  = item.price <= maxPrice;
+      const starsOk  = minStars === 0 || item.stars >= minStars;
+      return vendorOk && priceOk && starsOk;
+    });
+
+    let html = '';
+    if (visible.length === 0) {
+      html = `<div class="no-results">No hay productos en el carrito que cumplan los filtros.</div>`;
+    } else {
+      html = visible.map(item => cardCartHtml(item)).join('');
+    }
+
+    const total = cart.reduce((s, i) => s + i.price * (cartQty[i.key] || 1), 0);
+    const pagoEl = document.getElementById('pago-total');
+    if (pagoEl) pagoEl.textContent = '$ ' + total;
+
+    const visibleKeys = visible.map(i => i.key).join(',');
+    const visibleTotal = visible.reduce((s, i) => s + i.price * (cartQty[i.key] || 1), 0);
+    area.innerHTML = `
+      <div style="width:100%;">
+        <div class="cart-header">
+          <button class="btn-volver" onclick="goTo('resultados')">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+            Volver a productos
+          </button>
+          <div class="cart-title" style="margin-bottom:0">Carrito (${cart.length} producto${cart.length !== 1 ? 's' : ''}${visible.length < cart.length ? ', mostrando ' + visible.length : ''})</div>
+        </div>
+        <div class="products-grid">${html}</div>
+        <button class="btn-pagar-todo" onclick="pagarTodo('${visibleKeys}')">Pagar todo ($ ${visibleTotal})</button>
+      </div>`;
+  }
+
+  function onSliderPage(pageId, el) {
+    const v = parseInt(el.value);
+    state[pageId].maxPrice = v;
+    document.getElementById('pv-' + pageId).textContent = '$ ' + v;
+    if (pageId === 'res') renderResultados();
+    else renderCarrito();
+  }
+
+  function onVendorPage(pageId) {
+    if (pageId === 'res') renderResultados();
+    else renderCarrito();
+  }
+
+  function onRatingClick(el, pageId) {
+    const minVal = parseInt(el.dataset.min);
+    if (el.classList.contains('active')) {
+      el.classList.remove('active');
+      state[pageId].minStars = 0;
+      document.querySelector('#rating-list-' + pageId + ' .all-ratings-lbl').classList.add('active');
+    } else {
+      document.querySelectorAll('#rating-list-' + pageId + ' .rating-filter-item').forEach(li => li.classList.remove('active'));
+      document.querySelectorAll('#rating-list-' + pageId + ' .all-ratings-lbl').forEach(lbl => lbl.classList.remove('active'));
+      el.classList.add('active');
+      state[pageId].minStars = minVal;
+    }
+    if (pageId === 'res') renderResultados();
+    else renderCarrito();
+  }
+
+  function onRatingAll(pageId) {
+    document.querySelectorAll('#rating-list-' + pageId + ' .rating-filter-item').forEach(li => li.classList.remove('active'));
+    document.querySelectorAll('#rating-list-' + pageId + ' .all-ratings-lbl').forEach(lbl => lbl.classList.add('active'));
+    state[pageId].minStars = 0;
+    if (pageId === 'res') renderResultados();
+    else renderCarrito();
+  }
+
+  function initPage(pageId) {
+    state[pageId].maxPrice = 100;
+    state[pageId].minStars = 0;
+    const sl = document.getElementById('sl-' + pageId);
+    const pv = document.getElementById('pv-' + pageId);
+    if (sl) sl.value = 100;
+    if (pv) pv.textContent = '$ 100';
+    allVendors.forEach(v => {
+      const el = document.getElementById(pageId + '-chk-' + v);
+      if (el) el.checked = false;
+    });
+    document.querySelectorAll('#rating-list-' + pageId + ' .rating-filter-item').forEach(li => li.classList.remove('active'));
+    document.querySelectorAll('#rating-list-' + pageId + ' .all-ratings-lbl').forEach(lbl => lbl.classList.add('active'));
+  }
+
+  let pendingPayKeys = [];
+
+  function pagarItem(key) {
+    pendingPayKeys = [key];
+    goTo('pago');
+  }
+
+  function pagarTodo(keysStr) {
+    pendingPayKeys = keysStr ? keysStr.split(',') : [];
+    goTo('pago');
+  }
+
+  function finalizarPago() {
+    pendingPayKeys.forEach(k => {
+      const idx = cart.findIndex(c => c.key === k);
+      if (idx !== -1) cart.splice(idx, 1);
+      delete cartQty[k];
+    });
+    pendingPayKeys = [];
+    goTo('exitosa');
+  }
+
+  function changeQty(key, delta) {
+    const current = cartQty[key] || 1;
+    const next = Math.max(1, current + delta);
+    cartQty[key] = next;
+    renderCarrito();
+  }
+
+  function addToCart(vendor, idx) {
+    const key = vendor + '_' + idx;
+    if (!cart.some(c => c.key === key)) {
+      const p = catalog[vendor][idx];
+      const fp = flatProducts.find(f => f.vendor === vendor && f.idx === idx);
+      cart.push({ key, vendor, idx, globalNum: fp ? fp.globalNum : '?', ...p });
+    }
+    if (document.querySelector('.page.active')?.id === 'page-resultados') {
+      renderResultados();
+    }
+  }
+
+  /* ═══════════════════════════════
+     BÚSQUEDA POR IMAGEN — MODAL
+  ═══════════════════════════════ */
+  function abrirBusquedaImagen() {
+    if (imgSearchThumbNums.length === 0) {
+      const nums = [];
+      while (nums.length < 5) {
+        const r = Math.floor(Math.random() * 30) + 1;
+        if (!nums.includes(r)) nums.push(r);
+      }
+      imgSearchThumbNums = nums;
+    }
+
+    const thumbsContainer = document.getElementById('img-thumbnails');
+    thumbsContainer.innerHTML = imgSearchThumbNums.map(num => {
+      const fp = flatProducts[num - 1];
+      const isSelected = imgSearchSelectedNum === num;
+      return `<div class="img-thumb ${isSelected ? 'selected' : ''}" onclick="seleccionarMiniatura(${num})" title="Producto #${num}">
+        <img src="/assets/${fp.img}" alt="${fp.name}" onerror="this.style.display='none'">
+        <div class="thumb-num">${num}</div>
+      </div>`;
+    }).join('');
+
+    document.getElementById('img-search-error').classList.remove('show');
+    document.getElementById('btn-limpiar-busqueda').style.display = imgSearchResult ? 'block' : 'none';
+    document.getElementById('img-search-overlay').style.display = 'flex';
+  }
+
+  function cerrarBusquedaImagen() {
+    document.getElementById('img-search-overlay').style.display = 'none';
+  }
+
+  function handleOverlayClick(e) {
+    if (e.target === document.getElementById('img-search-overlay')) {
+      cerrarBusquedaImagen();
+    }
+  }
+
+  function seleccionarMiniatura(num) {
+    imgSearchSelectedNum = num;
+    document.getElementById('img-search-num').value = '';
+    document.querySelectorAll('.img-thumb').forEach(el => el.classList.remove('selected'));
+    document.querySelectorAll('.img-thumb').forEach(el => {
+      if (parseInt(el.getAttribute('onclick').match(/\d+/)[0]) === num) {
+        el.classList.add('selected');
+      }
+    });
+    document.getElementById('img-search-error').classList.remove('show');
+  }
+
+  function ejecutarBusquedaImagen() {
+    const numInput = document.getElementById('img-search-num');
+    const numVal = parseInt(numInput.value);
+    const errorEl = document.getElementById('img-search-error');
+    errorEl.classList.remove('show');
+
+    let targetNum = null;
+
+    if (numInput.value.trim() !== '') {
+      if (isNaN(numVal) || numVal < 1 || numVal > 30) {
+        errorEl.classList.add('show');
+        return;
+      }
+      targetNum = numVal;
+      imgSearchSelectedNum = null;
+    } else if (imgSearchSelectedNum !== null) {
+      targetNum = imgSearchSelectedNum;
+    } else {
+      errorEl.classList.add('show');
+      return;
+    }
+
+    imgSearchResult = flatProducts[targetNum - 1];
+    document.getElementById('btn-limpiar-busqueda').style.display = 'block';
+    cerrarBusquedaImagen();
+    goTo('resultados');
+    renderResultados(targetNum);
+  }
+
+  function limpiarBusquedaImagen() {
+    imgSearchSelectedNum = null;
+    imgSearchResult = null;
+    imgSearchThumbNums = [];
+    document.getElementById('img-search-num').value = '';
+    document.getElementById('img-search-error').classList.remove('show');
+    document.getElementById('btn-limpiar-busqueda').style.display = 'none';
+
+    cerrarBusquedaImagen();
+    goTo('resultados');
+    renderResultados();
+  }
+
+  /* ═══════════════════════════════
+     HISTORIAL — MODAL CON GRÁFICA
+  ═══════════════════════════════ */
+  let historialChartInstance = null;
+
+  function abrirHistorial() {
+    document.getElementById('historial-overlay').style.display = 'flex';
+
+    if (historialChartInstance) {
+      historialChartInstance.destroy();
+      historialChartInstance = null;
+    }
+
+    const labels = Array.from({length: 30}, (_, i) => i + 1);
+    const data = [
+      510, 200, 375, 225, 260, 340, 355, 410, 445, 340,
+      310, 260, 240, 415, 430, 425, 500, 580, 235, 340,
+      385, 360, 500, 250, 495, 510, 530, 560, 395, 500
+    ];
+
+    const ctx = document.getElementById('historial-chart').getContext('2d');
+    historialChartInstance = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: labels,
+        datasets: [{
+          label: 'Compras internacionales',
+          data: data,
+          backgroundColor: '#9d008b',
+          borderRadius: 3,
+          borderSkipped: false,
+        }]
+      },
+      options: {
+        responsive: false,
+        plugins: {
+          legend: { display: false },
+          title: { display: false }
+        },
+        scales: {
+          x: {
+            title: { display: true, text: 'Producto', font: { family: 'Nunito', weight: '700' } },
+            grid: { display: false },
+            ticks: { font: { family: 'Nunito', size: 10 } }
+          },
+          y: {
+            title: { display: true, text: 'Compras internacionales', font: { family: 'Nunito', weight: '700' } },
+            min: 0, max: 600,
+            grid: { color: '#eee' },
+            ticks: { font: { family: 'Nunito', size: 10 } }
+          }
+        }
+      }
+    });
+  }
+
+  function cerrarHistorial(e) {
+    if (!e || e.target === document.getElementById('historial-overlay') || e.type === 'click') {
+      document.getElementById('historial-overlay').style.display = 'none';
+    }
+  }
+
+  /* ═══════════════════════════════
+     headerEGACIÓN
+  ═══════════════════════════════ */
   function goTo(page) {
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
     document.getElementById('page-' + page).classList.add('active');
     closeDD();
-    if (page === 'carrito') renderCarrito();
+
+    if (page === 'resultados') {
+      initPage('res');
+      if (imgSearchResult) {
+        renderResultados(imgSearchResult.globalNum);
+      } else {
+        renderResultados();
+      }
+    }
+    if (page === 'carrito') {
+      initPage('carrito');
+      renderCarrito();
+    }
+    if (page === 'pago') {
+      const total = pendingPayKeys.length > 0
+        ? cart.filter(i => pendingPayKeys.includes(i.key)).reduce((s, i) => s + i.price * (cartQty[i.key] || 1), 0)
+        : cart.reduce((s, i) => s + i.price * (cartQty[i.key] || 1), 0);
+      const pagoEl = document.getElementById('pago-total');
+      if (pagoEl) pagoEl.textContent = '$ ' + total;
+    }
   }
- 
-  /* ── Dropdown ── */
+
+  /* ═══════════════════════════════
+     DROPDOWN
+  ═══════════════════════════════ */
   function toggleDD(id) {
     const dd = document.getElementById(id);
     const wasOpen = dd.classList.contains('open');
@@ -1265,85 +1390,105 @@
     document.querySelectorAll('.user-dropdown').forEach(d => d.classList.remove('open'));
   }
   document.addEventListener('click', function(e) {
-    if (!e.target.closest('.nav-user-area')) closeDD();
+    if (!e.target.closest('.header-user-area')) closeDD();
   });
- 
-  /* ── Slider (solo 0 o 100) ── */
-  function onSlider(pageId, el) {
-    const v = parseInt(el.value) < 50 ? 0 : 100;
-    el.value = v;
-    document.getElementById('pv-' + pageId).textContent = '$ ' + v;
-    // Buscar qué vendedor está seleccionado en esta página
-    const checked = document.querySelector(`input[name="vd-${pageId}"]:checked`);
-    if (!checked) { document.getElementById('grid-' + pageId).innerHTML = ''; return; }
-    renderGrid('grid-' + pageId, checked.value, v);
+
+  /* ═══════════════════════════════
+     VALIDACIÓN — helpers
+  ═══════════════════════════════ */
+  function showErr(id) { const el = document.getElementById(id); if (el) { el.classList.add('show'); } }
+  function hideErr(id) { const el = document.getElementById(id); if (el) { el.classList.remove('show'); } }
+  function setError(inputId, hasError) {
+    const el = document.getElementById(inputId);
+    if (!el) return;
+    if (hasError) el.classList.add('input-error');
+    else el.classList.remove('input-error');
   }
- 
-  /* ── Render grid ── */
-  function renderGrid(gridId, vendor, sliderVal) {
-    const grid = document.getElementById(gridId);
-    if (!grid) return;
-    if (sliderVal === 0) { grid.innerHTML = ''; return; }
-    const prods = catalog[vendor] || [];
-    grid.innerHTML = prods.map((_, i) => cardHtml(vendor, i, false)).join('');
-  }
- 
-  /* ── Selección de vendedor desde página de resultados ── */
-  function onVendorRes(vendor) {
-    const sl = document.getElementById('sl-res');
-    const v = sl ? parseInt(sl.value) : 0;
-    goTo(vendor);
-    // Forzar slider en 0 en la página destino y limpiar grid
-    const slV = document.getElementById('sl-' + vendor);
-    if (slV) { slV.value = 0; document.getElementById('pv-' + vendor).textContent = '$ 0'; }
-    renderGrid('grid-' + vendor, vendor, 0);
-    // marcar el radio correcto
-    const radio = document.querySelector(`input[name="vd-${vendor}"][value="${vendor}"]`);
-    if (radio) radio.checked = true;
-  }
- 
-  /* ── Cambiar de vendedor desde dentro de la página de un vendedor ── */
-  function switchVendor(vendor) {
-    goTo(vendor);
-    const slV = document.getElementById('sl-' + vendor);
-    if (slV) { slV.value = 0; document.getElementById('pv-' + vendor).textContent = '$ 0'; }
-    renderGrid('grid-' + vendor, vendor, 0);
-    const radio = document.querySelector(`input[name="vd-${vendor}"][value="${vendor}"]`);
-    if (radio) radio.checked = true;
-  }
- 
-  /* ── Carrito ── */
-  function addToCart(vendor, idx) {
-    const key = vendor + '_' + idx;
-    if (!cart.some(c => c.key === key)) {
-      const p = catalog[vendor][idx];
-      cart.push({ key, vendor, idx, ...p });
-    }
-    // Refrescar el grid actual para actualizar el botón
-    const activePage = document.querySelector('.page.active');
-    if (activePage) {
-      const gridId = 'grid-' + activePage.id.replace('page-', '');
-      const checkedR = activePage.querySelector('input[type="radio"]:checked');
-      const sl = activePage.querySelector('.price-slider');
-      if (checkedR && sl) renderGrid(gridId, checkedR.value, parseInt(sl.value));
+
+  /* ── LOGIN ── */
+  function validarLogin() {
+    let ok = true;
+    const user = document.getElementById('login-user');
+    const pass = document.getElementById('login-pass');
+    hideErr('err-login-user'); hideErr('err-login-pass'); hideErr('err-login-pass-len');
+    setError('login-user', false); setError('login-pass', false);
+    if (!user.value.trim()) { showErr('err-login-user'); setError('login-user', true); ok = false; }
+    if (!pass.value) { showErr('err-login-pass'); setError('login-pass', true); ok = false; }
+    else if (pass.value.length < 8) { showErr('err-login-pass-len'); setError('login-pass', true); ok = false; }
+    if (ok) {
+      sesionIniciada = true;
+      goTo('resultados');
     }
   }
- 
-  function renderCarrito() {
-    const area = document.getElementById('carrito-area');
-    if (!area) return;
-    if (cart.length === 0) {
-      area.innerHTML = `<div class="empty-cart">
-        <svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6L18 2z" stroke-linecap="round" stroke-linejoin="round"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
-        <p>Tu carrito está vacío.<br>¡Agrega productos desde las tiendas!</p>
-      </div>`;
-      return;
+
+  /* ── REGISTRO ── */
+  function checkPwdStrength() {
+    const pwd = document.getElementById('reg-pass').value;
+    const toggle = (id, cond) => {
+      const el = document.getElementById(id);
+      if (el) cond ? el.classList.add('ok') : el.classList.remove('ok');
+    };
+    toggle('chk-len',     pwd.length >= 8);
+    toggle('chk-upper',   /[A-Z]/.test(pwd));
+    toggle('chk-lower',   /[a-z]/.test(pwd));
+    toggle('chk-special', /[^A-Za-z0-9]/.test(pwd));
+  }
+
+  function validarRegistro() {
+    let ok = true;
+    const user  = document.getElementById('reg-user');
+    const pass  = document.getElementById('reg-pass');
+    const pass2 = document.getElementById('reg-pass2');
+    ['err-reg-user','err-reg-pass','err-reg-pass2','err-reg-pass-match'].forEach(hideErr);
+    ['reg-user','reg-pass','reg-pass2'].forEach(id => setError(id, false));
+    if (!user.value.trim()) { showErr('err-reg-user'); setError('reg-user', true); ok = false; }
+    const pwd = pass.value;
+    if (!pwd) { showErr('err-reg-pass'); setError('reg-pass', true); ok = false; }
+    else {
+      const pwdOk = pwd.length >= 8 && /[A-Z]/.test(pwd) && /[a-z]/.test(pwd) && /[^A-Za-z0-9]/.test(pwd);
+      if (!pwdOk) { setError('reg-pass', true); ok = false; }
     }
-    const cards = cart.map(item => cardHtml(item.vendor, item.idx, true)).join('');
-    area.innerHTML = `
-      <div class="cart-title">Carrito (${cart.length} producto${cart.length !== 1 ? 's' : ''})</div>
-      <div class="products-grid">${cards}</div>
-      <button class="btn-pagar-todo" onclick="goTo('pago')">Pagar todo</button>`;
+    if (!pass2.value) { showErr('err-reg-pass2'); setError('reg-pass2', true); ok = false; }
+    else if (pass2.value !== pass.value) { showErr('err-reg-pass-match'); setError('reg-pass2', true); ok = false; }
+    if (ok) {
+      document.getElementById('modal-registro').style.display = 'flex';
+    }
+  }
+
+  function cerrarModalRegistro() {
+    document.getElementById('modal-registro').style.display = 'none';
+    goTo('login');
+  }
+
+  /* ── PAGO ── */
+  function validarPago() {
+    let ok = true;
+    const campos = [
+      { id: 'pago-nombre', errEmpty: 'err-pago-nombre' },
+      { id: 'pago-dir',    errEmpty: 'err-pago-dir'    },
+      { id: 'pago-ciudad', errEmpty: 'err-pago-ciudad'  },
+    ];
+    ['err-pago-nombre','err-pago-email-empty','err-pago-email-at',
+     'err-pago-dir','err-pago-ciudad',
+     'err-pago-cp-empty','err-pago-cp-len',
+     'err-pago-tel-empty','err-pago-tel-len','err-pago-medio'].forEach(hideErr);
+    ['pago-nombre','pago-email','pago-dir','pago-ciudad','pago-cp','pago-tel'].forEach(id => setError(id, false));
+    campos.forEach(c => {
+      const el = document.getElementById(c.id);
+      if (!el || !el.value.trim()) { showErr(c.errEmpty); setError(c.id, true); ok = false; }
+    });
+    const email = document.getElementById('pago-email');
+    if (!email.value.trim()) { showErr('err-pago-email-empty'); setError('pago-email', true); ok = false; }
+    else if (!email.value.includes('@')) { showErr('err-pago-email-at'); setError('pago-email', true); ok = false; }
+    const cp = document.getElementById('pago-cp');
+    if (!cp.value.trim()) { showErr('err-pago-cp-empty'); setError('pago-cp', true); ok = false; }
+    else if (cp.value.replace(/\D/g,'').length !== 6) { showErr('err-pago-cp-len'); setError('pago-cp', true); ok = false; }
+    const tel = document.getElementById('pago-tel');
+    if (!tel.value.trim()) { showErr('err-pago-tel-empty'); setError('pago-tel', true); ok = false; }
+    else if (tel.value.replace(/\D/g,'').length !== 10) { showErr('err-pago-tel-len'); setError('pago-tel', true); ok = false; }
+    const medioSel = document.querySelector('input[name="medio"]:checked');
+    if (!medioSel) { showErr('err-pago-medio'); ok = false; }
+    if (ok) finalizarPago();
   }
 </script>
 </body>
