@@ -8,6 +8,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
   <script src="Script.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+  
 </head>
 <body>
 
@@ -23,11 +24,11 @@
       <button  class="btn-outline" onclick="goTo('registro')">Registro</button>
     </div>
   </header>
-  <div class="search-bar">
+  <nav class="search-bar">
     <input type="text" placeholder="Busca productos">
     <button  class="btn-search" onclick="handleHomeSearch()">Buscar</button>
     <button  class="btn-img-search" onclick="handleHomeImageSearch()">Búsqueda por imagen</button>
-  </div>
+  </nav>
   <article class="hero">
     <img tabindex="0" src="assets/Logo fondo blanco.png" class="logo-img-big" atl="Logo Chip Sale">
     <h1 tabindex="0">Encuentra los mejores precios de toda la web</h1>
@@ -135,11 +136,11 @@
       </div>
     
   </header>
-  <div class="search-bar-r" id="searchbar-res">
+  <nav class="search-bar-r" id="searchbar-res">
     <input type="text" placeholder="Busca productos" value="Camiseta" id="search-input-res">
     <button class="btn-search" onclick="goTo('resultados')">Buscar</button>
     <button class="btn-img-search" onclick="abrirBusquedaImagen()">Búsqueda por imagen</button>
-  </div>
+  </nav>
   <div class="results-main">
     <aside class="results-sidebar">
       <div class="sidebar-section-title">Filtros</div>
@@ -184,11 +185,11 @@
       </div>
     </div>
   </header>
-  <div class="search-bar-r">
+  <nav class="search-bar-r">
     <input type="text" value="Camiseta">
     <button class="btn-search" onclick="goTo('resultados')">Buscar</button>
     <button class="btn-img-search" onclick="abrirBusquedaImagen()">Búsqueda por imagen</button>
-  </div>
+  </nav>
   <div class="results-main">
     <aside class="results-sidebar">
       <div class="sidebar-section-title">Filtrar carrito</div>
@@ -231,11 +232,11 @@
       </div>
     </div>
   </header>
-  <div class="search-bar-r">
+  <nav class="search-bar-r">
     <input type="text" value="Camiseta">
     <button class="btn-search" onclick="goTo('resultados')">Buscar</button>
     <button class="btn-img-search" onclick="abrirBusquedaImagen()">Búsqueda por imagen</button>
-  </div>
+  </nav>
   <div class="results-main">
     <aside class="results-sidebar">
       <div tabindex="0" class="sidebar-section-title">Resumen de pago</div>
@@ -324,11 +325,11 @@
       </div>
     </div>
   </header>
-  <div class="search-bar-r">
+  <nav class="search-bar-r">
     <input type="text" value="Camiseta">
     <button class="btn-search" onclick="goTo('resultados')">Buscar</button>
     <button class="btn-img-search" onclick="abrirBusquedaImagen()">Búsqueda por imagen</button>
-  </div>
+  </nav>
   <!-- CAMBIO: contenedor centrado para la sección exitosa -->
   <div style="flex:1;display:flex;align-items:center;justify-content:center;">
     <div class="exitosa-area">
