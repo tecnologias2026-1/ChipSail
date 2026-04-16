@@ -106,13 +106,14 @@ Pago:
 
 🧩 7. Documentación del Sistema
 Estructura de Carpetas
-/css
-/js
-/assets![Uploading Relaciones.png…]()
 
-
-Explicar brevemente qué contiene cada carpeta.
+README.md      Contiene la descripción de todo el apartado de creación del proyecto.
+styles.css     Contiene los estilos a usar en las diferentes clases usadas en el index.
+Script.js      Contiene las funciones que permiten que se pueda pasar de un apartado a otro o las propias interacciones con la pagina.
+assets/        Contiene las imagenes a ser usadas en la pagina.
 
 🚀 8. Instalación y Ejecución
 
-Explicar cómo correr el proyecto.
+Se puede descargar como zip, al tenerlo ya en el computador se descomprime y se abre el folder haciendo uso de VScode el cual se tiene que hacer uso de una extension si se quiere abrir como puede ser Live Server
+Se le da click derecho al index.html y se le da a abrir en Live Server.
+
