@@ -334,7 +334,6 @@
       font-family: 'Nunito', sans-serif;
       font-size: 0.95rem;
       outline: none;
-       width: 100%;
     }
     .img-search-num-row input:focus { outline: 2px solid var(--pink); }
     .btn-buscar-img {
@@ -348,6 +347,7 @@
       font-weight: 800;
       cursor: pointer;
       transition: background 0.2s;
+      white-space: nowrap;
     }
     .btn-buscar-img:hover { background: #c8308a; }
     .img-search-error {
@@ -471,7 +471,6 @@
       .auth-box { order: 1; }
       .auth-logo .logo-img-big { width: clamp(120px,28vw,220px); max-width: none; margin: 0 auto; display: block; }
     }
-  }
   </style>
 </head>
 <body>
