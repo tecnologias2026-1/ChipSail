@@ -1,0 +1,71 @@
+### ChipSail API – Pruebas desde VS Code
+### Extensión requerida: REST Client (humao.rest-client)
+### Clic en "Send Request" encima de cada bloque para ejecutar
+
+@baseUrl = http://localhost:3000
+@token = TU_TOKEN_AQUI
+
+# ──────────────────────────────────────
+# ✅ Health check
+# ──────────────────────────────────────
+
+### GET /
+GET {{baseUrl}}/
+Accept: application/json
+
+# ──────────────────────────────────────
+# 📝 Registro de usuario
+# ──────────────────────────────────────
+
+### POST /api/auth/register
+POST {{baseUrl}}/api/auth/register
+Content-Type: application/json
+
+{
+  "username": "usuarioPrueba",
+  "email": "prueba@chipsail.com",
+  "password": "Test@1234"
+}
+
+# ──────────────────────────────────────
+# 🔑 Login
+# ──────────────────────────────────────
+
+### POST /api/auth/login
+POST {{baseUrl}}/api/auth/login
+Content-Type: application/json
+
+{
+  "username": "usuarioPrueba",
+  "password": "Test@1234"
+}
+
+# ──────────────────────────────────────
+# 👥 Obtener todos los usuarios (requiere token)
+# Copia el token de la respuesta del login y pégalo arriba en @token
+# ──────────────────────────────────────
+
+### GET /api/users
+GET {{baseUrl}}/api/users
+Authorization: Bearer {{token}}
+
+# ──────────────────────────────────────
+# ✏️ Actualizar usuario (requiere token)
+# ──────────────────────────────────────
+
+### PUT /api/users/1
+PUT {{baseUrl}}/api/users/1
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "email": "nuevo@chipsail.com"
+}
+
+# ──────────────────────────────────────
+# 🗑️ Eliminar usuario (requiere token)
+# ──────────────────────────────────────
+
+### DELETE /api/users/1
+DELETE {{baseUrl}}/api/users/1
+Authorization: Bearer {{token}}

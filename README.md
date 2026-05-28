@@ -1,119 +1,174 @@
-ChipSail
+# ChipSail – Guía de configuración en VS Code
 
-El proyecto consiste en hacer una pagina la cual pueda extraer diferentes productos en aplicaciones de ventas en linea, con el fin de comparar precios y su respectiva calidad por webscrapping
+## 📁 Estructura del proyecto
 
-Brenda Valeria Malagón Baquero – 1202754
-Andrés Camilo Riveros Vargas – 1202757
-Valeria Sofia Contreras Sanchez - 1202763
+```
+ChipSail/
+├── .vscode/
+│   ├── extensions.json   ← Extensiones recomendadas
+│   ├── launch.json       ← Configuración de depuración (F5)
+│   ├── tasks.json        ← Tareas automáticas
+│   └── settings.json     ← Configuración del editor
+├── frontend/
+│   ├── index.html
+│   ├── styles.css
+│   ├── Script.js
+│   └── assets/
+├── backend/
+│   ├── server.js
+│   ├── package.json
+│   ├── .env.example      ← Copiar a .env y editar
+│   ├── database/
+│   │   ├── script.sql
+│   │   └── db.js
+│   ├── middleware/
+│   │   └── auth.js
+│   └── routes/
+│       ├── auth.js
+│       └── users.js
+├── chipsail.http         ← Pruebas de API desde VS Code
+└── .gitignore
+```
 
-El sistema busca desarrollar una página web capaz de extraer automáticamente productos desde distintas plataformas de ventas en línea mediante técnicas de webscraping, permitiendo a los usuarios buscar artículos por imagen o descripción, comparar dinámicamente precios entre diferentes vendedores y evaluar la calidad del producto en un solo lugar; con esto se pretende solucionar el problema de la dispersión de información en múltiples tiendas digitales, la dificultad para encontrar el mejor precio y la falta de herramientas centralizadas que faciliten una decisión de compra informada, rápida y eficiente.
+---
 
-El sistema será utilizado por personas entre 17 y 60 años que realizan compras en línea, incluyendo estudiantes, trabajadores y usuarios en general que desean comparar precios y evaluar productos antes de comprarlos. El sistema se utilizará a través de una página web donde el usuario podrá buscar productos mediante texto o imágenes, visualizar resultados obtenidos por webscraping desde diferentes plataformas de comercio electrónico, comparar precios, características y valoraciones, y así tomar decisiones de compra más informadas de forma rápida y centralizada.
+## 🚀 Primer uso – paso a paso
 
-Requisitos Funcionales:
+### Paso 1 – Abrir el proyecto
+Abre la carpeta `ChipSail/` completa en VS Code:
+```
+Archivo → Abrir carpeta → seleccionar ChipSail/
+```
 
-1. Extraer información pública de perfiles.
-Permite obtener datos relevantes de vendedores o productos sin acceder a información
-privada, garantizando el cumplimiento de políticas.
-2. Realizar búsquedas por palabras clave.
-Facilita que el usuario encuentre productos de forma rápida y natural.
-3. Extraer ofertas públicas.
-Permite identificar descuentos y promociones disponibles en las plataformas.
-4. Almacenar información estructurada.
-Garantiza que los datos recolectados puedan ser consultados, comparados y
-analizados posteriormente.
-5. Detectar actualizaciones en productos.
-Permite identificar cambios de precio, disponibilidad o reputación.
-6. Extraer información de productos.
-Incluye nombre, precio, imágenes, descripción, valoraciones y vendedor.
-7. Monitorear precios y subastas.
-Permite observar variaciones del mercado en el tiempo.
-8. Extraer reputación de vendedores.
-Ayuda a la toma de decisiones más confiables.
-9. Gestionar paginación.
-Necesario para un scraping eficiente en resultados extensos.
-10. Generar series temporales de precios.
-Permite análisis histórico y detección de tendencias.
-11. Extraer publicaciones públicas.
-Permite detectar nuevos productos o cambios en catálogos.
-12. Filtrar por hashtags o keywords.
-Mejora precisión de búsqueda y segmentación.
-13. Capturar métricas de interacción.
-Incluye número de ventas, valoraciones y popularidad.
-14. Analizar frecuencia temporal.
-Permite detectar cuándo aparecen ofertas o cambios de precio.
-15. Exportar datos para análisis NLP.
-Facilita análisis avanzado como clasificación, clustering o recomendación.
+---
 
-Requisitos No Funcionales:
+### Paso 2 – Instalar extensiones recomendadas
+VS Code te preguntará automáticamente. Si no:
+```
+Ctrl+Shift+P → "Extensions: Show Recommended Extensions" → instalar todas
+```
 
-1. Interfaz web en HTML (UI amigable).
-Debe ser clara, intuitiva y enfocada en comparativas visuales.
-2. Uso de base de datos con autenticación JWT.
-Permite manejo seguro de sesiones y protección de datos del usuario.
-3. Rendimiento.
-El sistema debe responder en menos de 3 segundos para consultas comunes.
-4. Seguridad.
-Debe garantizar autenticación, control de acceso y protección contra scraping
-malicioso hacia la propia plataforma.
-5. Disponibilidad.
-El sistema debe mantenerse disponible al menos el 99% del tiempo.
-6. Escalabilidad.
-Debe permitir agregar nuevas plataformas de scraping sin rediseño completo.
-7. Mantenibilidad.
-El código debe ser modular para adaptarse a cambios en páginas externas.
-8. Usabilidad.
-El usuario debe entender la comparativa sin conocimientos técnicos.
-9. Compatibilidad.
-Debe funcionar en navegadores modernos.
+Las más importantes:
+| Extensión | Para qué sirve |
+|-----------|---------------|
+| **Live Server** | Sirve el frontend con recarga automática |
+| **REST Client** | Probar la API desde el archivo `.http` |
+| **MySQL Client** | Ver la base de datos desde VS Code |
 
-Diagramas UML
+---
 
-<img width="557" height="589" alt="image" src="https://github.com/user-attachments/assets/d50a1c62-e96f-465c-b8b6-2b3dc0ebb206" />
-Muestra lo que puede hacer el usuario y el administrador
-<img width="649" height="387" alt="image" src="https://github.com/user-attachments/assets/ba602c09-f39b-41ac-baec-eb8e3d0d2576" />
-<img width="644" height="408" alt="image" src="https://github.com/user-attachments/assets/14ce5a1e-75f6-4038-b3f5-e7c6a919bf6c" />
-El diagrama de secuencia nos muestra como se haria el metodo de scrapping al ejecutar la busqueda mandando un "request" a las paginas 
-<img width="940" height="770" alt="image" src="https://github.com/user-attachments/assets/9491e6a6-1dbb-4659-a932-acc6d6430d8a" />
-<img width="919" height="710" alt="image" src="https://github.com/user-attachments/assets/e9079cf2-b0af-4585-8bcc-dc2fea1379b8" />
+### Paso 3 – Configurar el backend
 
-Design
+**3a. Crear el archivo .env**
 
-https://www.figma.com/site/w2I8a9xDpfUhmrGW8LaMfg/ChipSail?node-id=0-1&t=d3PomPPKylkDCLI4-1
+Opción A – desde VS Code:
+```
+Ctrl+Shift+P → "Tasks: Run Task" → "📋 Copiar .env.example a .env"
+```
 
-Prototipo
+Opción B – manual: copia `backend/.env.example` y renómbralo a `backend/.env`
 
-https://www.figma.com/site/w2I8a9xDpfUhmrGW8LaMfg/ChipSail?node-id=0-1&p=f&t=d3PomPPKylkDCLI4-0
+**3b. Editar el .env con tus credenciales de MySQL:**
+```env
+PORT=3000
+DB_HOST=localhost
+DB_PORT=3306
+DB_USER=root
+DB_PASSWORD=tu_contraseña_mysql
+DB_NAME=chipsail
+JWT_SECRET=escribe_cualquier_texto_largo_aqui
+JWT_EXPIRES=7d
+ALLOWED_ORIGIN=*
+```
 
-🗄️ 6. Diseño de Base de Datos
+---
 
-Imagen del modelo:
-<img width="1014" height="491" alt="Relaciones" src="https://github.com/user-attachments/assets/9b116762-c489-4264-a553-e8330eaa9da0" />
+### Paso 4 – Crear la base de datos
 
-Tablas principales
+**Opción A – Desde la terminal de VS Code** (`Ctrl+ñ`):
+```bash
+cd backend
+mysql -u root -p < database/script.sql
+```
 
-Registro:
-<img width="380" height="148" alt="Registro" src="https://github.com/user-attachments/assets/416c381f-9ed2-42d5-9b31-7ed6dda0ce1a" />
+**Opción B – Desde VS Code con MySQL Client:**
+1. Abre la extensión MySQL Client (icono de base de datos en la barra lateral)
+2. Conecta con tus credenciales
+3. Abre `backend/database/script.sql`
+4. Selecciona todo (`Ctrl+A`) y ejecuta (`Ctrl+Enter`)
 
-Resultado(de la busqueda):
-<img width="372" height="168" alt="Resultado" src="https://github.com/user-attachments/assets/d70b4872-c2c9-496d-96c7-ec51cd97a6f4" />
+---
 
-Carrito:
-<img width="374" height="70" alt="Carrito" src="https://github.com/user-attachments/assets/0f4dbdd0-b705-43a1-8fc7-4c5f3a11ed32" />
+### Paso 5 – Instalar dependencias del backend
 
-Pago:
-<img width="375" height="99" alt="Pago" src="https://github.com/user-attachments/assets/ba5c91fc-c9b7-4b95-a9aa-c3197f23418d" />
+En la terminal de VS Code:
+```bash
+cd backend
+npm install
+```
 
-🧩 7. Documentación del Sistema
-Estructura de Carpetas
+O desde el menú:
+```
+Ctrl+Shift+P → "Tasks: Run Task" → "🟢 Instalar dependencias del backend"
+```
 
-README.md      Contiene la descripción de todo el apartado de creación del proyecto.
-styles.css     Contiene los estilos a usar en las diferentes clases usadas en el index.
-Script.js      Contiene las funciones que permiten que se pueda pasar de un apartado a otro o las propias interacciones con la pagina.
-assets/        Contiene las imagenes a ser usadas en la pagina.
+---
 
-🚀 8. Instalación y Ejecución
+### Paso 6 – Iniciar el proyecto
 
-Se puede descargar como zip, al tenerlo ya en el computador se descomprime y se abre el folder haciendo uso de VScode el cual se tiene que hacer uso de una extension si se quiere abrir como puede ser Live Server
-Se le da click derecho al index.html y se le da a abrir en Live Server.
+#### Opción A – Con F5 (recomendada)
+Presiona `F5` o ve a **Ejecutar → Iniciar depuración**.
 
+Selecciona **"🚀 ChipSail completo (Back + Front)"** para arrancar todo junto.
+
+O por separado:
+- **"🟢 Backend – Node.js"** → inicia el servidor en puerto 3000
+- **"🌐 Frontend – Live Server"** → abre el HTML en el navegador
+
+#### Opción B – Manual
+**Terminal 1 – Backend:**
+```bash
+cd backend
+node server.js
+# ✅ ChipSail API corriendo en http://localhost:3000
+```
+
+**Terminal 2 – Frontend:**
+Clic derecho sobre `frontend/index.html` → **"Open with Live Server"**
+```
+http://127.0.0.1:5500/frontend/index.html
+```
+
+---
+
+## 🧪 Probar la API desde VS Code
+
+Abre el archivo `chipsail.http` y haz clic en **"Send Request"** sobre cada bloque.
+
+Flujo de prueba:
+1. `GET /` → verifica que el servidor responde
+2. `POST /api/auth/register` → crea un usuario
+3. `POST /api/auth/login` → obtén el token
+4. Copia el token en la variable `@token` al inicio del archivo
+5. `GET /api/users` → prueba un endpoint protegido
+
+---
+
+## 🔍 Depuración
+
+Con la configuración **"🟢 Backend – Node.js"** activa en F5 puedes:
+- Poner **breakpoints** haciendo clic al lado del número de línea
+- Ver variables en tiempo real en el panel "Variables"
+- Usar la consola de depuración integrada
+
+---
+
+## ❓ Problemas comunes
+
+| Error | Solución |
+|-------|----------|
+| `ECONNREFUSED 3306` | MySQL no está corriendo. Inicia el servicio MySQL |
+| `Access denied for user` | Credenciales incorrectas en `.env` |
+| `EADDRINUSE 3000` | El puerto 3000 está ocupado. Cambia `PORT` en `.env` |
+| CORS bloqueado en el navegador | Verifica que `ALLOWED_ORIGIN=*` está en `.env` |
+| Live Server no abre | Instala la extensión **Live Server** y reinicia VS Code |
