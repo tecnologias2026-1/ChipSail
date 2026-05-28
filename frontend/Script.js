@@ -5,7 +5,7 @@
   // Ej: 'https://nombre-app-node.onrender.com'
   const API_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
     ? 'http://localhost:3000'
-    : 'https://nombre-app-node.onrender.com'; // ← Actualiza con tu URL de Render
+    : 'https://chipsail.onrender.com'; // ← Pon aquí la URL de Render
 
   /* ═══════════════════════════════
      RAPIDAPI — Búsqueda real de productos
